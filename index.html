@@ -12,17 +12,17 @@
 :root{
   --black:#050505;--deep:#0a0a0a;--charcoal:#111;--mid:#1a1a1a;
   --border:#222;--border-l:#2e2e2e;
-  --cream:#E8E4DE;--cream-dim:#6E6A64;--cream-muted:#3A3834;--white:#F4F2EE;
-  --arc:#1E6FC2;--arc-l:#4A90D9;--arc-d:#144E8A;--arc-glow:rgba(30,111,194,.12);
+  --cream:#F0EDE8;--cream-dim:#B8B4AE;--cream-muted:#908C86;--white:#F4F2EE;
+  --arc:#2B7FFF;--arc-l:#5B9FFF;--arc-d:#1A5FCC;--arc-glow:rgba(43,127,255,.12);
   --gold:#C9A96E;
   --ease:cubic-bezier(.25,.46,.45,.94);--ease-out:cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+html{scroll-behavior:auto}
+body{background:var(--black);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;overflow-y:auto}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .45s steps(1) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2%,-1%)}40%{transform:translate(1%,2%)}60%{transform:translate(-1%,1%)}80%{transform:translate(2%,-2%)}100%{transform:translate(0,0)}}
 #cur{position:fixed;width:9px;height:9px;background:var(--arc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s var(--ease),height .2s var(--ease)}
-#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(30,111,194,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s,opacity .3s}
+#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(43,127,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s,opacity .3s}
 #cur.h{width:5px;height:5px}#cur-r.h{width:52px;height:52px;border-color:var(--arc)}
 #cur.ch{width:58px;height:58px;background:transparent;mix-blend-mode:normal;border:1px solid var(--arc)}#cur-r.ch{opacity:0}
 #cur.off,#cur-r.off{opacity:0}
@@ -40,10 +40,10 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .ncta{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--arc);padding:12px 28px;text-decoration:none;cursor:none;transition:background .25s,transform .2s}
 .ncta:hover{background:var(--arc-l);transform:translateY(-1px)}
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:160px 56px 100px;overflow:hidden}
-.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 20%,var(--arc-glow) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 10% 80%,rgba(30,111,194,.05) 0%,transparent 60%),radial-gradient(ellipse 80% 50% at 50% 110%,rgba(201,169,110,.04) 0%,transparent 60%)}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 20%,var(--arc-glow) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 10% 80%,rgba(43,127,255,.05) 0%,transparent 60%),radial-gradient(ellipse 80% 50% at 50% 110%,rgba(201,169,110,.04) 0%,transparent 60%)}
 .hgrid{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .hgrid svg{position:absolute;inset:0;width:100%;height:100%}
-.hwm{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:200;font-size:340px;color:rgba(30,111,194,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.02em}
+.hwm{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:200;font-size:340px;color:rgba(43,127,255,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.02em}
 .hi{position:relative;z-index:2;max-width:960px}
 .heye{display:inline-flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--arc);margin-bottom:40px;opacity:0;animation:fup .7s ease .1s forwards}
 .heye-d{width:5px;height:5px;border-radius:50%;background:var(--arc);animation:pulse 1.8s ease-in-out infinite}
@@ -59,7 +59,7 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .bghost::after{content:'';width:32px;height:1px;background:currentColor;transition:width .4s var(--ease)}
 .bghost:hover{color:var(--arc)}
 .bghost:hover::after{width:54px}
-.hstats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-top:88px;border-top:1px solid var(--border);padding-top:44px;opacity:0;animation:fup .7s ease .75s forwards}
+.hstats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-top:88px;border-top:1px solid var(--border);padding-top:44px;opacity:0;animation:fup .7s ease .5s forwards}
 .hstat{padding-right:40px;border-right:1px solid var(--border)}
 .hstat:last-child{border-right:none;padding-left:40px;padding-right:0}
 .hstat:not(:first-child):not(:last-child){padding-left:40px}
@@ -70,7 +70,7 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .aibox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--arc),transparent)}
 .aibox::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 100% 50%,var(--arc-glow) 0%,transparent 65%);pointer-events:none}
 .aiinn{padding:52px 60px;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;position:relative;z-index:1}
-.aibadge{display:inline-flex;align-items:center;gap:8px;font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.08);padding:7px 16px;margin-bottom:24px}
+.aibadge{display:inline-flex;align-items:center;gap:8px;font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(43,127,255,.25);background:rgba(43,127,255,.08);padding:7px 16px;margin-bottom:24px}
 .aibd{width:5px;height:5px;border-radius:50%;background:var(--arc);animation:pulse 1.5s ease-in-out infinite}
 .aititle{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:42px;color:var(--white);line-height:1.05;margin-bottom:16px}
 .aititle em{font-style:italic;color:var(--arc)}
@@ -78,13 +78,13 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .airgt{display:flex;flex-direction:column;gap:14px}
 .airow{display:flex;gap:0}
 .aiinp{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border-l);border-right:none;color:var(--cream);font-family:'Jost',sans-serif;font-size:13px;font-weight:300;padding:14px 20px;outline:none;transition:border-color .3s;cursor:none}
-.aiinp:focus{border-color:rgba(30,111,194,.5)}
+.aiinp:focus{border-color:rgba(43,127,255,.5)}
 .aiinp::placeholder{color:var(--cream-muted)}
 .aigo{background:var(--arc);border:1px solid var(--arc);color:white;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;padding:14px 28px;cursor:none;white-space:nowrap;transition:background .25s}
 .aigo:hover{background:var(--arc-l)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.2);background:rgba(30,111,194,.06);padding:7px 16px;cursor:none;transition:background .2s,border-color .2s}
-.chip:hover{background:rgba(30,111,194,.14);border-color:rgba(30,111,194,.5)}
+.chip{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(43,127,255,.2);background:rgba(43,127,255,.06);padding:7px 16px;cursor:none;transition:background .2s,border-color .2s}
+.chip:hover{background:rgba(43,127,255,.14);border-color:rgba(43,127,255,.5)}
 .aiout{padding:24px 60px;border-top:1px solid var(--border);background:rgba(0,0,0,.3);display:none}
 .aiout.on{display:block;animation:fup .4s ease forwards}
 .aithink{display:none;align-items:center;gap:10px}
@@ -94,7 +94,7 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 @keyframes tdot{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
 .aitxt{font-size:13px;line-height:1.85;color:var(--cream-dim)}
 .aitxt strong{color:var(--arc);font-weight:400}
-.fwrap{position:sticky;top:65px;z-index:400;background:rgba(5,5,5,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);transition:opacity .3s,visibility .3s}
+.fwrap{background:rgba(5,5,5,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);transition:opacity .3s,visibility .3s}
 .finn{display:flex;align-items:center;gap:0;padding:0 56px;overflow-x:auto;scrollbar-width:none}
 .finn::-webkit-scrollbar{display:none}
 .flbl{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-muted);white-space:nowrap;padding:20px 28px 20px 0;border-right:1px solid var(--border);margin-right:24px;flex-shrink:0}
@@ -125,15 +125,15 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .pov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(5,5,5,.85) 100%)}
 .pnum{position:absolute;top:18px;left:22px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.1em}
 .pbadge{position:absolute;top:18px;right:18px;font-size:7px;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);background:rgba(0,0,0,.4);backdrop-filter:blur(8px)}
-.pbadge.live{border-color:rgba(30,111,194,.5);color:rgba(100,180,255,.85);background:rgba(30,111,194,.15)}
+.pbadge.live{border-color:rgba(43,127,255,.5);color:rgba(100,180,255,.85);background:rgba(43,127,255,.15)}
 .pbadge.soon{border-color:rgba(201,169,110,.25);color:rgba(201,169,110,.6);background:rgba(201,169,110,.06)}
-.pbadge.private{border-color:rgba(30,111,194,.35);color:rgba(100,160,255,.8);background:rgba(30,111,194,.08)}
+.pbadge.private{border-color:rgba(43,127,255,.35);color:rgba(100,160,255,.8);background:rgba(43,127,255,.08)}
 .prev svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .cbody{padding:28px 32px 32px;flex:1;display:flex;flex-direction:column}
 .scgrid.lv .cbody{padding:32px 44px}
 .crow{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .cnum{font-family:'DM Mono',monospace;font-size:9px;color:var(--cream-muted);letter-spacing:.1em}
-.ctag{font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.08);padding:4px 12px}
+.ctag{font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(43,127,255,.25);background:rgba(43,127,255,.08);padding:4px 12px}
 .ctitle{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--white);margin-bottom:8px;line-height:1.1}
 .caes{font-size:11px;letter-spacing:.04em;color:var(--cream-dim);line-height:1.75;margin-bottom:20px;flex:1}
 .ctags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
@@ -157,7 +157,7 @@ nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--bor
 .acard:hover{background:var(--charcoal)}
 .acard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--arc);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
 .acard:hover::before{transform:scaleX(1)}
-.aicon{width:48px;height:48px;border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.06);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.aicon{width:48px;height:48px;border:1px solid rgba(43,127,255,.25);background:rgba(43,127,255,.06);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
 .aicon svg{width:20px;height:20px;stroke:var(--arc);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .atitle{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--white);margin-bottom:14px}
 .adesc{font-size:11px;letter-spacing:.04em;color:var(--cream-dim);line-height:1.9}
@@ -191,6 +191,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
 .fleg{font-size:8px;letter-spacing:.16em;color:var(--cream-muted)}
 .furl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--cream-muted)}
 @keyframes fup{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+#aif,#sc,#ab{scroll-margin-top:65px}
+.fwrap{position:sticky;top:65px;z-index:400}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
 .reveal.in{opacity:1;transform:none}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
@@ -216,8 +218,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
 .modal-blocked.show{display:flex}
 .modal-blocked-title{font-family:"Cormorant Garamond",serif;font-weight:200;font-size:36px;color:var(--white);margin-bottom:16px;letter-spacing:-.01em}
 .modal-blocked-desc{font-size:12px;letter-spacing:.05em;color:var(--cream-dim);line-height:1.9;max-width:360px;margin-bottom:36px}
-.modal-blocked-link{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.35);padding:15px 36px;text-decoration:none;cursor:none;transition:background .25s,border-color .25s;display:inline-block}
-.modal-blocked-link:hover{background:rgba(30,111,194,.1);border-color:var(--arc)}
+.modal-blocked-link{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(43,127,255,.35);padding:15px 36px;text-decoration:none;cursor:none;transition:background .25s,border-color .25s;display:inline-block}
+.modal-blocked-link:hover{background:rgba(43,127,255,.1);border-color:var(--arc)}
 .modal-trust{padding:20px 48px 28px;border-top:1px solid var(--border);display:flex;gap:28px;flex-shrink:0}
 .trust-item{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.14em;color:var(--cream-muted)}
 .trust-dot{width:4px;height:4px;border-radius:50%;background:var(--arc);flex-shrink:0}
@@ -232,42 +234,87 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
 }
 /* ── MOBILE ── */
 @media(max-width:768px){
-  body{cursor:auto}
+  html,body{overflow-x:hidden !important}
+  body{cursor:auto !important}
   #cur,#cur-r{display:none !important}
-  nav{padding:16px 20px}
-  .nlinks,.ncta{display:none}
+
+  /* Nav */
+  nav{padding:14px 20px !important;max-width:100vw}
+  nav.s{padding:12px 20px !important}
+  .nlinks,.ncta{display:none !important}
   .nhambtn{display:flex !important}
-  .hero-section{padding:120px 20px 60px}
-  .hero-h{font-size:clamp(44px,11vw,72px)}
-  .hero-sub{font-size:13px}
-  .hero-btns{flex-direction:column;align-items:flex-start;gap:16px}
-  .aif-section{padding:60px 20px}
-  .aif-inner{flex-direction:column;gap:12px}
-  .aiinp{font-size:14px}
-  .filter-bar{padding:0 20px;overflow-x:auto;flex-wrap:nowrap}
+
+  /* Hero */
+  #hero{padding:100px 20px 60px !important;min-height:100svh}
+  .hi{max-width:100% !important}
+  .hh1{font-size:clamp(40px,10vw,68px) !important;line-height:.9 !important}
+  .hdesc{font-size:13px !important;max-width:100% !important;margin-top:24px !important}
+  .hbtns{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;margin-top:36px !important}
+  .hstats{grid-template-columns:1fr 1fr !important;gap:0 !important;margin-top:48px !important}
+  .hstat{padding:20px 16px !important}
+  .hstat:last-child{padding-left:16px !important}
+  .hwm{display:none !important}
+
+  /* AI Style Matcher */
+  .aiwrap{padding:0 !important}
+  .aiinn{grid-template-columns:1fr !important;gap:28px !important;padding:36px 20px !important}
+  .airgt{gap:10px !important}
+  .airow{flex-direction:column !important;gap:8px !important}
+  .aiinp{border-right:1px solid var(--border-l) !important;font-size:14px !important}
+  .aigo{width:100% !important}
+  .chips{gap:6px !important}
+  .chip{font-size:8px !important;padding:6px 12px !important}
+  .aiout{padding:16px 20px !important}
+
+  /* Filter bar */
+  .fwrap{top:56px !important}
+  .finn{padding:0 20px !important;overflow-x:auto !important;flex-wrap:nowrap !important;-webkit-overflow-scrolling:touch}
+  .flbl{display:none}
+  .fbtn{padding:16px 12px !important;font-size:8px !important;white-space:nowrap}
+  .fcnt{display:none}
+
+  /* Showcase grid */
+  .scwrap{padding:48px 20px 80px !important}
   .scgrid{grid-template-columns:1fr !important}
-  .scgrid.lv .card{flex-direction:column}
-  .scgrid.lv .prev{width:100%;height:200px}
-  .band{flex-direction:column;gap:32px;padding:52px 20px}
-  .bitem{border-left:none;border-top:1px solid var(--border);padding:20px 0 0;text-align:center}
-  .bitem:first-child{border-top:none;padding-top:0}
-  .who-section{padding:80px 20px}
-  .who-grid{grid-template-columns:1fr}
-  .cta-section{padding:80px 20px}
-  .ctaacts{flex-direction:column;align-items:flex-start;gap:14px}
-  footer{padding:52px 20px 28px}
-  .fgrid{grid-template-columns:1fr 1fr;gap:28px}
-  .fbot{flex-direction:column;gap:8px;align-items:flex-start}
-  .card{cursor:auto}
-  .claunch,.chip,.fbtn,.vbtn,.barc,.bghost,.ncta,.aiinp,.aigo{cursor:auto}
+  .scgrid.lv .card{flex-direction:column !important}
+  .scgrid.lv .prev{width:100% !important;height:200px !important}
+  .schead{flex-direction:column !important;align-items:flex-start !important;gap:20px !important;margin-bottom:36px !important}
+  .prev{height:200px !important}
+  .cbody{padding:20px 20px 24px !important}
+
+  /* Stats band */
+  .band{grid-template-columns:1fr 1fr !important;padding:48px 20px !important}
+  .bitem{padding:28px 16px !important;border-right:none !important;border-bottom:1px solid var(--border)}
+  .bitem:nth-child(odd){border-right:1px solid var(--border) !important}
+  .bitem:last-child,.bitem:nth-last-child(2):nth-child(odd){border-bottom:none}
+  .bnum{font-size:44px !important}
+
+  /* About / audience section */
+  .audwrap{padding:60px 20px !important}
+  .audgrid{grid-template-columns:1fr !important}
+  .acard{padding:36px 28px !important}
+
+  /* CTA band */
+  .ctawrap{margin:0 !important}
+  .ctainn{flex-direction:column !important;gap:28px !important;padding:52px 20px !important}
+  .ctah{font-size:clamp(36px,8vw,56px) !important}
+  .ctaacts{align-items:flex-start !important;gap:14px !important}
+
+  /* Footer */
+  footer{padding:48px 20px 28px !important}
+  .fgrid{grid-template-columns:1fr !important;gap:32px !important}
+  .fbot{flex-direction:column !important;gap:8px !important;align-items:flex-start !important}
+  .flinks a{font-size:12px !important}
+
+  a,button{cursor:auto !important}
 }
 @media(max-width:480px){
-  .hero-h{font-size:clamp(38px,10vw,56px)}
-  .scgrid{grid-template-columns:1fr !important}
-  .fgrid{grid-template-columns:1fr}
-  .band{padding:40px 20px}
-  .filter-bar{gap:4px}
-  .fbtn{padding:14px 10px;font-size:8px}
+  .hh1{font-size:clamp(34px,9vw,52px) !important}
+  .hstats{grid-template-columns:1fr 1fr !important}
+  .band{grid-template-columns:1fr !important}
+  .bitem{border-right:none !important}
+  .fbtn{padding:14px 10px !important;font-size:7px !important}
+  .ctainn{padding:40px 20px !important}
 }
 
 </style>
@@ -340,29 +387,29 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
   <div class="hbg"></div>
   <div class="hgrid">
     <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <line x1="0" y1="225" x2="1440" y2="225" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
-      <line x1="0" y1="450" x2="1440" y2="450" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
-      <line x1="0" y1="675" x2="1440" y2="675" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
-      <line x1="360" y1="0" x2="360" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
-      <line x1="720" y1="0" x2="720" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
-      <line x1="1080" y1="0" x2="1080" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
-      <rect x="1180" y="60" width="80" height="80" fill="none" stroke="rgba(30,111,194,0.1)" stroke-width="1"/>
-      <rect x="1196" y="76" width="48" height="48" fill="rgba(30,111,194,0.04)" stroke="rgba(30,111,194,0.08)" stroke-width="0.5"/>
-      <circle cx="1180" cy="60" r="3" fill="rgba(30,111,194,0.25)"/>
+      <line x1="0" y1="225" x2="1440" y2="225" stroke="rgba(43,127,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="450" x2="1440" y2="450" stroke="rgba(43,127,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="675" x2="1440" y2="675" stroke="rgba(43,127,255,0.05)" stroke-width="1"/>
+      <line x1="360" y1="0" x2="360" y2="900" stroke="rgba(43,127,255,0.04)" stroke-width="1"/>
+      <line x1="720" y1="0" x2="720" y2="900" stroke="rgba(43,127,255,0.04)" stroke-width="1"/>
+      <line x1="1080" y1="0" x2="1080" y2="900" stroke="rgba(43,127,255,0.04)" stroke-width="1"/>
+      <rect x="1180" y="60" width="80" height="80" fill="none" stroke="rgba(43,127,255,0.1)" stroke-width="1"/>
+      <rect x="1196" y="76" width="48" height="48" fill="rgba(43,127,255,0.04)" stroke="rgba(43,127,255,0.08)" stroke-width="0.5"/>
+      <circle cx="1180" cy="60" r="3" fill="rgba(43,127,255,0.25)"/>
     </svg>
   </div>
   <div class="hwm">ARC</div>
   <div class="hi">
     <div class="heye"><span class="heye-d"></span>ARC Affiliates — Design Library</div>
     <h1 class="hh1">Multi Sites.<br><em>Multi Worlds.</em><br><span>One Standard.</span></h1>
-    <p class="hdesc">Most agencies sell you a website. ARC builds you a weapon.</p>
+    <p class="hdesc">WordPress is a crutch. Wix is a toy. ARC builds real websites — coded from scratch, built to dominate.</p>
     <div class="hbtns">
       <a href="#sc" class="barc" onclick="go('sc');return false">Browse the Collection</a>
       <a href="#aif" class="bghost" onclick="go('aif');return false">Find My Style</a>
     </div>
     <div class="hstats">
-      <div class="hstat"><div class="sn">10</div><div class="sl">Distinct Industries</div></div>
-      <div class="hstat"><div class="sn">10</div><div class="sl">Unique Aesthetics</div></div>
+      <div class="hstat"><div class="sn">13</div><div class="sl">Showcase Sites</div></div>
+      <div class="hstat"><div class="sn">13</div><div class="sl">Unique Aesthetics</div></div>
       <div class="hstat"><div class="sn">AI</div><div class="sl">Integrated Throughout</div></div>
       <div class="hstat"><div class="sn">0</div><div class="sl">Templates Used</div></div>
     </div>
@@ -397,7 +444,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
     </div>
   </div>
 </div>
-<div style="position:relative"><div class="fwrap" id="sc">
+<div><div class="fwrap" id="sc">
   <div class="finn">
     <span class="flbl">Filter</span>
     <button class="fbtn on" onclick="df(this,'all')">All Thirteen</button>
@@ -406,7 +453,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
     <button class="fbtn" onclick="df(this,'luxury')">Luxury</button>
     <button class="fbtn" onclick="df(this,'professional')">Professional</button>
     <button class="fbtn" onclick="df(this,'bold')">Bold / Kinetic</button>
-    <span class="fcnt" id="fcnt">10 sites</span>
+    <span class="fcnt" id="fcnt">13 sites</span>
   </div>
 </div>
 <section class="scwrap">
@@ -430,32 +477,32 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
       <div class="prev"><div class="pbg" style="background:linear-gradient(160deg,#111 0%,#0a0a0a 50%,#141414 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".45"><line x1="0" y1="0" x2="400" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="400" y1="0" x2="0" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><rect x="16" y="16" width="368" height="208" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/></svg><div class="pov"></div><div class="pnum">03</div><div class="pbadge live">Live &#10003;</div></div>
       <div class="cbody"><div class="crow"><span class="cnum">Site 03</span><span class="ctag">Law Firm</span></div><div class="ctitle">Harmon &amp; Associates</div><p class="caes">Brutalist authority — stark monochrome, condensed display type, raw grid tension, horizontal scroll case studies.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Case Studies</span><span class="ctag2">AI Legal FAQ</span><span class="ctag2">Horiz. Scroll</span></div><div class="cfoot"><a href="03-law-firm/index.html" class="claunch" target="_blank">Launch Site</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal" data-t="dark luxury bold" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 50% 40%,#3a0d15 0%,transparent 65%),linear-gradient(165deg,#2a0810 0%,#0e0808 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><circle cx="200" cy="120" r="90" fill="none" stroke="rgba(201,140,60,0.22)" stroke-width="0.5"/><circle cx="200" cy="120" r="60" fill="none" stroke="rgba(201,140,60,0.14)" stroke-width="0.5"/><circle cx="200" cy="120" r="30" fill="none" stroke="rgba(201,140,60,0.18)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">04</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 04</span><span class="ctag">Restaurant</span></div><div class="ctitle">Ember &amp; Oak</div><p class="caes">Sensory maximalism — deep burgundy, candlelight gold, animated menu reveals, full-bleed atmosphere, reservation widget.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Menu Builder</span><span class="ctag2">Reservations</span><span class="ctag2">AI Sommelier</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal" data-t="bold dark" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(0,255,136,.08) 0%,transparent 65%),linear-gradient(165deg,#060606 0%,#0a0a0a 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".9"><line x1="0" y1="80" x2="400" y2="80" stroke="rgba(0,255,136,0.08)" stroke-width="1"/><line x1="0" y1="160" x2="400" y2="160" stroke="rgba(0,255,136,0.08)" stroke-width="1"/><line x1="133" y1="0" x2="133" y2="240" stroke="rgba(0,255,136,0.06)" stroke-width="1"/><line x1="266" y1="0" x2="266" y2="240" stroke="rgba(0,255,136,0.06)" stroke-width="1"/><rect x="40" y="40" width="140" height="8" fill="rgba(0,255,136,0.7)"/><rect x="40" y="60" width="100" height="8" fill="rgba(255,45,120,0.5)"/><rect x="40" y="80" width="170" height="8" fill="rgba(43,156,255,0.5)"/><rect x="260" y="160" width="100" height="40" fill="rgba(0,255,136,0.15)" stroke="rgba(0,255,136,0.3)" stroke-width="1"/><rect x="40" y="140" width="60" height="60" fill="rgba(255,45,120,0.1)" stroke="rgba(255,45,120,0.25)" stroke-width="1"/><rect x="116" y="155" width="60" height="45" fill="rgba(43,156,255,0.1)" stroke="rgba(43,156,255,0.2)" stroke-width="1"/><rect x="192" y="148" width="60" height="52" fill="rgba(255,214,0,0.08)" stroke="rgba(255,214,0,0.2)" stroke-width="1"/><circle cx="310" cy="180" r="3" fill="rgba(0,255,136,0.8)"/><circle cx="340" cy="180" r="3" fill="rgba(255,45,120,0.6)"/></svg><div class="pov" style="background:linear-gradient(to bottom,transparent 40%,rgba(6,6,6,.9) 100%)"></div><div class="pnum">04</div><div class="pbadge live">Live</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 04</span><span class="ctag">Social Media</span></div><div class="ctitle">VOLT Social Agency</div><p class="caes">Anti-grid chaos — electric green on black, floating notification cards, feed-style work reel, live stats dashboard, AI content strategy builder.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Strategy</span><span class="ctag2">Feed Layout</span><span class="ctag2">Stats Dashboard</span></div><div class="cfoot"><a href="volt-social/index.html" target="_blank" class="claunch">Launch Site</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal d1" data-t="light professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#1e2830 0%,transparent 65%),linear-gradient(165deg,#1a2430 0%,#101820 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polygon points="200,20 20,130 380,130" fill="none" stroke="rgba(140,170,200,0.3)" stroke-width="0.8"/><rect x="130" y="130" width="140" height="90" fill="none" stroke="rgba(140,170,200,0.22)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">05</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 05</span><span class="ctag">Contractor</span></div><div class="ctitle">Summit Build Group</div><p class="caes">Architectural precision — slate tones, hairline grids, structured geometry, 3D perspective portfolio cards, material swatch UI.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Project Gallery</span><span class="ctag2">AI Estimator</span><span class="ctag2">3D Cards</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal d1" data-t="dark luxury bold" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 50% 40%,#3a0d15 0%,transparent 65%),linear-gradient(165deg,#2a0810 0%,#0e0808 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><circle cx="200" cy="120" r="90" fill="none" stroke="rgba(201,140,60,0.22)" stroke-width="0.5"/><circle cx="200" cy="120" r="60" fill="none" stroke="rgba(201,140,60,0.14)" stroke-width="0.5"/><circle cx="200" cy="120" r="30" fill="none" stroke="rgba(201,140,60,0.18)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">05</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 05</span><span class="ctag">Restaurant</span></div><div class="ctitle">Ember &amp; Oak</div><p class="caes">Sensory maximalism — deep burgundy, candlelight gold, animated menu reveals, full-bleed atmosphere, reservation widget.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Menu Builder</span><span class="ctag2">Reservations</span><span class="ctag2">AI Sommelier</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal d2" data-t="dark professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 30%,#0d2b52 0%,transparent 65%),linear-gradient(165deg,#0a1e3a 0%,#060e1e 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polyline points="20,200 80,155 140,168 200,110 260,128 320,72 380,88" fill="none" stroke="rgba(100,160,240,0.3)" stroke-width="1"/><circle cx="320" cy="72" r="5" fill="rgba(100,180,255,0.4)"/></svg><div class="pov"></div><div class="pnum">06</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 06</span><span class="ctag">Finance</span></div><div class="ctitle">Ashford Capital Group</div><p class="caes">Restrained prestige — deep navy, platinum accents, Swiss typographic discipline, animated data visualization, scroll-locked sections.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Data Viz</span><span class="ctag2">AI Portfolio</span><span class="ctag2">Gated Portal</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal d2" data-t="light professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#1e2830 0%,transparent 65%),linear-gradient(165deg,#1a2430 0%,#101820 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polygon points="200,20 20,130 380,130" fill="none" stroke="rgba(140,170,200,0.3)" stroke-width="0.8"/><rect x="130" y="130" width="140" height="90" fill="none" stroke="rgba(140,170,200,0.22)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">06</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 06</span><span class="ctag">Contractor</span></div><div class="ctitle">Summit Build Group</div><p class="caes">Architectural precision — slate tones, hairline grids, structured geometry, 3D perspective portfolio cards, material swatch UI.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Project Gallery</span><span class="ctag2">AI Estimator</span><span class="ctag2">3D Cards</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal" data-t="dark luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 55% 35%,#1a3020 0%,transparent 65%),linear-gradient(165deg,#142010 0%,#0c1008 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".38"><path d="M 40,200 C 100,175 150,115 200,95 C 250,75 300,100 360,80" fill="none" stroke="rgba(80,200,130,0.2)" stroke-width="0.8"/><circle cx="200" cy="95" r="22" fill="rgba(120,220,140,0.07)"/></svg><div class="pov"></div><div class="pnum">07</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 07</span><span class="ctag">Hospitality</span></div><div class="ctitle">The Verdana Hotel</div><p class="caes">Immersive wanderlust — lush greens, warm terracotta, ambient video loops, room explorer carousel, soft reveal animations.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Room Explorer</span><span class="ctag2">Availability</span><span class="ctag2">AI Concierge</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal" data-t="dark professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 30%,#0d2b52 0%,transparent 65%),linear-gradient(165deg,#0a1e3a 0%,#060e1e 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polyline points="20,200 80,155 140,168 200,110 260,128 320,72 380,88" fill="none" stroke="rgba(100,160,240,0.3)" stroke-width="1"/><circle cx="320" cy="72" r="5" fill="rgba(100,180,255,0.4)"/></svg><div class="pov"></div><div class="pnum">07</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 07</span><span class="ctag">Finance</span></div><div class="ctitle">Ashford Capital Group</div><p class="caes">Restrained prestige — deep navy, platinum accents, Swiss typographic discipline, animated data visualization, scroll-locked sections.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Data Viz</span><span class="ctag2">AI Portfolio</span><span class="ctag2">Gated Portal</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal d1" data-t="dark professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#003530 0%,transparent 65%),linear-gradient(165deg,#002a28 0%,#001e20 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><line x1="200" y1="28" x2="200" y2="212" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><line x1="108" y1="120" x2="292" y2="120" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><circle cx="200" cy="120" r="10" fill="rgba(0,210,190,0.2)"/></svg><div class="pov"></div><div class="pnum">08</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 08</span><span class="ctag">Health</span></div><div class="ctitle">Apex Functional Medicine</div><p class="caes">Clinical luxury — electric teal on deep emerald, geometric precision, symptom quiz funnel, timeline of care, trust-building layout.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Quiz</span><span class="ctag2">Doctor Cards</span><span class="ctag2">Care Timeline</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal d1" data-t="dark luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 55% 35%,#1a3020 0%,transparent 65%),linear-gradient(165deg,#142010 0%,#0c1008 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".38"><path d="M 40,200 C 100,175 150,115 200,95 C 250,75 300,100 360,80" fill="none" stroke="rgba(80,200,130,0.2)" stroke-width="0.8"/><circle cx="200" cy="95" r="22" fill="rgba(120,220,140,0.07)"/></svg><div class="pov"></div><div class="pnum">08</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 08</span><span class="ctag">Hospitality</span></div><div class="ctitle">The Verdana Hotel</div><p class="caes">Immersive wanderlust — lush greens, warm terracotta, ambient video loops, room explorer carousel, soft reveal animations.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Room Explorer</span><span class="ctag2">Availability</span><span class="ctag2">AI Concierge</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-    <div class="card reveal d2" data-t="bold dark" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:linear-gradient(135deg,#1a0828 0%,#0a1428 30%,#200814 60%,#0a0a14 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".5"><line x1="0" y1="0" x2="400" y2="240" stroke="rgba(255,60,172,0.15)" stroke-width="1"/><line x1="400" y1="0" x2="0" y2="240" stroke="rgba(43,134,197,0.15)" stroke-width="1"/><circle cx="200" cy="120" r="75" fill="none" stroke="rgba(255,60,172,0.1)" stroke-width="1"/><circle cx="200" cy="120" r="36" fill="rgba(120,75,160,0.08)"/></svg><div class="pov" style="background:linear-gradient(to bottom,transparent 20%,rgba(10,5,20,.9) 100%)"></div><div class="pnum">09</div><div class="pbadge soon">Coming Soon</div></div>
-      <div class="cbody"><div class="crow"><span class="cnum">Site 09</span><span class="ctag">Agency</span></div><div class="ctitle">VOLT Creative Studio</div><p class="caes">Kinetic chaos — bold color blocks, magnetic cursor, scramble text effects, anti-grid layout, dense portfolio reel.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Magnetic Cursor</span><span class="ctag2">Text Scramble</span><span class="ctag2">Work Reel</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    <div class="card reveal d2" data-t="dark professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#003530 0%,transparent 65%),linear-gradient(165deg,#002a28 0%,#001e20 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><line x1="200" y1="28" x2="200" y2="212" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><line x1="108" y1="120" x2="292" y2="120" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><circle cx="200" cy="120" r="10" fill="rgba(0,210,190,0.2)"/></svg><div class="pov"></div><div class="pnum">09</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 09</span><span class="ctag">Health</span></div><div class="ctitle">Apex Functional Medicine</div><p class="caes">Clinical luxury — electric teal on deep emerald, geometric precision, symptom quiz funnel, timeline of care, trust-building layout.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Quiz</span><span class="ctag2">Doctor Cards</span><span class="ctag2">Care Timeline</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
     <div class="card reveal" data-t="dark bold luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
-      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 50% at 60% 30%,#080814 0%,transparent 70%),linear-gradient(165deg,#06060e 0%,#050508 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".5"><path d="M 30,160 C 75,110 125,88 200,84 C 275,80 325,106 370,160" fill="none" stroke="rgba(30,111,194,0.28)" stroke-width="0.8"/><circle cx="200" cy="84" r="7" fill="rgba(30,111,194,0.45)"/><circle cx="200" cy="84" r="22" fill="none" stroke="rgba(30,111,194,0.15)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">10</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 50% at 60% 30%,#080814 0%,transparent 70%),linear-gradient(165deg,#06060e 0%,#050508 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".5"><path d="M 30,160 C 75,110 125,88 200,84 C 275,80 325,106 370,160" fill="none" stroke="rgba(43,127,255,0.28)" stroke-width="0.8"/><circle cx="200" cy="84" r="7" fill="rgba(43,127,255,0.45)"/><circle cx="200" cy="84" r="22" fill="none" stroke="rgba(43,127,255,0.15)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">10</div><div class="pbadge soon">Coming Soon</div></div>
       <div class="cbody"><div class="crow"><span class="cnum">Site 10</span><span class="ctag">Automotive</span></div><div class="ctitle">Apex Motor Group</div><p class="caes">Dark industrial glamour — carbon fiber depth, ARC electric blue, vehicle configurator UI, 360&deg; spin animation, speed-line motion.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Configurator</span><span class="ctag2">360&deg; Spin</span><span class="ctag2">AI Spec Match</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
     <div class="card reveal d1" data-t="light professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
@@ -466,9 +513,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
       <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 40% 30%,#1a0808 0%,transparent 65%),linear-gradient(165deg,#140808 0%,#080808 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".45"><line x1="0" y1="40" x2="400" y2="200" stroke="rgba(220,60,60,0.15)" stroke-width="1"/><line x1="400" y1="40" x2="0" y2="200" stroke="rgba(220,60,60,0.1)" stroke-width="0.5"/><line x1="0" y1="120" x2="400" y2="120" stroke="rgba(220,60,60,0.12)" stroke-width="0.5"/><rect x="160" y="80" width="80" height="80" fill="none" stroke="rgba(220,60,60,0.2)" stroke-width="0.8" transform="rotate(45 200 120)"/><circle cx="200" cy="120" r="8" fill="rgba(220,60,60,0.3)"/></svg><div class="pov" style="background:linear-gradient(to bottom,transparent 20%,rgba(8,4,4,.9) 100%)"></div><div class="pnum">12</div><div class="pbadge soon">Coming Soon</div></div>
       <div class="cbody"><div class="crow"><span class="cnum">Site 12</span><span class="ctag">Fitness</span></div><div class="ctitle">Forge Athletic</div><p class="caes">High-intensity editorial — deep black, razor-red accents, transformation gallery, trainer roster, AI program builder, membership funnel.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Program Builder</span><span class="ctag2">Before/After</span><span class="ctag2">Membership</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
-
-    <!-- 13 Med-Hot Infrared Imaging — Active Client -->
-    <div class="card reveal d2" data-t="dark professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+    <div class="card reveal" data-t="dark professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
       <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 55% 35%,#1a1208 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 20% 75%,#120e06 0%,transparent 55%),linear-gradient(165deg,#181208 0%,#110e08 40%,#0a0806 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".45"><ellipse cx="200" cy="120" rx="150" ry="85" fill="none" stroke="rgba(201,140,60,0.22)" stroke-width="0.5"/><ellipse cx="200" cy="120" rx="95" ry="52" fill="none" stroke="rgba(201,140,60,0.14)" stroke-width="0.5"/><line x1="50" y1="120" x2="350" y2="120" stroke="rgba(201,140,60,0.12)" stroke-width="0.5"/><line x1="200" y1="35" x2="200" y2="205" stroke="rgba(201,140,60,0.12)" stroke-width="0.5"/><circle cx="200" cy="120" r="10" fill="rgba(201,140,60,0.2)"/><circle cx="200" cy="120" r="25" fill="none" stroke="rgba(201,140,60,0.1)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">13</div><div class="pbadge private">Active Client</div></div>
       <div class="cbody"><div class="crow"><span class="cnum">Site 13</span><span class="ctag">Medical Imaging</span></div><div class="ctitle">Med-Hot Infrared Imaging</div><p class="caes">Dark obsidian base with copper &amp; amber thermal accents — full website and business infrastructure for a medical thermography practice in The Villages, FL.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Partner Portal</span><span class="ctag2">GHL CRM</span><span class="ctag2">ARC AI SEO</span></div><div class="cfoot"><span style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-muted)">Private — By Invitation</span><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
     </div>
@@ -476,7 +521,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
   </div>
 </section></div>
 <div class="band">
-  <div class="bitem reveal"><div class="bnum">10</div><div class="blbl">Industries</div><div class="bsub">From fine dining to wealth management — no vertical left uncovered.</div></div>
+  <div class="bitem reveal"><div class="bnum">13</div><div class="blbl">Showcases</div><div class="bsub">From luxury real estate to social media agencies — no vertical left uncovered.</div></div>
   <div class="bitem reveal d1"><div class="bnum">0</div><div class="blbl">Templates Used</div><div class="bsub">Every site custom-designed from a blank canvas. No themes, no page builders.</div></div>
   <div class="bitem reveal d2"><div class="bnum">AI</div><div class="blbl">In Every Build</div><div class="bsub">Valuation engines, concierge chat, intake forms, neighborhood intelligence.</div></div>
   <div class="bitem reveal d3"><div class="bnum">1</div><div class="blbl">File Per Site</div><div class="bsub">Every showcase is a single self-contained HTML file. Deploy anywhere instantly.</div></div>
@@ -484,7 +529,7 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
 <section class="audwrap" id="ab">
   <div class="reveal"><div class="eyebrow">Who This Is For</div><h2 class="sctitle">This Library<br>Speaks to <em>Everyone</em></h2></div>
   <div class="audgrid">
-    <div class="acard reveal"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="atitle">Local Business Owners</div><p class="adesc">Browse 10 distinct industries and find the aesthetic that matches your vision. Every site can be adapted and deployed for your business — your brand, your content, your customers.</p><a href="#" class="acta" onclick="openModal();return false">Start a Conversation</a></div>
+    <div class="acard reveal"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="atitle">Local Business Owners</div><p class="adesc">Browse 13 distinct showcases and find the aesthetic that matches your vision. Every site can be adapted and deployed for your business — your brand, your content, your customers.</p><a href="#" class="acta" onclick="openModal();return false">Start a Conversation</a></div>
     <div class="acard reveal d1"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="atitle">Agency Partners</div><p class="adesc">ARC offers wholesale white-label access to this entire design and AI infrastructure. Offer your clients enterprise-grade websites at a price point no one else can match.</p><a href="#" class="acta" onclick="openModal();return false">Partner with ARC</a></div>
     <div class="acard reveal d2"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div class="atitle">Current ARC Clients</div><p class="adesc">See what's possible beyond your current site. If something catches your eye for a sister brand, a redesign, or a second location — let's talk.</p><a href="#" class="acta" onclick="openModal();return false">Talk to Ty</a></div>
   </div>
@@ -498,8 +543,8 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
 <footer>
   <div class="fgrid">
     <div><div class="fbrand"><div class="fmark">A</div><span class="fname">ARC Affiliates</span></div><p class="fdesc">A USMC veteran-owned digital agency building AI-first infrastructure for local and regional business owners. CRM, automation, AI tools, and luxury custom websites.</p></div>
-    <div><div class="fct">The Library</div><ul class="flinks"><li><a href="01-luxury-real-estate/index.html" target="_blank">01 &mdash; Luxury Real Estate &#8599;</a></li><li><a href="#">02 &mdash; Medical Spa (Soon)</a></li><li><a href="#">03 &mdash; Law Firm (Soon)</a></li><li><a href="#">04 &mdash; Restaurant (Soon)</a></li><li><a href="#">05 &mdash; Home Builder (Soon)</a></li><li><a href="#">06 &mdash; Finance (Soon)</a></li><li><a href="#">07 &mdash; Hospitality (Soon)</a></li><li><a href="#">08 &mdash; Health (Soon)</a></li><li><a href="#">09 &mdash; Agency (Soon)</a></li><li><a href="#">10 &mdash; Automotive (Soon)</a></li></ul></div>
-    <div><div class="fct">ARC Affiliates</div><ul class="flinks"><li><a href="https://arcaffiliates.com">Main Website</a></li><li><a href="mailto:ty@arcaffiliates.com">ty@arcaffiliates.com</a></li><li><a href="tel:+13527069130">(352) 706-9130</a></li><li><a href="#">Middleton, Florida</a></li><li><a href="#">USMC Veteran-Owned &#10022;</a></li></ul></div>
+    <div><div class="fct">The Library</div><ul class="flinks"><li><a href="01-luxury-real-estate/index.html" target="_blank">01 &mdash; Luxury Real Estate &#8599;</a></li><li><a href="02-lumiere-aesthetics/index.html" target="_blank">02 &mdash; Medical Spa &#8599;</a></li><li><a href="03-law-firm/index.html" target="_blank">03 &mdash; Law Firm &#8599;</a></li><li><a href="#" onclick="cs();return false">04 &mdash; Restaurant (Soon)</a></li><li><a href="#" onclick="cs();return false">05 &mdash; Home Builder (Soon)</a></li><li><a href="#" onclick="cs();return false">06 &mdash; Finance (Soon)</a></li><li><a href="#" onclick="cs();return false">07 &mdash; Hospitality (Soon)</a></li><li><a href="#" onclick="cs();return false">08 &mdash; Health (Soon)</a></li><li><a href="#" onclick="cs();return false">09 &mdash; Agency (Soon)</a></li><li><a href="#" onclick="cs();return false">10 &mdash; Automotive (Soon)</a></li></ul></div>
+    <div><div class="fct">ARC Affiliates</div><ul class="flinks"><li><a href="https://arcaffiliates.com">Main Website</a></li><li><a href="mailto:ty@arcaffiliates.com">ty@arcaffiliates.com</a></li><li><a href="tel:+13527069130">(352) 706-9130</a></li><li><span style="font-size:11px;letter-spacing:.06em;color:var(--cream-muted)">Middleton, Florida</span></li><li><span style="font-size:11px;letter-spacing:.06em;color:var(--cream-muted)">USMC Veteran-Owned &#10022;</span></li></ul></div>
   </div>
   <div class="fbot"><div class="fleg">&copy; 2025 ARC Affiliates LLC &mdash; All Rights Reserved</div><div class="furl">library.arcaffiliates.com</div></div>
 </footer>
@@ -517,30 +562,17 @@ document.querySelectorAll("a,button").forEach(el=>{
 function cc(on){C.classList.toggle("ch",on);R.classList.toggle("ch",on)}
 window.addEventListener("scroll",()=>{
   document.getElementById("nav").classList.toggle("s",scrollY>20);
-  // Unstick filter bar when showcase section scrolls out of view
-  var scwrap=document.querySelector(".scwrap");
-  var fwrap=document.getElementById("sc");
-  if(scwrap&&fwrap){
-    var bottom=scwrap.getBoundingClientRect().bottom;
-    var fh=fwrap.offsetHeight;
-    if(bottom<fh+65){
-      fwrap.style.position="absolute";
-      fwrap.style.bottom="0";
-      fwrap.style.top="auto";
-      fwrap.style.width="100%";
-    } else {
-      fwrap.style.position="sticky";
-      fwrap.style.bottom="";
-      fwrap.style.top="65px";
-      fwrap.style.width="";
-    }
-  }
 });
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("in")})},{threshold:.08});
 document.querySelectorAll(".reveal,.bitem").forEach(el=>obs.observe(el));
 function sv(v){const g=document.getElementById("grid");g.classList.toggle("lv",v==="l");document.getElementById("vg").classList.toggle("on",v==="g");document.getElementById("vl").classList.toggle("on",v==="l")}
 function df(btn,tag){document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");const cards=document.querySelectorAll(".card");let n=0;cards.forEach(c=>{const show=tag==="all"||c.dataset.t.includes(tag);c.classList.toggle("gone",!show);if(show)n++});document.getElementById("fcnt").textContent=n+" site"+(n!==1?"s":"")}
-function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function go(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var y=el.getBoundingClientRect().top+window.pageYOffset-65;
+  window.scrollTo({top:y,behavior:"smooth"});
+}
 function cs(){const m=document.createElement("div");m.style.cssText="position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #222;border-left:2px solid #1E6FC2;color:#E8E4DE;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.15em;padding:14px 28px;z-index:9999;animation:fup .3s ease forwards";m.textContent="This showcase is in production — check back soon.";document.body.appendChild(m);setTimeout(()=>m.remove(),3000)}
 function qm(q){document.getElementById("aiq").value=q;runAI()}
 async function runAI(){
@@ -552,7 +584,7 @@ async function runAI(){
   out.classList.add("on");
   think.classList.add("on");
   txt.innerHTML="";
-  var prompt="You are the ARC Affiliates Design Library AI. Recommend 1-2 showcase sites based on the business described. Be confident and concise in 3 sentences. Bold site names with ** syntax. Sites: **MAISON Estate Group** (01) Luxury real estate dark editorial WebGL AI valuation LIVE NOW. **Lumiere Aesthetics** (02) Med spa organic minimalism. **Harmon Associates** (03) Law firm brutalist monochrome. **Ember Oak** (04) Fine dining sensory maximalism. **Summit Build Group** (05) Home builder architectural precision. **Ashford Capital Group** (06) Wealth management navy prestige. **The Verdana Hotel** (07) Boutique hotel lush greens. **Apex Functional Medicine** (08) Health clinical luxury teal. **VOLT Creative Studio** (09) Creative agency kinetic chaos bold color. **Apex Motor Group** (10) Automotive dark industrial glamour. Business: "+q;
+  var prompt="You are the ARC Affiliates Design Library AI. Recommend 1-2 showcase sites based on the business described. Be confident and concise in 3 sentences. Bold site names with ** syntax. Sites (13 total): **MAISON Estate Group** (01) Luxury real estate dark editorial WebGL AI valuation LIVE NOW. **Lumiere Aesthetics** (02) Med spa organic minimalism. **Harmon Associates** (03) Law firm brutalist monochrome. **Ember Oak** (04) Fine dining sensory maximalism. **Summit Build Group** (05) Home builder architectural precision. **Ashford Capital Group** (06) Wealth management navy prestige. **The Verdana Hotel** (07) Boutique hotel lush greens. **Apex Functional Medicine** (08) Health clinical luxury teal. **VOLT Social Agency** (04) Social media agency electric green on black anti-grid chaos feed layout AI strategy LIVE NOW. **Apex Motor Group** (10) Automotive dark industrial glamour. Business: "+q;
   try{
     var res=await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",
