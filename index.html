@@ -230,6 +230,46 @@ footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56
   .modal-trust{padding:16px 28px 20px;flex-wrap:wrap;gap:12px}
   .modal-blocked{padding:60px 28px}
 }
+/* ── MOBILE ── */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#cur-r{display:none !important}
+  nav{padding:16px 20px}
+  .nlinks,.ncta{display:none}
+  .nhambtn{display:flex !important}
+  .hero-section{padding:120px 20px 60px}
+  .hero-h{font-size:clamp(44px,11vw,72px)}
+  .hero-sub{font-size:13px}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:16px}
+  .aif-section{padding:60px 20px}
+  .aif-inner{flex-direction:column;gap:12px}
+  .aiinp{font-size:14px}
+  .filter-bar{padding:0 20px;overflow-x:auto;flex-wrap:nowrap}
+  .scgrid{grid-template-columns:1fr !important}
+  .scgrid.lv .card{flex-direction:column}
+  .scgrid.lv .prev{width:100%;height:200px}
+  .band{flex-direction:column;gap:32px;padding:52px 20px}
+  .bitem{border-left:none;border-top:1px solid var(--border);padding:20px 0 0;text-align:center}
+  .bitem:first-child{border-top:none;padding-top:0}
+  .who-section{padding:80px 20px}
+  .who-grid{grid-template-columns:1fr}
+  .cta-section{padding:80px 20px}
+  .ctaacts{flex-direction:column;align-items:flex-start;gap:14px}
+  footer{padding:52px 20px 28px}
+  .fgrid{grid-template-columns:1fr 1fr;gap:28px}
+  .fbot{flex-direction:column;gap:8px;align-items:flex-start}
+  .card{cursor:auto}
+  .claunch,.chip,.fbtn,.vbtn,.barc,.bghost,.ncta,.aiinp,.aigo{cursor:auto}
+}
+@media(max-width:480px){
+  .hero-h{font-size:clamp(38px,10vw,56px)}
+  .scgrid{grid-template-columns:1fr !important}
+  .fgrid{grid-template-columns:1fr}
+  .band{padding:40px 20px}
+  .filter-bar{gap:4px}
+  .fbtn{padding:14px 10px;font-size:8px}
+}
+
 </style>
 
 <!-- llms.txt embedded for GEO/AEO — ARC Affiliates LLC -->
@@ -626,6 +666,20 @@ function closeModal(e){
 document.addEventListener("keydown",function(e){
   if(e.key==="Escape") closeModalDirect();
 });
+
+function toggleMobNav(){
+  var btn=document.getElementById('nhambtn');
+  var nav=document.getElementById('mobnav');
+  if(!nav){
+    nav=document.createElement('div');
+    nav.id='mobnav';
+    nav.style.cssText='position:fixed;inset:0;background:var(--black);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1)';
+    nav.innerHTML='<a href="#sc" onclick="document.getElementById(\'mobnav\').style.transform=\'translateX(100%)\'" style="font-family:Cormorant Garamond,serif;font-size:44px;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:.06em">Showcase</a><a href="#ab" onclick="document.getElementById(\'mobnav\').style.transform=\'translateX(100%)\'" style="font-family:Cormorant Garamond,serif;font-size:44px;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:.06em">About</a><a href="https://arcaffiliates.com" target="_blank" style="font-family:Cormorant Garamond,serif;font-size:44px;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:.06em">ARC</a>';
+    document.body.appendChild(nav);
+  }
+  var open=nav.style.transform==='translateX(0%)';
+  nav.style.transform=open?'translateX(100%)':'translateX(0%)';
+}
 </script>
 </body>
 </html>
