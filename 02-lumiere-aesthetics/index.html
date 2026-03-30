@@ -568,6 +568,112 @@ footer{background:var(--text);padding:72px 56px 36px}
 #top-btn{position:fixed;bottom:28px;left:28px;z-index:400;width:40px;height:40px;border:1px solid var(--border-dark);background:rgba(250,248,244,.9);color:var(--rose-deep);cursor:none;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none}
 #top-btn.show{opacity:1;transform:none;pointer-events:auto}
 #top-btn:hover{background:var(--rose-deep);color:white}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#cur-r{display:none !important}
+  nav{padding:18px 24px}
+  nav.s{padding:14px 24px}
+  .n-links,.n-book{display:none}
+  .n-ham{display:flex !important}
+
+  /* Hero */
+  #hero{height:auto;min-height:100vh;padding:120px 24px 60px}
+  .hero-content{padding:0;max-width:100%}
+  .hero-h1{font-size:clamp(44px,11vw,72px);line-height:.92}
+  .hero-sub{font-size:13px;max-width:100%}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:16px}
+  .hero-awards{left:24px;bottom:32px;gap:24px}
+  .award-num{font-size:26px}
+  .hero-img-scene{display:none}
+  .hero-left-overlay{display:none}
+  .scroll-hint{display:none}
+
+  /* Sections */
+  .section{padding:72px 24px}
+  .philosophy{grid-template-columns:1fr;gap:40px}
+  .phil-scene{height:300px}
+
+  /* Treatments */
+  .treat-grid{grid-template-columns:1fr}
+  .treat-card{padding:36px 28px}
+
+  /* Before/After */
+  .ba-section{padding:72px 24px}
+  .ba-wrap{grid-template-columns:1fr;gap:40px}
+  .ba-slider-wrap{height:320px;cursor:auto}
+
+  /* AI Section */
+  .ai-section{padding:72px 24px}
+  .ai-inner{grid-template-columns:1fr;gap:40px}
+  .ai-widget{padding:28px}
+
+  /* Testimonials */
+  .testi-section{padding:72px 24px}
+  .testi-grid{grid-template-columns:1fr}
+
+  /* Services */
+  .services-hero{padding:120px 24px 60px}
+  .services-cats{padding:0 24px;top:56px;overflow-x:auto;flex-wrap:nowrap}
+  .s-cat{white-space:nowrap;padding:14px 12px}
+  .services-list{padding:60px 24px}
+  .service-item{padding:20px 0;flex-wrap:wrap;gap:8px}
+  .service-item:hover{padding-left:0}
+  .book-bar{padding:16px 24px;flex-direction:column;gap:12px;align-items:flex-start}
+
+  /* About */
+  .about-hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:28px}
+  .about-body{grid-template-columns:1fr;padding:60px 24px;gap:40px}
+  .about-img-col{display:none}
+  .team-section{padding:0 24px 60px}
+  .team-grid{grid-template-columns:1fr 1fr}
+
+  /* Journal */
+  .journal-hero{padding:120px 24px 60px}
+  .journal-featured{grid-template-columns:1fr}
+  .jf-scene{min-height:260px}
+  .journal-grid{grid-template-columns:1fr}
+
+  /* Book */
+  .book-page{padding:120px 24px 60px}
+  .book-grid{grid-template-columns:1fr;gap:40px}
+  .b-panel{padding:24px 20px}
+  .b-row{grid-template-columns:1fr}
+  .b-date-grid{gap:2px}
+  .b-date{font-size:10px}
+
+  /* Footer */
+  footer{padding:52px 24px 28px}
+  .f-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .f-bot{flex-direction:column;gap:8px;align-items:flex-start}
+
+  /* Cursor none override */
+  a,button{cursor:auto}
+}
+
+@media(max-width:480px){
+  .hero-h1{font-size:clamp(38px,10vw,56px)}
+  .treat-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .book-steps{overflow-x:auto}
+  .b-step{min-width:70px}
+  .b-time-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Hamburger nav */
+.n-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:600;position:relative}
+.n-ham span{display:block;width:22px;height:1px;background:var(--text);transition:all .3s}
+.n-ham.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.n-ham.open span:nth-child(2){opacity:0}
+.n-ham.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mob-menu{position:fixed;inset:0;background:var(--ivory);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.mob-menu.open{transform:translateX(0)}
+.mob-menu a{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(36px,9vw,56px);color:var(--text);text-decoration:none;letter-spacing:.06em;transition:opacity .2s}
+.mob-menu a:hover{opacity:.5}
+
 </style>
 </head>
 <body>
@@ -586,7 +692,15 @@ footer{background:var(--text);padding:72px 56px 36px}
     <li><a href="#" onclick="showPage('journal');return false" data-p="journal">Journal</a></li>
   </ul>
   <a href="#" class="n-book" onclick="showPage('book');return false">Reserve</a>
+  <button class="n-ham" id="nHam" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#" onclick="showPage('home');closeMob();return false">Sanctuary</a>
+  <a href="#" onclick="showPage('services');closeMob();return false">Treatments</a>
+  <a href="#" onclick="showPage('about');closeMob();return false">Our Story</a>
+  <a href="#" onclick="showPage('journal');closeMob();return false">Journal</a>
+  <a href="#" onclick="showPage('book');closeMob();return false">Reserve</a>
+</div>
 
 <!-- ═══════════ HOME ═══════════ -->
 <div class="page active" id="page-home">
@@ -855,7 +969,7 @@ footer{background:var(--text);padding:72px 56px 36px}
         <div class="f-col-title">Visit</div>
         <ul class="f-links">
           <li><a href="#">(239) 555-0180</a></li>
-          <li><a href="#">hello@lumierespa.com</a></li>
+          <li><a href="#"><span class="__cf_email__" data-cfemail="bdd5d8d1d1d2fdd1c8d0d4d8cfd8cecddc93ded2d0">[email&#160;protected]</span></a></li>
           <li><a href="#">400 Fifth Ave S, Naples, FL</a></li>
           <li><a href="#">Mon–Sat: 9am–7pm</a></li>
         </ul>
@@ -1152,7 +1266,7 @@ footer{background:var(--text);padding:72px 56px 36px}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── CURSOR ───
 var C=document.getElementById('cur'),R=document.getElementById('cur-r');
 var mx=0,my=0,rx=0,ry=0;
@@ -1362,10 +1476,4 @@ function buildConfirm(){
 function bSubmit(){
   var panels=document.querySelectorAll('#bp4 .b-group,#bp4 .b-nav');
   panels.forEach(function(p){p.style.display='none'});
-  var s=document.getElementById('bSuccess');
-  s.classList.add('show');
-  document.getElementById('bSuccessRef').textContent='REF: LUM-'+Math.random().toString(36).substr(2,6).toUpperCase();
-}
-</script>
-</body>
-</html>
+  var s=document.
