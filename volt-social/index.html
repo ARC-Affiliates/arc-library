@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOLT — We Make Brands Blow Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- GEO/AEO LLMs.txt -->
+<meta name="description" content="VOLT — Full-service social media agency. Strategy, content, paid ads, influencer marketing. We grow brands that refuse to be ignored.">
+<meta name="author" content="VOLT Social Agency">
+<meta property="og:title" content="VOLT — We Make Brands Blow Up">
+<meta property="og:url" content="https://voltsocial.com">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MarketingAgency","name":"VOLT Social","url":"https://voltsocial.com","creator":{"@type":"Organization","name":"ARC Affiliates LLC","url":"https://arcaffiliates.com"}}</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+:root{
+  --black:#060606;
+  --g:#00FF88;
+  --p:#FF2D78;
+  --b:#2D9CFF;
+  --y:#FFD600;
+  --w:#F0F0EE;
+  --dim:#222;
+  --grey:#999;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{background:var(--black);color:var(--w);font-family:'Space Grotesk',sans-serif;cursor:none;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* CURSOR — electric crosshair */
+#X{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);width:24px;height:24px;transition:width .15s,height .15s,opacity .2s}
+#X::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--g);transform:translateY(-50%)}
+#X::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--g);transform:translateX(-50%)}
+#X.big{width:48px;height:48px}
+#X.hidden{opacity:0}
+
+/* NAV — minimal floating pill */
+nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:500;display:inline-flex;align-items:center;gap:0;background:rgba(6,6,6,.9);border:1px solid #333;backdrop-filter:blur(20px);padding:8px 8px 8px 20px;white-space:nowrap;width:auto}
+.n-logo{font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--w);text-decoration:none;cursor:none;margin-right:28px}
+.n-logo span{color:var(--g)}
+.n-links{display:flex;gap:0;list-style:none}
+.n-links a{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-decoration:none;cursor:none;transition:color .2s;padding:8px 14px}
+.n-links a:hover{color:var(--w)}
+.n-cta{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--black);background:var(--g);padding:10px 20px;text-decoration:none;cursor:none;transition:background .15s;margin-left:8px}
+.n-cta:hover{background:#00e077}
+.ham{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:4px;padding:8px}
+.ham span{display:block;width:18px;height:1px;background:var(--w);transition:all .25s}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(3px,3px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(3px,-3px)}
+.mob-nav{position:fixed;inset:0;background:var(--black);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transform:translateY(-100%);transition:transform .4s var(--ease)}
+.mob-nav.open{transform:translateY(0)}
+.mob-nav a{font-size:clamp(28px,8vw,52px);font-weight:700;color:var(--w);text-decoration:none;transition:color .2s}
+.mob-nav a:hover{color:var(--g)}
+
+/* PAGES */
+.page{display:none}
+.page.act{display:block}
+
+/* ══ SECTION SNAP ══ */
+.snap{scroll-snap-align:start;min-height:100vh;position:relative;overflow:hidden}
+
+/* ══ HERO — TikTok full bleed ══ */
+#s-hero{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 60px 0;
+  background:var(--black);
+}
+.hero-bg-img{position:absolute;inset:0;background:url('https://source.unsplash.com/1440x900/?dark+studio+neon+lights') center/cover no-repeat;filter:brightness(.3) saturate(.5) contrast(1.2);z-index:0}
+.hero-noise{position:absolute;inset:0;z-index:1;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Floating notification cards */
+.notif{position:absolute;z-index:5;background:rgba(12,12,12,.92);border:1px solid var(--dim);padding:10px 14px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);animation:floatNotif 4s ease-in-out infinite}
+.notif-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.notif-text{font-size:11px;line-height:1.3}
+.notif-text strong{color:var(--w);font-weight:600}
+.notif-text span{color:var(--grey);font-size:10px}
+.n1{top:22%;left:5%;animation-delay:0s}
+.n2{top:35%;right:4%;animation-delay:1.2s}
+.n3{top:55%;left:8%;animation-delay:2.4s}
+.n4{top:68%;right:6%;animation-delay:0.6s}
+@keyframes floatNotif{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.hero-content{position:relative;z-index:5;padding:0 52px}
+/* Giant stacked typography — overlapping, anti-grid */
+.hero-big{font-size:clamp(80px,13vw,200px);font-weight:700;line-height:.82;letter-spacing:-.04em;text-transform:uppercase;display:block}
+.hero-big.line1{color:var(--w)}
+.hero-big.line2{color:var(--g);margin-left:clamp(20px,5vw,120px)}
+.hero-big.line3{color:var(--w);margin-left:clamp(40px,8vw,200px)}
+.hero-sub-row{display:flex;align-items:center;gap:32px;margin-top:32px;flex-wrap:wrap}
+.hero-pill{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;display:inline-block}
+.hp-g{background:var(--g);color:var(--black)}
+.hp-p{background:var(--p);color:var(--w)}
+.hp-b{background:var(--b);color:var(--w)}
+.hero-cta-row{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap}
+.btn-g{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--black);background:var(--g);padding:14px 36px;text-decoration:none;cursor:none;transition:transform .15s;display:inline-block}
+.btn-g:hover{transform:scale(1.03)}
+.btn-ghost-w{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--w);border:1px solid rgba(255,255,255,.2);padding:14px 36px;text-decoration:none;cursor:none;transition:border-color .2s}
+.btn-ghost-w:hover{border-color:var(--g);color:var(--g)}
+
+/* Scrolling ticker at hero bottom */
+.hero-ticker{position:absolute;bottom:0;left:0;right:0;z-index:6;background:var(--g);overflow:hidden;padding:10px 0}
+.ht-track{display:inline-flex;animation:tick 18s linear infinite;white-space:nowrap}
+.ht-item{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--black);padding:0 32px;display:inline-flex;align-items:center;gap:16px}
+.ht-sep{color:rgba(0,0,0,.3)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══ FEED SECTION ══ */
+#s-feed{background:var(--black);padding:80px 0}
+.feed-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--g);padding:0 52px;margin-bottom:32px}
+.feed-row{display:flex;gap:12px;padding:0 52px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px}
+.feed-row::-webkit-scrollbar{height:2px}
+.feed-row::-webkit-scrollbar-thumb{background:var(--dim)}
+
+/* Post card — looks like an actual IG/TT post */
+.post{flex-shrink:0;width:280px;scroll-snap-align:start;background:var(--dim);position:relative;overflow:hidden;cursor:none}
+.post-img{width:100%;aspect-ratio:4/5;position:relative;overflow:hidden}
+.post-img-bg{position:absolute;inset:0;transition:transform .5s}
+.post:hover .post-img-bg{transform:scale(1.04)}
+.post-platform{position:absolute;top:10px;left:10px;font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 8px;z-index:2}
+.pp-ig{background:#E1306C;color:var(--w)}
+.pp-tt{background:#000;color:var(--w);border:1px solid #333}
+.pp-li{background:#0077B5;color:var(--w)}
+.pp-yt{background:#FF0000;color:var(--w)}
+.post-result{position:absolute;bottom:10px;right:10px;font-family:'DM Mono',monospace;font-size:13px;font-weight:400;color:var(--g);background:rgba(0,0,0,.75);padding:4px 10px;z-index:2}
+.post-body{padding:14px}
+.post-brand{font-size:13px;font-weight:600;color:var(--w);margin-bottom:4px}
+.post-stat{font-family:'DM Mono',monospace;font-size:10px;color:var(--grey)}
+.post-stat strong{color:var(--g)}
+
+/* ══ STATS DASHBOARD SECTION ══ */
+#s-stats{background:#0a0a0a;padding:80px 52px;border-top:1px solid var(--dim)}
+.dash-title{font-size:clamp(36px,5vw,72px);font-weight:700;letter-spacing:-.02em;line-height:.92;margin-bottom:52px}
+.dash-title em{font-style:normal;color:var(--g)}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--dim)}
+.dash-card{background:#0a0a0a;padding:36px 28px;position:relative;overflow:hidden;cursor:none}
+.dash-card:hover{background:#111}
+.dash-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.dc-g::before{background:var(--g)}
+.dc-p::before{background:var(--p)}
+.dc-b::before{background:var(--b)}
+.dc-y::before{background:var(--y)}
+.dash-num{font-size:clamp(44px,5vw,72px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.dc-g .dash-num{color:var(--g)}
+.dc-p .dash-num{color:var(--p)}
+.dc-b .dash-num{color:var(--b)}
+.dc-y .dash-num{color:var(--y)}
+.dash-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:8px}
+.dash-bar{height:2px;background:var(--dim);margin-top:20px;border-radius:1px;overflow:hidden}
+.dash-bar-fill{height:100%;border-radius:1px;animation:fillBar 2s var(--ease) .5s forwards;width:0}
+.dc-g .dash-bar-fill{background:var(--g);--target:94%}
+.dc-p .dash-bar-fill{background:var(--p);--target:78%}
+.dc-b .dash-bar-fill{background:var(--b);--target:88%}
+.dc-y .dash-bar-fill{background:var(--y);--target:65%}
+@keyframes fillBar{to{width:var(--target)}}
+
+/* ══ SERVICES — ANTI-GRID ══ */
+#s-services{padding:80px 52px;background:var(--black)}
+.svc-chaos{position:relative;min-height:600px}
+/* Overlapping service blocks */
+.svc-block{position:absolute;padding:32px;cursor:none;transition:z-index 0s,transform .3s}
+.svc-block:hover{z-index:10;transform:scale(1.03)}
+.sb1{top:0;left:0;width:42%;background:var(--g);color:var(--black)}
+.sb2{top:60px;left:36%;width:38%;background:#111;border:1px solid var(--dim);color:var(--w)}
+.sb3{top:180px;left:5%;width:35%;background:var(--p);color:var(--w)}
+.sb4{top:220px;right:0;width:40%;background:#0a0a0a;border:1px solid var(--g);color:var(--w)}
+.sb5{top:380px;left:20%;width:55%;background:#111;border:1px solid var(--dim);color:var(--w)}
+.svc-block-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;margin-bottom:10px;opacity:.5}
+.svc-block-title{font-size:clamp(18px,2vw,26px);font-weight:700;letter-spacing:-.01em;line-height:1.1;margin-bottom:8px}
+.svc-block-desc{font-size:12px;line-height:1.7;opacity:.75}
+.sb1 .svc-block-num,.sb1 .svc-block-title,.sb1 .svc-block-desc{color:var(--black)}
+
+/* ══ AI SECTION ══ */
+#s-ai{background:#0a0a0a;padding:80px 52px;border-top:1px solid var(--dim)}
+.ai-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.ai-left-title{font-size:clamp(36px,5vw,68px);font-weight:700;letter-spacing:-.02em;line-height:.9;margin-bottom:20px}
+.ai-left-title em{font-style:normal;color:var(--g)}
+.ai-left p{font-size:14px;color:var(--grey);line-height:1.8}
+.ai-box{background:#111;border:1px solid var(--dim);position:relative;overflow:hidden}
+.ai-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g),var(--p),var(--b))}
+.ai-box-hd{padding:14px 18px;border-bottom:1px solid var(--dim);display:flex;align-items:center;justify-content:space-between}
+.ai-box-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g);display:flex;align-items:center;gap:8px}
+.ai-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.ai-beta-tag{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.15em;color:var(--grey)}
+.ai-body{padding:18px}
+.ai-field-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);display:block;margin-bottom:8px}
+.ai-plats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ai-plat{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);border:1px solid var(--dim);padding:6px 12px;cursor:none;transition:all .15s;background:none}
+.ai-plat:hover{border-color:var(--g);color:var(--g)}
+.ai-plat.sel{border-color:var(--g);color:var(--black);background:var(--g)}
+.ai-sel,.ai-inp{width:100%;background:rgba(255,255,255,.04);border:none;border-bottom:1px solid var(--dim);color:var(--w);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:300;padding:9px 0;outline:none;transition:border-color .2s;-webkit-appearance:none;margin-bottom:12px}
+.ai-sel:focus,.ai-inp:focus{border-bottom-color:var(--g)}
+.ai-sel option{background:#111}
+.ai-inp::placeholder{color:#888}
+.ai-go{width:100%;margin-top:8px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--black);background:var(--g);border:none;padding:13px;cursor:none;transition:background .15s}
+.ai-go:hover{background:#00e077}
+.ai-loading{display:none;padding:14px 18px;border-top:1px solid var(--dim);align-items:center;gap:8px}
+.ai-loading.show{display:flex}
+.ld{width:4px;height:4px;border-radius:50%;background:var(--g);animation:ldot 1.2s ease-in-out infinite}
+.ld:nth-child(2){animation-delay:.15s}.ld:nth-child(3){animation-delay:.3s}
+@keyframes ldot{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+.ai-result{display:none;padding:14px 18px;border-top:1px solid var(--dim);background:rgba(0,255,136,.04)}
+.ai-result.show{display:block}
+.ai-result-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:8px}
+.ai-result-body{font-size:12px;color:#aaa;line-height:1.8}
+.ai-result-body strong{color:var(--w);font-weight:500}
+.ai-reset{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:none;margin-top:10px;display:block;transition:color .15s}
+.ai-reset:hover{color:var(--g)}
+
+/* ══ TESTIMONIALS — BOLD ══ */
+#s-testi{background:var(--black);padding:80px 52px}
+.testi-chaos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--dim)}
+.tc{background:var(--black);padding:40px 28px;cursor:none;transition:background .2s;position:relative}
+.tc:hover{background:#0d0d0d}
+.tc-metric{font-size:clamp(48px,6vw,80px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.tc:nth-child(1) .tc-metric{color:var(--g)}
+.tc:nth-child(2) .tc-metric{color:var(--p)}
+.tc:nth-child(3) .tc-metric{color:var(--b)}
+.tc-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-bottom:20px}
+.tc-quote{font-size:14px;color:#ccc;line-height:1.7;margin-bottom:24px;font-weight:300}
+.tc-author{font-size:11px;font-weight:600;color:var(--w)}
+.tc-role{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--grey)}
+
+/* ══ FORM PAGE ══ */
+#page-start .snap{background:var(--black);padding:100px 52px 80px;display:flex;align-items:center}
+.start-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;width:100%}
+.sl-title{font-size:clamp(44px,6vw,88px);font-weight:700;letter-spacing:-.03em;line-height:.88;margin-bottom:20px}
+.sl-title em{font-style:normal;color:var(--g)}
+.sl-sub{font-size:15px;color:var(--grey);line-height:1.8;margin-bottom:28px}
+.sl-promises{display:flex;flex-direction:column;gap:10px}
+.sl-p{font-size:12px;color:var(--grey);display:flex;align-items:center;gap:10px}
+.sl-p::before{content:'✓';color:var(--g);font-weight:700;font-size:11px}
+.form-box{background:#0d0d0d;border:1px solid var(--dim);position:relative;overflow:hidden}
+.form-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g),var(--p),var(--b),var(--y))}
+.fb-steps{display:flex;border-bottom:1px solid var(--dim)}
+.fb-step{flex:1;padding:12px 8px;border-right:1px solid var(--dim);position:relative}
+.fb-step:last-child{border-right:none}
+.fb-step-n{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.2em;color:var(--grey);margin-bottom:2px}
+.fb-step-l{font-size:9px;letter-spacing:.08em;color:var(--grey)}
+.fb-step.act .fb-step-l{color:var(--w)}
+.fb-step.done .fb-step-l{color:var(--g)}
+.fb-step::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--g);transform:scaleX(0);transition:transform .3s}
+.fb-step.act::after,.fb-step.done::after{transform:scaleX(1)}
+.fb-panel{display:none;padding:24px 20px}
+.fb-panel.act{display:block;animation:fuA .3s ease forwards}
+@keyframes fuA{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fb-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);display:block;margin-bottom:7px}
+.fb-input,.fb-select,.fb-textarea{width:100%;background:rgba(255,255,255,.04);border:none;border-bottom:1px solid var(--dim);color:var(--w);font-family:'Space Grotesk',sans-serif;font-size:13px;padding:9px 0;outline:none;transition:border-color .2s;-webkit-appearance:none;margin-bottom:16px}
+.fb-input:focus,.fb-select:focus,.fb-textarea:focus{border-bottom-color:var(--g)}
+.fb-select option{background:#111}
+.fb-textarea{resize:none;height:80px;border:1px solid var(--dim);padding:10px;margin-top:2px}
+.fb-textarea:focus{border-color:rgba(0,255,136,.3)}
+.fb-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fb-budgets{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.fb-bopt{padding:11px 14px;border:1px solid var(--dim);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);cursor:none;transition:all .15s;background:none;text-align:left;display:flex;justify-content:space-between;align-items:center}
+.fb-bopt:hover{border-color:rgba(0,255,136,.4);color:var(--w)}
+.fb-bopt.sel{border-color:var(--g);color:var(--g);background:rgba(0,255,136,.06)}
+.fb-nav{display:flex;justify-content:space-between;align-items:center;margin-top:4px;padding-top:16px;border-top:1px solid var(--dim)}
+.fb-back{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:none;transition:color .15s}
+.fb-back:hover{color:var(--g)}
+.fb-next,.fb-sub{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--black);background:var(--g);border:none;padding:11px 24px;cursor:none;transition:background .15s}
+.fb-next:hover,.fb-sub:hover{background:#00e077}
+.fb-win{display:none;text-align:center;padding:52px 20px}
+.fb-win.show{display:block;animation:fuA .4s ease forwards}
+.fb-win-icon{font-size:40px;margin-bottom:16px}
+.fb-win-h{font-size:36px;font-weight:700;letter-spacing:-.02em;color:var(--w);margin-bottom:10px}
+.fb-win-h em{font-style:normal;color:var(--g)}
+.fb-win-p{font-size:13px;color:var(--grey);line-height:1.8;max-width:280px;margin:0 auto 20px}
+.fb-win-ref{font-family:'DM Mono',monospace;font-size:9px;color:#888;border:1px solid var(--dim);padding:7px 18px;display:inline-block}
+/* GHL WEBHOOK: POST to client webhook on submit */
+
+/* FOOTER */
+footer{background:#060606;border-top:1px solid var(--dim);padding:52px 52px 28px}
+.f-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;gap:32px;flex-wrap:wrap}
+.f-logo{font-size:22px;font-weight:700;color:var(--w);margin-bottom:8px}
+.f-logo span{color:var(--g)}
+.f-tagline{font-size:12px;color:var(--grey)}
+.f-links-group{display:flex;gap:52px;flex-wrap:wrap}
+.f-col{}
+.f-col-title{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--grey);margin-bottom:14px}
+.f-col-links{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-col-links a{font-size:12px;color:var(--grey);text-decoration:none;cursor:none;transition:color .15s}
+.f-col-links a:hover{color:var(--g)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--dim);flex-wrap:wrap;gap:8px}
+.f-legal{font-family:'DM Mono',monospace;font-size:8px;color:#666}
+
+/* SHARED */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  html{scroll-snap-type:none}
+  body{cursor:auto}
+  #X{display:none !important}
+  nav{top:12px;padding:6px 6px 6px 16px;max-width:calc(100vw - 24px)}
+  .n-links{display:none}
+  .n-cta{display:none}
+  .ham{display:flex !important}
+  #s-hero{padding-bottom:50px}
+  .hero-content{padding:0 20px}
+  .hero-big{font-size:clamp(52px,13vw,90px)}
+  .hero-big.line2{margin-left:16px}
+  .hero-big.line3{margin-left:32px}
+  .notif{display:none}
+  #s-feed{padding:52px 0}
+  .feed-label{padding:0 20px}
+  .feed-row{padding:0 20px;gap:10px}
+  .post{width:220px}
+  #s-stats{padding:52px 20px}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .dash-card{padding:24px 16px}
+  #s-services{padding:52px 20px}
+  .svc-chaos{min-height:900px}
+  .svc-block{position:relative !important;width:100% !important;top:auto !important;left:auto !important;right:auto !important;margin-bottom:8px}
+  .svc-chaos{display:flex;flex-direction:column;min-height:auto}
+  #s-ai{padding:52px 20px}
+  .ai-layout{grid-template-columns:1fr}
+  #s-testi{padding:52px 20px}
+  .testi-chaos{grid-template-columns:1fr}
+  .tc{padding:32px 20px}
+  #page-start .snap{padding:80px 20px 60px}
+  .start-layout{grid-template-columns:1fr}
+  .fb-panel{padding:18px 14px}
+  .fb-row{grid-template-columns:1fr}
+  footer{padding:40px 20px 24px}
+  .f-top{flex-direction:column}
+  .f-links-group{gap:28px}
+  a,button{cursor:auto !important}
+}
+@media(max-width:480px){
+  .hero-big{font-size:clamp(40px,12vw,68px)}
+  .hero-big.line2{margin-left:8px}
+  .hero-big.line3{margin-left:16px}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .testi-chaos{grid-template-columns:1fr}
+  .f-bot{flex-direction:column;align-items:flex-start}
+}
+
+@media(max-width:768px){
+  .svc-row{grid-template-columns:36px 1fr !important;gap:16px !important;padding:40px 20px !important}
+  .svc-row > div:last-child{display:none !important}
+  #page-work [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+  #page-about [style*="grid-template-columns:1fr 1fr"]:first-child{grid-template-columns:1fr !important;min-height:auto !important}
+  #page-about [style*="padding:140px 52px"]{padding:100px 20px 60px !important;border-right:none !important}
+  #page-work [style*="padding:28px 32px"]{padding:20px !important}
+  #page-work [style*="padding:140px 52px"]{padding:100px 20px 60px !important}
+  #page-services [style*="padding:140px 52px"]{padding:100px 20px 60px !important}
+  #page-services [style*="padding:64px 52px"]{padding:40px 20px !important}
+}
+</style>
+</head>
+<body>
+<div id="X"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="n-logo" onclick="sp('home');return false"><span>VOLT</span></a>
+  <ul class="n-links">
+    <li><a href="#" onclick="sp('work');return false" data-p="work">Work</a></li>
+    <li><a href="#" onclick="sp('services');return false" data-p="services">Services</a></li>
+    <li><a href="#" onclick="sp('about');return false" data-p="about">About</a></li>
+    <li><a href="#" onclick="sp('start');return false" data-p="start">Start</a></li>
+  </ul>
+  <a href="#" class="n-cta" onclick="sp('start');return false">Let's Go →</a>
+  <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#" onclick="sp('work');closeMob();return false">Work</a>
+  <a href="#" onclick="sp('services');closeMob();return false">Services</a>
+  <a href="#" onclick="sp('about');closeMob();return false">About</a>
+  <a href="#" onclick="sp('start');closeMob();return false">Start a Project</a>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page act" id="page-home">
+
+  <!-- HERO -->
+  <section class="snap" id="s-hero">
+    <div class="hero-bg-img"></div>
+    <div class="hero-noise"></div>
+
+    <!-- Floating notifications -->
+    <div class="notif n1"><div class="notif-icon" style="background:#E1306C">📸</div><div class="notif-text"><strong>@fitcore_official</strong><br><span>+12,400 followers today</span></div></div>
+    <div class="notif n2"><div class="notif-icon" style="background:#000;border:1px solid #333">🎵</div><div class="notif-text"><strong>TikTok · Lumé Skincare</strong><br><span>140M views this week</span></div></div>
+    <div class="notif n3"><div class="notif-icon" style="background:#0077B5">💼</div><div class="notif-text"><strong>LinkedIn · Nexus SaaS</strong><br><span>220% pipeline growth ↑</span></div></div>
+    <div class="notif n4"><div class="notif-icon" style="background:#FF4444">📊</div><div class="notif-text"><strong>Meta Ads · Ember Kitchen</strong><br><span>18x ROAS this month</span></div></div>
+
+    <div class="hero-content">
+      <div class="hero-tag" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--g);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0;animation:fuA .5s ease .1s forwards"><span style="width:24px;height:1px;background:var(--g);display:block"></span>Full-Service Social Media Agency</div>
+      <div>
+        <span class="hero-big line1">WE MAKE</span>
+        <span class="hero-big line2">BRANDS</span>
+        <span class="hero-big line3" style="color:var(--g)">BLOW UP.</span>
+      </div>
+      <div class="hero-sub-row" style="opacity:0;animation:fuA .7s ease .4s forwards">
+        <span class="hero-pill hp-g">Strategy</span>
+        <span class="hero-pill hp-p">Content</span>
+        <span class="hero-pill hp-b">Paid Ads</span>
+        <span style="font-size:12px;color:var(--grey)">+ Influencer Marketing</span>
+      </div>
+      <div class="hero-cta-row" style="opacity:0;animation:fuA .7s ease .6s forwards">
+        <a href="#" class="btn-g" onclick="sp('start');return false">Start a Project</a>
+        <a href="#" class="btn-ghost-w" onclick="sp('work');return false">See Our Work →</a>
+      </div>
+    </div>
+
+    <!-- Green ticker at bottom -->
+    <div class="hero-ticker">
+      <div class="ht-track">
+        <span class="ht-item">340+ Brands Grown <span class="ht-sep">·</span></span>
+        <span class="ht-item">4.2B Impressions Delivered <span class="ht-sep">·</span></span>
+        <span class="ht-item">12x Average ROAS <span class="ht-sep">·</span></span>
+        <span class="ht-item">94% Client Retention <span class="ht-sep">·</span></span>
+        <span class="ht-item">Instagram · TikTok · LinkedIn · YouTube · Meta Ads <span class="ht-sep">·</span></span>
+        <span class="ht-item">340+ Brands Grown <span class="ht-sep">·</span></span>
+        <span class="ht-item">4.2B Impressions Delivered <span class="ht-sep">·</span></span>
+        <span class="ht-item">12x Average ROAS <span class="ht-sep">·</span></span>
+        <span class="ht-item">94% Client Retention <span class="ht-sep">·</span></span>
+        <span class="ht-item">Instagram · TikTok · LinkedIn · YouTube · Meta Ads <span class="ht-sep">·</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEED -->
+  <section class="snap" id="s-feed" style="min-height:auto;padding:80px 0">
+    <div class="feed-label">Recent Client Results — Scroll to explore →</div>
+    <div class="feed-row">
+      <div class="post reveal">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?fitness+workout+gym+lifestyle') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-ig">Instagram</div><div class="post-result">+890%</div></div>
+        <div class="post-body"><div class="post-brand">FitCore Athletics</div><div class="post-stat">12K → <strong>890K followers</strong> in 8 months</div></div>
+      </div>
+      <div class="post reveal d1">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?food+restaurant+plating') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-ig" style="background:#1877F2">Facebook</div><div class="post-result">18x ROAS</div></div>
+        <div class="post-body"><div class="post-brand">Ember Kitchen</div><div class="post-stat"><strong>$2.1M</strong> attributed revenue</div></div>
+      </div>
+      <div class="post reveal d2">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?skincare+beauty+product+tiktok') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-tt">TikTok</div><div class="post-result">140M views</div></div>
+        <div class="post-body"><div class="post-brand">Lumé Skincare</div><div class="post-stat"><strong>340%</strong> sales increase at launch</div></div>
+      </div>
+      <div class="post reveal d3">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?technology+saas+startup+office') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-li">LinkedIn</div><div class="post-result">220% pipeline</div></div>
+        <div class="post-body"><div class="post-brand">Nexus SaaS</div><div class="post-stat"><strong>4.1M</strong> video views · $180 CPL</div></div>
+      </div>
+      <div class="post reveal">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?ecommerce+fashion+instagram') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-ig">Instagram</div><div class="post-result">+540K</div></div>
+        <div class="post-body"><div class="post-brand">Veyra Fashion</div><div class="post-stat">0 → <strong>540K followers</strong> in 6 months</div></div>
+      </div>
+      <div class="post reveal d1">
+        <div class="post-img"><div class="post-img-bg" style="position:absolute;inset:0;background:url('https://source.unsplash.com/400x500/?youtube+creator+video+production') center/cover no-repeat;filter:brightness(.7) saturate(.8)"></div><div class="post-platform pp-yt">YouTube</div><div class="post-result">2.8M subs</div></div>
+        <div class="post-body"><div class="post-brand">BuildRight Homes</div><div class="post-stat">220K → <strong>2.8M subscribers</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS DASHBOARD -->
+  <section class="snap" id="s-stats" style="min-height:auto">
+    <h2 class="dash-title reveal">The Numbers<br>We <em>Actually</em> Care About</h2>
+    <div class="dash-grid">
+      <div class="dash-card dc-g reveal"><div class="dash-num">340<span style="font-size:.6em;opacity:.6">+</span></div><div class="dash-lbl">Brands Grown</div><div class="dash-bar"><div class="dash-bar-fill"></div></div></div>
+      <div class="dash-card dc-p reveal d1"><div class="dash-num">4.2<span style="font-size:.6em;opacity:.6">B</span></div><div class="dash-lbl">Impressions Delivered</div><div class="dash-bar"><div class="dash-bar-fill"></div></div></div>
+      <div class="dash-card dc-b reveal d2"><div class="dash-num">12<span style="font-size:.6em;opacity:.6">x</span></div><div class="dash-lbl">Avg ROAS — Paid Social</div><div class="dash-bar"><div class="dash-bar-fill"></div></div></div>
+      <div class="dash-card dc-y reveal d3"><div class="dash-num">94<span style="font-size:.6em;opacity:.6">%</span></div><div class="dash-lbl">Client Retention Rate</div><div class="dash-bar"><div class="dash-bar-fill"></div></div></div>
+    </div>
+  </section>
+
+  <!-- SERVICES CHAOS -->
+  <section class="snap" id="s-services" style="min-height:auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:12px">What We Do</div>
+        <h2 style="font-size:clamp(36px,5vw,68px);font-weight:700;letter-spacing:-.02em;line-height:.92">Everything.<br>Under One Roof.</h2>
+      </div>
+      <a href="#" class="btn-g" onclick="sp('start');return false" style="align-self:flex-end">Get a Proposal →</a>
+    </div>
+    <div class="svc-chaos">
+      <div class="svc-block sb1"><div class="svc-block-num">01</div><div class="svc-block-title">Social Media Strategy</div><p class="svc-block-desc">Data-driven strategy built around your goals. Platform audit, content pillars, 90-day roadmap. We don't post and pray.</p></div>
+      <div class="svc-block sb2"><div class="svc-block-num">02</div><div class="svc-block-title">Content Creation</div><p class="svc-block-desc">Reels, TikToks, carousels, short-form video — all in-house. Content that stops the scroll and actually converts.</p></div>
+      <div class="svc-block sb3"><div class="svc-block-num">03</div><div class="svc-block-title">Paid Social Ads</div><p class="svc-block-desc">Meta, TikTok, YouTube, LinkedIn. Certified buyers who treat your budget like their own. Avg 12x ROAS.</p></div>
+      <div class="svc-block sb4"><div class="svc-block-num">04</div><div class="svc-block-title">Influencer Marketing</div><p class="svc-block-desc">2,400+ vetted creators. Full campaign management from brief to performance report. Nano to macro.</p></div>
+      <div class="svc-block sb5"><div class="svc-block-num">→</div><div class="svc-block-title">Full-Service Package</div><p class="svc-block-desc">All four disciplines working together — strategy informs content, content feeds ads, ads amplify influencer. The compounding effect is real.</p></div>
+    </div>
+  </section>
+
+  <!-- AI TOOL -->
+  <section class="snap" id="s-ai" style="min-height:auto">
+    <div class="ai-layout">
+      <div class="ai-left">
+        <h2 class="ai-left-title reveal">Get Your<br>30-Day Plan.<br><em>Right Now.</em></h2>
+        <p class="reveal d1">Pick your platform, set your goal, tell us your niche. Our AI builds a custom content strategy in seconds — the same framework our strategists charge $1,500/mo for.</p>
+      </div>
+      <div class="ai-box reveal d1">
+        <div class="ai-box-hd">
+          <div class="ai-box-title"><span class="ai-dot"></span>VOLT AI — Strategy Builder</div>
+          <div class="ai-beta-tag">BETA · Testing Mode</div>
+        </div>
+        <div class="ai-body">
+          <label class="ai-field-label">Platform</label>
+          <div class="ai-plats">
+            <button class="ai-plat" onclick="selP(this,'Instagram')">Instagram</button>
+            <button class="ai-plat" onclick="selP(this,'TikTok')">TikTok</button>
+            <button class="ai-plat" onclick="selP(this,'LinkedIn')">LinkedIn</button>
+            <button class="ai-plat" onclick="selP(this,'YouTube')">YouTube</button>
+            <button class="ai-plat" onclick="selP(this,'Facebook')">Facebook</button>
+          </div>
+          <label class="ai-field-label">Goal</label>
+          <select class="ai-sel" id="aiG">
+            <option value="">Select...</option>
+            <option>Grow followers fast</option>
+            <option>Drive website traffic</option>
+            <option>Generate leads</option>
+            <option>Boost e-commerce sales</option>
+            <option>Build brand awareness</option>
+          </select>
+          <label class="ai-field-label">Your niche / industry</label>
+          <input class="ai-inp" type="text" id="aiN" placeholder="e.g. fitness, restaurant, SaaS...">
+          <button class="ai-go" onclick="genS()">Build My Strategy →</button>
+        </div>
+        <div class="ai-loading" id="aiL"><div class="ld"></div><div class="ld"></div><div class="ld"></div><span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--grey);margin-left:8px">Building...</span></div>
+        <div class="ai-result" id="aiR">
+          <div class="ai-result-tag">Your 30-Day Strategy</div>
+          <div class="ai-result-body" id="aiRT"></div>
+          <button class="ai-reset" onclick="resetS()">← Start over</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="snap" id="s-testi" style="min-height:auto">
+    <div style="margin-bottom:44px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:12px">Client Results</div>
+      <h2 style="font-size:clamp(36px,5vw,68px);font-weight:700;letter-spacing:-.02em;line-height:.92">Numbers Don't Lie.</h2>
+    </div>
+    <div class="testi-chaos">
+      <div class="tc reveal"><div class="tc-metric">+890%</div><div class="tc-lbl">Follower Growth</div><p class="tc-quote">"VOLT took us from local brand nobody knew to a social powerhouse with a national audience. Content quality alone is worth 10x what we pay."</p><div class="tc-author">Jake Morrison</div><div class="tc-role">CEO — FitCore Athletics</div></div>
+      <div class="tc reveal d1"><div class="tc-metric">$2.1M</div><div class="tc-lbl">Revenue Attributed</div><p class="tc-quote">"18x ROAS. I didn't believe those numbers were possible until VOLT proved it. Their paid team is the best I've worked with in 12 years."</p><div class="tc-author">Sarah Chen</div><div class="tc-role">Owner — Ember Kitchen Group</div></div>
+      <div class="tc reveal d2"><div class="tc-metric">140M</div><div class="tc-lbl">Campaign Views</div><p class="tc-quote">"The influencer campaign they ran for our launch was beyond anything we imagined. 140 million views in 6 weeks. We sold out three times."</p><div class="tc-author">Aisha Patel</div><div class="tc-role">Founder — Lumé Skincare</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="f-top">
+      <div><div class="f-logo"><span>VOLT</span> Social</div><div class="f-tagline">We make brands impossible to ignore.</div></div>
+      <div class="f-links-group">
+        <div class="f-col"><div class="f-col-title">Services</div><ul class="f-col-links"><li><a href="#" onclick="sp('services');return false">Strategy</a></li><li><a href="#" onclick="sp('services');return false">Content</a></li><li><a href="#" onclick="sp('services');return false">Paid Ads</a></li><li><a href="#" onclick="sp('services');return false">Influencer</a></li></ul></div>
+        <div class="f-col"><div class="f-col-title">Company</div><ul class="f-col-links"><li><a href="#" onclick="sp('work');return false">Work</a></li><li><a href="#" onclick="sp('about');return false">About</a></li><li><a href="#" onclick="sp('start');return false">Start a Project</a></li></ul></div>
+        <div class="f-col"><div class="f-col-title">Contact</div><ul class="f-col-links"><li><a href="tel:[Phone]">[Phone]</a></li><li><a href="mailto:[Email]">[Email]</a></li><li><a href="#">Florida, USA</a></li></ul></div>
+      </div>
+    </div>
+    <div class="f-bot"><div class="f-legal">© 2025 VOLT Social. All Rights Reserved.</div><div class="f-legal">Powered by ARC Affiliates</div></div>
+  </footer>
+</div>
+
+<!-- ══════════ START PROJECT ══════════ -->
+<div class="page" id="page-start">
+  <section class="snap">
+    <div class="start-layout">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--g);margin-bottom:16px">Start a Project</div>
+        <h1 class="sl-title">Let's Build<br>Something <em>Big.</em></h1>
+        <p class="sl-sub">Tell us about your brand. We come back within 24 hours with a custom proposal — no templates, no fluff.</p>
+        <div class="sl-promises">
+          <div class="sl-p">Response within 24 hours</div>
+          <div class="sl-p">Custom proposal, not a template</div>
+          <div class="sl-p">No long-term contracts required</div>
+          <div class="sl-p">Cancel anytime — 30 days notice</div>
+        </div>
+      </div>
+      <div class="form-box">
+        <div class="fb-steps" id="fbSteps">
+          <div class="fb-step act" data-s="1"><div class="fb-step-n">01</div><div class="fb-step-l">You</div></div>
+          <div class="fb-step" data-s="2"><div class="fb-step-n">02</div><div class="fb-step-l">Goals</div></div>
+          <div class="fb-step" data-s="3"><div class="fb-step-n">03</div><div class="fb-step-l">Budget</div></div>
+          <div class="fb-step" data-s="4"><div class="fb-step-n">04</div><div class="fb-step-l">Done</div></div>
+        </div>
+        <!-- GHL WEBHOOK: POST to client webhook URL on submit -->
+        <div class="fb-panel act" id="fbp1">
+          <div class="fb-row"><div><label class="fb-label">First Name</label><input class="fb-input" type="text" id="fbfn" placeholder="Your name"></div><div><label class="fb-label">Last Name</label><input class="fb-input" type="text" id="fbln"></div></div>
+          <label class="fb-label">Email</label><input class="fb-input" type="email" id="fbem" placeholder="you@brand.com">
+          <label class="fb-label">Brand / Company</label><input class="fb-input" type="text" id="fbco" placeholder="Brand name">
+          <div class="fb-nav"><div></div><button class="fb-next" onclick="fbN(2)">Next →</button></div>
+        </div>
+        <div class="fb-panel" id="fbp2">
+          <label class="fb-label">Primary Goal</label>
+          <select class="fb-select" style="margin-bottom:14px"><option>Grow social following</option><option>Drive e-commerce sales</option><option>Generate leads</option><option>Launch a product</option><option>All of the above</option></select>
+          <label class="fb-label">Services Needed</label>
+          <select class="fb-select" style="margin-bottom:14px"><option>Strategy only</option><option>Content creation</option><option>Paid advertising</option><option>Influencer marketing</option><option>Full-service</option></select>
+          <label class="fb-label">Tell us more</label>
+          <textarea class="fb-textarea" placeholder="What's not working? What does success look like?"></textarea>
+          <div class="fb-nav"><button class="fb-back" onclick="fbN(1)">← Back</button><button class="fb-next" onclick="fbN(3)">Next →</button></div>
+        </div>
+        <div class="fb-panel" id="fbp3">
+          <label class="fb-label" style="margin-bottom:10px">Monthly Budget</label>
+          <div class="fb-budgets">
+            <button class="fb-bopt" onclick="fbSelB(this)"><span>Starter</span><span>$1.5K – $3K/mo</span></button>
+            <button class="fb-bopt" onclick="fbSelB(this)"><span>Growth</span><span>$3K – $7.5K/mo</span></button>
+            <button class="fb-bopt" onclick="fbSelB(this)"><span>Scale</span><span>$7.5K – $15K/mo</span></button>
+            <button class="fb-bopt" onclick="fbSelB(this)"><span>Enterprise</span><span>$15K+/mo</span></button>
+          </div>
+          <div class="fb-nav"><button class="fb-back" onclick="fbN(2)">← Back</button><button class="fb-next" onclick="fbN(4)">Next →</button></div>
+        </div>
+        <div class="fb-panel" id="fbp4">
+          <div style="background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);padding:16px;margin-bottom:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;color:var(--g);margin-bottom:12px">SUMMARY</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.18em;color:var(--grey);margin-bottom:3px">NAME</div><div id="fbCN" style="font-size:14px;font-weight:600">—</div></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.18em;color:var(--grey);margin-bottom:3px">EMAIL</div><div id="fbCE" style="font-size:12px;color:var(--grey)">—</div></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.18em;color:var(--grey);margin-bottom:3px">BRAND</div><div id="fbCC" style="font-size:12px;color:var(--grey)">—</div></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.18em;color:var(--grey);margin-bottom:3px">BUDGET</div><div id="fbCB" style="font-size:12px;color:var(--g)">—</div></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:4px">
+            <input type="checkbox" id="fbCons" style="width:13px;height:13px;accent-color:var(--g);cursor:pointer;margin-top:2px;flex-shrink:0">
+            <label for="fbCons" style="font-size:10px;color:var(--grey);line-height:1.6;cursor:pointer">I agree to be contacted. We never share your info.</label>
+          </div>
+          <div class="fb-nav"><button class="fb-back" onclick="fbN(3)">← Back</button><button class="fb-sub" onclick="fbSub()">Submit →</button></div>
+          <div class="fb-win" id="fbWin">
+            <div class="fb-win-icon">⚡</div>
+            <h2 class="fb-win-h">You're <em>In.</em></h2>
+            <p class="fb-win-p">Your brief is received. A senior VOLT strategist will hit you back within 24 hours.</p>
+            <div class="fb-win-ref" id="fbRef">REF: VOLT-000000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// CURSOR
+var X=document.getElementById('X');
+document.addEventListener('mousemove',function(e){X.style.left=e.clientX+'px';X.style.top=e.clientY+'px'});
+document.addEventListener('mouseleave',function(){X.classList.add('hidden')});
+document.addEventListener('mouseenter',function(){X.classList.remove('hidden')});
+document.querySelectorAll('a,button,select,input,textarea').forEach(function(el){
+  el.addEventListener('mouseenter',function(){X.classList.add('big')});
+  el.addEventListener('mouseleave',function(){X.classList.remove('big')});
+});
+
+// NAV
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('s',scrollY>60)});
+
+// REVEAL
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// PAGES
+function sp(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('act')});
+  document.getElementById('page-'+id).classList.add('act');
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(function(){
+    document.querySelectorAll('#page-'+id+' .reveal:not(.in)').forEach(function(el){obs.observe(el)});
+  },50);
+}
+
+// MOBILE NAV
+function toggleMob(){document.getElementById('ham').classList.toggle('open');document.getElementById('mobNav').classList.toggle('open')}
+function closeMob(){document.getElementById('ham').classList.remove('open');document.getElementById('mobNav').classList.remove('open')}
+
+// SCROLL TO SECTION
+function goTo(id){
+  sp('home');
+  setTimeout(function(){
+    var el=document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  },50);
+}
+
+// AI STRATEGY
+var selPlat='';
+function selP(btn,p){document.querySelectorAll('.ai-plat').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel');selPlat=p}
+
+async function genS(){
+  var goal=document.getElementById('aiG').value;
+  var niche=document.getElementById('aiN').value.trim();
+  document.getElementById('aiL').classList.add('show');
+  document.getElementById('aiR').classList.remove('show');
+  var p=selPlat||'Instagram';
+  var prompt='You are a senior social media strategist. Give a tight 30-day content strategy for:\nPlatform: '+p+'\nGoal: '+(goal||'grow following')+'\nNiche: '+(niche||'business')+'\n\nProvide: 3 content pillars, ideal posting frequency, 1 week-1 quick win, 1 primary metric to track. Use **bold** for key terms. Max 120 words. Be direct and specific.';
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompt}]})});
+    var data=await res.json();
+    document.getElementById('aiL').classList.remove('show');
+    document.getElementById('aiRT').innerHTML=data.content[0].text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    document.getElementById('aiR').classList.add('show');
+  }catch(e){
+    document.getElementById('aiL').classList.remove('show');
+    var fb={'Instagram':'<strong>Pillars:</strong> Educational carousels (3x/wk) · Behind-the-scenes Reels (2x/wk) · Social proof (1x/wk).<br><strong>Frequency:</strong> 6x/week + daily Stories.<br><strong>Week 1 Quick Win:</strong> Post a Reel with trending audio showing your best result — hook in first 2 seconds.<br><strong>Track:</strong> Reel saves & shares.','TikTok':'<strong>Pillars:</strong> Educational "did you know" (4x/wk) · Trending sound + your twist (2x/wk) · Authentic moments (1x/wk).<br><strong>Frequency:</strong> 1–2x/day.<br><strong>Week 1 Quick Win:</strong> Stitch a viral creator in your niche with your take.<br><strong>Track:</strong> Watch time % — aim 60%+.','LinkedIn':'<strong>Pillars:</strong> Thought leadership essays (2x/wk) · Data + your commentary (2x/wk) · Personal story + lesson (1x/wk).<br><strong>Frequency:</strong> 5x/week.<br><strong>Week 1 Quick Win:</strong> Write a contrarian take on a common belief in your industry.<br><strong>Track:</strong> Profile views.'};
+    document.getElementById('aiRT').innerHTML=(fb[p]||fb['Instagram'])+'<br><br><em style="font-size:10px;opacity:.4">Beta · Book a strategy call for your full custom plan</em>';
+    document.getElementById('aiR').classList.add('show');
+  }
+}
+function resetS(){document.querySelectorAll('.ai-plat').forEach(function(b){b.classList.remove('sel')});document.getElementById('aiG').value='';document.getElementById('aiN').value='';selPlat='';document.getElementById('aiR').classList.remove('show')}
+
+// SERVICE ROW HOVER
+document.querySelectorAll('.svc-row').forEach(function(row){
+  var bar=row.querySelector('div[style*="scaleY(0)"]');
+  row.addEventListener('mouseenter',function(){if(bar)bar.style.transform='scaleY(1)'});
+  row.addEventListener('mouseleave',function(){if(bar)bar.style.transform='scaleY(0)'});
+  row.addEventListener('mouseenter',function(){row.style.background='rgba(255,255,255,.02)'});
+  row.addEventListener('mouseleave',function(){row.style.background=''});
+});
+
+// WORK CARD HOVER
+document.querySelectorAll('.work-full-card').forEach(function(card){
+  var img=card.querySelector('div[style*="transition:transform"]');
+  card.addEventListener('mouseenter',function(){if(img)img.style.transform='scale(1.05)'});
+  card.addEventListener('mouseleave',function(){if(img)img.style.transform='scale(1)'});
+});
+
+// FORM
+var fbBudget='';
+function fbSelB(btn){document.querySelectorAll('.fb-bopt').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel');fbBudget=btn.querySelector('span:first-child').textContent}
+function fbN(n){
+  document.querySelectorAll('.fb-panel').forEach(function(p){p.classList.remove('act')});
+  document.querySelectorAll('.fb-step').forEach(function(s,i){s.classList.remove('act','done');if(i<n-1)s.classList.add('done');else if(i===n-1)s.classList.add('act')});
+  document.getElementById('fbp'+n).classList.add('act');
+  if(n===4)fbConfirm();
+  document.querySelector('.form-box').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function fbConfirm(){
+  document.getElementById('fbCN').textContent=(document.getElementById('fbfn').value||'—')+' '+(document.getElementById('fbln').value||'');
+  document.getElementById('fbCE').textContent=document.getElementById('fbem').value||'—';
+  document.getElementById('fbCC').textContent=document.getElementById('fbco').value||'—';
+  document.getElementById('fbCB').textContent=fbBudget||'Not selected';
+}
+function fbSub(){
+  document.querySelectorAll('#fbp4 > *:not(.fb-win)').forEach(function(el){el.style.display='none'});
+  var w=document.getElementById('fbWin');w.classList.add('show');
+  document.getElementById('fbRef').textContent='REF: VOLT-'+Math.random().toString(36).substr(2,6).toUpperCase();
+}
+</script>
+
+<!-- ══════════ WORK ══════════ -->
+<div class="page" id="page-work">
+  <div style="padding:140px 52px 80px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20%;right:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.07) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:16px">Our Work</div>
+    <h1 style="font-size:clamp(52px,8vw,110px);font-weight:700;letter-spacing:-.03em;line-height:.88;margin-bottom:24px">Proof Over<br><span style="color:var(--g)">Promises.</span></h1>
+    <p style="font-size:15px;color:var(--grey);max-width:480px;line-height:1.8">Real campaigns. Real brands. Real numbers. Here's what happens when strategy, content, ads, and influencers work together.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dim)">
+    <!-- FitCore -->
+    <div style="background:#0a0a0a;cursor:none;overflow:hidden;position:relative" class="work-full-card">
+      <div style="width:100%;aspect-ratio:16/9;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:url('https://source.unsplash.com/800x450/?fitness+gym+athlete+dark') center/cover no-repeat;filter:brightness(.45) saturate(.7);transition:transform .6s"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.95),transparent 60%)"></div>
+        <div style="position:absolute;top:16px;left:16px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;background:#E1306C;color:#fff;padding:3px 10px">Instagram · TikTok</div>
+      </div>
+      <div style="padding:28px 32px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:8px">FitCore Athletics</div>
+        <div style="font-size:22px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:-.01em">12K → 890K Followers<br>in 8 Months.</div>
+        <p style="font-size:12px;color:var(--grey);line-height:1.8;margin-bottom:20px">Built a full content ecosystem — 60 posts/month, influencer partnerships, and a paid layer that drove 34% of online revenue directly from social.</p>
+        <div style="display:flex;gap:24px">
+          <div><div style="font-size:28px;font-weight:700;color:var(--g);letter-spacing:-.02em">890%</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Follower Growth</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--g);letter-spacing:-.02em">8M+</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Monthly Reach</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--g);letter-spacing:-.02em">34%</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Revenue from Social</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Ember Kitchen -->
+    <div style="background:#0a0a0a;cursor:none;overflow:hidden;position:relative" class="work-full-card">
+      <div style="width:100%;aspect-ratio:16/9;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:url('https://source.unsplash.com/800x450/?restaurant+food+dark+moody') center/cover no-repeat;filter:brightness(.45) saturate(.7);transition:transform .6s"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.95),transparent 60%)"></div>
+        <div style="position:absolute;top:16px;left:16px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;background:#1877F2;color:#fff;padding:3px 10px">Meta Ads</div>
+      </div>
+      <div style="padding:28px 32px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin-bottom:8px">Ember Kitchen Group</div>
+        <div style="font-size:22px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:-.01em">$8K → $45K/mo Ad Spend.<br>Still 18x ROAS.</div>
+        <p style="font-size:12px;color:var(--grey);line-height:1.8;margin-bottom:20px">Rebuilt targeting, created high-converting video ads from scratch, and scaled profitably — $2.1M in attributed revenue with a $12 cost per acquisition.</p>
+        <div style="display:flex;gap:24px">
+          <div><div style="font-size:28px;font-weight:700;color:var(--p);letter-spacing:-.02em">18x</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">ROAS</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--p);letter-spacing:-.02em">$2.1M</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Revenue</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--p);letter-spacing:-.02em">$12</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Cost / Acquisition</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Lumé -->
+    <div style="background:#0a0a0a;cursor:none;overflow:hidden;position:relative" class="work-full-card">
+      <div style="width:100%;aspect-ratio:16/9;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:url('https://source.unsplash.com/800x450/?skincare+beauty+tiktok+dark') center/cover no-repeat;filter:brightness(.45) saturate(.7);transition:transform .6s"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.95),transparent 60%)"></div>
+        <div style="position:absolute;top:16px;left:16px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;background:#000;border:1px solid #333;color:#fff;padding:3px 10px">TikTok · Influencer</div>
+      </div>
+      <div style="padding:28px 32px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:8px">Lumé Skincare</div>
+        <div style="font-size:22px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:-.01em">140M Views.<br>3 Sold-Out Cycles.</div>
+        <p style="font-size:12px;color:var(--grey);line-height:1.8;margin-bottom:20px">48 creators coordinated for launch week. 140M organic views, 280K new followers in 60 days, and three consecutive inventory sellouts.</p>
+        <div style="display:flex;gap:24px">
+          <div><div style="font-size:28px;font-weight:700;color:var(--b);letter-spacing:-.02em">140M</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Views</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--b);letter-spacing:-.02em">280K</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">New Followers</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--b);letter-spacing:-.02em">340%</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Sales Increase</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Nexus -->
+    <div style="background:#0a0a0a;cursor:none;overflow:hidden;position:relative" class="work-full-card">
+      <div style="width:100%;aspect-ratio:16/9;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:url('https://source.unsplash.com/800x450/?tech+startup+office+dark+neon') center/cover no-repeat;filter:brightness(.45) saturate(.7);transition:transform .6s"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.95),transparent 60%)"></div>
+        <div style="position:absolute;top:16px;left:16px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;background:#0077B5;color:#fff;padding:3px 10px">LinkedIn · YouTube</div>
+      </div>
+      <div style="padding:28px 32px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--y);margin-bottom:8px">Nexus SaaS</div>
+        <div style="font-size:22px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:-.01em">220% Pipeline Growth.<br>$180 Cost Per MQL.</div>
+        <p style="font-size:12px;color:var(--grey);line-height:1.8;margin-bottom:20px">B2B social built from zero. Thought leadership content, LinkedIn ads targeting CTOs and VPs, YouTube videos ranking for competitive keywords.</p>
+        <div style="display:flex;gap:24px">
+          <div><div style="font-size:28px;font-weight:700;color:var(--y);letter-spacing:-.02em">220%</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Pipeline Growth</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--y);letter-spacing:-.02em">4.1M</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Video Views</div></div>
+          <div><div style="font-size:28px;font-weight:700;color:var(--y);letter-spacing:-.02em">$180</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey)">Cost Per MQL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 20px;border-top:1px solid var(--dim)">
+    <a href="#" class="btn-g" onclick="sp('start');return false">Start Your Campaign →</a>
+  </div>
+</div>
+
+<!-- ══════════ SERVICES ══════════ -->
+<div class="page" id="page-services">
+  <div style="padding:140px 52px 80px;border-bottom:1px solid var(--dim);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,45,120,.05) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:16px">What We Do</div>
+    <h1 style="font-size:clamp(52px,8vw,110px);font-weight:700;letter-spacing:-.03em;line-height:.88;margin-bottom:24px">Everything.<br><span style="color:var(--g)">Nothing Extra.</span></h1>
+    <p style="font-size:15px;color:var(--grey);max-width:500px;line-height:1.8">Every service we offer is built around one objective — growing your business through social that converts. No vanity metrics. No fluff.</p>
+  </div>
+  <div>
+    <!-- Strategy -->
+    <div style="display:grid;grid-template-columns:80px 1fr 300px;gap:40px;padding:64px 52px;border-bottom:1px solid var(--dim);transition:background .2s;position:relative;cursor:none" class="svc-row">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g);transform:scaleY(0);transform-origin:top;transition:transform .35s"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:#555;letter-spacing:.12em;padding-top:6px">01</div>
+      <div>
+        <div style="font-size:clamp(24px,2.5vw,36px);font-weight:700;color:var(--w);margin-bottom:14px;letter-spacing:-.01em">Social Media <span style="color:var(--g)">Strategy</span></div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.9;max-width:480px;margin-bottom:20px">Before a single post goes live, we build the foundation. Full platform audit, competitive analysis, audience research, content pillar development, and a 90-day execution roadmap tied to your business KPIs.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--g);display:block;flex-shrink:0"></span>Platform audit & competitive analysis</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--g);display:block;flex-shrink:0"></span>Content pillars & 90-day roadmap</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--g);display:block;flex-shrink:0"></span>Monthly strategy calls + KPI dashboard</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--dim);padding:24px;background:var(--surface,#111)">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:8px">Starting at</div>
+        <div style="font-size:32px;font-weight:700;color:var(--g);letter-spacing:-.02em;margin-bottom:16px">$1,500<span style="font-size:.5em;color:var(--grey)">/mo</span></div>
+        <a href="#" class="btn-g" style="font-size:10px;padding:10px 20px;display:block;text-align:center" onclick="sp('start');return false">Get Started →</a>
+      </div>
+    </div>
+    <!-- Content -->
+    <div style="display:grid;grid-template-columns:80px 1fr 300px;gap:40px;padding:64px 52px;border-bottom:1px solid var(--dim);transition:background .2s;position:relative;cursor:none" class="svc-row">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--p);transform:scaleY(0);transform-origin:top;transition:transform .35s"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:#555;letter-spacing:.12em;padding-top:6px">02</div>
+      <div>
+        <div style="font-size:clamp(24px,2.5vw,36px);font-weight:700;color:var(--w);margin-bottom:14px;letter-spacing:-.01em">Content <span style="color:var(--p)">Creation</span></div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.9;max-width:480px;margin-bottom:20px">Reels, TikToks, carousels, stories, short-form video, static graphics — all produced in-house. We script, shoot, edit, and caption everything. You approve. We post.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--p);display:block;flex-shrink:0"></span>12–30 posts per month</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--p);display:block;flex-shrink:0"></span>Full video production & editing</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--p);display:block;flex-shrink:0"></span>Caption copywriting + scheduling</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--dim);padding:24px;background:var(--surface,#111)">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:8px">Starting at</div>
+        <div style="font-size:32px;font-weight:700;color:var(--p);letter-spacing:-.02em;margin-bottom:16px">$2,500<span style="font-size:.5em;color:var(--grey)">/mo</span></div>
+        <a href="#" class="btn-g" style="font-size:10px;padding:10px 20px;display:block;text-align:center" onclick="sp('start');return false">Get Started →</a>
+      </div>
+    </div>
+    <!-- Paid Ads -->
+    <div style="display:grid;grid-template-columns:80px 1fr 300px;gap:40px;padding:64px 52px;border-bottom:1px solid var(--dim);transition:background .2s;position:relative;cursor:none" class="svc-row">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .35s"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:#555;letter-spacing:.12em;padding-top:6px">03</div>
+      <div>
+        <div style="font-size:clamp(24px,2.5vw,36px);font-weight:700;color:var(--w);margin-bottom:14px;letter-spacing:-.01em">Paid Social <span style="color:var(--b)">Advertising</span></div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.9;max-width:480px;margin-bottom:20px">Meta, TikTok, YouTube, LinkedIn — managed by certified media buyers who treat your budget like their own. Weekly reporting, full transparency, average 12x ROAS across our portfolio.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--b);display:block;flex-shrink:0"></span>Campaign setup, creative & targeting</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--b);display:block;flex-shrink:0"></span>Weekly optimization + A/B testing</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--b);display:block;flex-shrink:0"></span>Full attribution reporting</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--dim);padding:24px;background:var(--surface,#111)">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:8px">Management from</div>
+        <div style="font-size:32px;font-weight:700;color:var(--b);letter-spacing:-.02em;margin-bottom:16px">$1,200<span style="font-size:.5em;color:var(--grey)">/mo</span></div>
+        <a href="#" class="btn-g" style="font-size:10px;padding:10px 20px;display:block;text-align:center" onclick="sp('start');return false">Get Started →</a>
+      </div>
+    </div>
+    <!-- Influencer -->
+    <div style="display:grid;grid-template-columns:80px 1fr 300px;gap:40px;padding:64px 52px;border-bottom:1px solid var(--dim);transition:background .2s;position:relative;cursor:none" class="svc-row">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--y);transform:scaleY(0);transform-origin:top;transition:transform .35s"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:#555;letter-spacing:.12em;padding-top:6px">04</div>
+      <div>
+        <div style="font-size:clamp(24px,2.5vw,36px);font-weight:700;color:var(--w);margin-bottom:14px;letter-spacing:-.01em">Influencer <span style="color:var(--y)">Marketing</span></div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.9;max-width:480px;margin-bottom:20px">2,400+ vetted creators across every niche. We handle identification, outreach, contracts, briefs, content review, and performance tracking — end to end. Nano to macro.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--y);display:block;flex-shrink:0"></span>Creator identification & vetting</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--y);display:block;flex-shrink:0"></span>Contract negotiation & briefs</div>
+          <div style="font-size:11px;color:var(--grey);display:flex;align-items:center;gap:10px"><span style="width:4px;height:4px;border-radius:50%;background:var(--y);display:block;flex-shrink:0"></span>Campaign management & analytics</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--dim);padding:24px;background:var(--surface,#111)">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:8px">Starting at</div>
+        <div style="font-size:32px;font-weight:700;color:var(--y);letter-spacing:-.02em;margin-bottom:16px">$3,500<span style="font-size:.5em;color:var(--grey)">/campaign</span></div>
+        <a href="#" class="btn-g" style="font-size:10px;padding:10px 20px;display:block;text-align:center" onclick="sp('start');return false">Get Started →</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 20px;border-top:1px solid var(--dim)">
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--grey);margin-bottom:16px">Not sure where to start?</div>
+    <a href="#" class="btn-g" onclick="sp('start');return false">Get a Custom Proposal →</a>
+  </div>
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<div class="page" id="page-about">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:100vh">
+    <!-- Left — big statement -->
+    <div style="padding:140px 52px 80px;border-right:1px solid var(--dim);display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:16px">About VOLT</div>
+        <h1 style="font-size:clamp(48px,7vw,96px);font-weight:700;letter-spacing:-.03em;line-height:.88;margin-bottom:32px">Built to<br>Win.<br><span style="color:var(--g)">Not to Pitch.</span></h1>
+        <p style="font-size:16px;color:#B0B0AE;line-height:1.85;margin-bottom:20px;max-width:420px">"Most agencies talk about engagement rates. We talk about revenue. If your social media isn't making money, it's just noise."</p>
+        <p style="font-size:13px;color:#888;line-height:1.9;max-width:400px">Founded by former performance marketers who were tired of agencies that prioritized vanity metrics over business outcomes. VOLT was built differently from day one.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dim);margin-top:52px">
+        <div style="background:var(--black);padding:24px 20px"><div style="font-size:36px;font-weight:700;color:var(--g);letter-spacing:-.02em">2019</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:4px">Founded</div></div>
+        <div style="background:var(--black);padding:24px 20px"><div style="font-size:36px;font-weight:700;color:var(--g);letter-spacing:-.02em">18</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:4px">Industries Served</div></div>
+        <div style="background:var(--black);padding:24px 20px"><div style="font-size:36px;font-weight:700;color:var(--g);letter-spacing:-.02em">26</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:4px">Team Members</div></div>
+        <div style="background:var(--black);padding:24px 20px"><div style="font-size:36px;font-weight:700;color:var(--g);letter-spacing:-.02em">94%</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:4px">Retention Rate</div></div>
+      </div>
+    </div>
+    <!-- Right — philosophy + team -->
+    <div style="padding:140px 52px 80px;overflow-y:auto">
+      <div style="margin-bottom:60px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:16px">Our Philosophy</div>
+        <h2 style="font-size:clamp(28px,3vw,44px);font-weight:700;letter-spacing:-.02em;line-height:.92;margin-bottom:20px">Social is a<br><span style="color:var(--g)">Revenue Channel.</span><br>Treat It Like One.</h2>
+        <p style="font-size:13px;color:var(--grey);line-height:2;margin-bottom:16px">Every strategy starts with one question: how does this make our client money? Followers, reach, and impressions are inputs — not outcomes. We are obsessive about outputs.</p>
+        <p style="font-size:13px;color:var(--grey);line-height:2;margin-bottom:16px">We run lean on purpose. Every client has a dedicated strategist, media buyer, and content lead. No account managers playing telephone. The people who plan your campaigns are the people who run them.</p>
+        <p style="font-size:13px;color:var(--grey);line-height:2">We take on 12 new clients per quarter. Not because we can't grow faster — because we refuse to let quality slip.</p>
+      </div>
+      <!-- Team -->
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);margin-bottom:20px">The Team</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--dim)">
+        <div style="background:var(--black);overflow:hidden;cursor:none">
+          <div style="width:100%;aspect-ratio:1;background:url('https://source.unsplash.com/300x300/?man+creative+director+dark') center/cover no-repeat;filter:brightness(.5) saturate(.5) grayscale(.4)"></div>
+          <div style="padding:16px"><div style="font-size:14px;font-weight:600;color:var(--w)">Marcus Reid</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-top:3px">Founder · Strategy</div></div>
+        </div>
+        <div style="background:var(--black);overflow:hidden;cursor:none">
+          <div style="width:100%;aspect-ratio:1;background:url('https://source.unsplash.com/300x300/?woman+professional+marketing+dark') center/cover no-repeat;filter:brightness(.5) saturate(.5) grayscale(.4)"></div>
+          <div style="padding:16px"><div style="font-size:14px;font-weight:600;color:var(--w)">Priya Nair</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-top:3px">Head of Paid Media</div></div>
+        </div>
+        <div style="background:var(--black);overflow:hidden;cursor:none">
+          <div style="width:100%;aspect-ratio:1;background:url('https://source.unsplash.com/300x300/?man+videographer+creative+dark') center/cover no-repeat;filter:brightness(.5) saturate(.5) grayscale(.4)"></div>
+          <div style="padding:16px"><div style="font-size:14px;font-weight:600;color:var(--w)">Tyler Brooks</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--b);margin-top:3px">Creative Director</div></div>
+        </div>
+        <div style="background:var(--black);overflow:hidden;cursor:none">
+          <div style="width:100%;aspect-ratio:1;background:url('https://source.unsplash.com/300x300/?woman+influencer+creator+dark') center/cover no-repeat;filter:brightness(.5) saturate(.5) grayscale(.4)"></div>
+          <div style="padding:16px"><div style="font-size:14px;font-weight:600;color:var(--w)">Zara Ahmed</div><div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--y);margin-top:3px">Influencer Partnerships</div></div>
+        </div>
+      </div>
+      <div style="margin-top:40px;text-align:center">
+        <a href="#" class="btn-g" onclick="sp('start');return false">Work With Us →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
