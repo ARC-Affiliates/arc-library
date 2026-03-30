@@ -568,92 +568,6 @@ footer{background:var(--text);padding:72px 56px 36px}
 #top-btn{position:fixed;bottom:28px;left:28px;z-index:400;width:40px;height:40px;border:1px solid var(--border-dark);background:rgba(250,248,244,.9);color:var(--rose-deep);cursor:none;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none}
 #top-btn.show{opacity:1;transform:none;pointer-events:auto}
 #top-btn:hover{background:var(--rose-deep);color:white}
-
-/* ── GLOBAL OVERFLOW ── */
-html{overflow-x:hidden;max-width:100vw}
-
-/* ── HAMBURGER ── */
-.n-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0}
-.n-ham span{display:block;width:22px;height:1px;background:var(--text);transition:all .3s}
-.n-ham.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
-.n-ham.open span:nth-child(2){opacity:0}
-.n-ham.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
-.mob-menu{position:fixed;inset:0;background:var(--ivory);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.mob-menu.open{transform:translateX(0)}
-.mob-menu a{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(36px,9vw,56px);color:var(--text);text-decoration:none;letter-spacing:.06em}
-
-@media(max-width:768px){
-  html,body{overflow-x:hidden !important}
-  body{cursor:auto !important}
-  #cur,#cur-r{display:none !important}
-  nav{padding:16px 20px !important;max-width:100vw}
-  nav.s{padding:12px 20px !important}
-  .n-links,.n-book{display:none !important}
-  .n-ham{display:flex !important}
-  #hero{height:auto !important;min-height:100svh;padding:0}
-  .hero-content{padding:120px 20px 40px !important;max-width:100% !important}
-  .hero-h1{font-size:clamp(40px,10vw,68px) !important;line-height:.92 !important}
-  .hero-morph{font-size:clamp(40px,10vw,68px) !important;min-height:auto !important}
-  .hero-sub{font-size:13px !important;max-width:100% !important;margin-top:20px !important}
-  .hero-btns{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;margin-top:32px !important}
-  .hero-awards{display:none !important}
-  .hero-img-scene,.hero-left-overlay,.scroll-hint{display:none !important}
-  .section{padding:60px 20px !important}
-  .philosophy{grid-template-columns:1fr !important;gap:40px !important}
-  .phil-scene{height:280px !important}
-  .phil-accent,.phil-line{display:none}
-  .treat-grid{grid-template-columns:1fr !important}
-  .treat-card{padding:36px 24px !important}
-  .ba-section{padding:60px 20px !important}
-  .ba-wrap{grid-template-columns:1fr !important;gap:32px !important}
-  .ba-slider-wrap{height:280px !important;cursor:auto !important}
-  .ai-section{padding:60px 20px !important}
-  .ai-inner{grid-template-columns:1fr !important;gap:32px !important}
-  .ai-widget{padding:24px 20px !important}
-  .ai-q{font-size:18px !important}
-  .testi-section{padding:60px 20px !important}
-  .testi-grid{grid-template-columns:1fr !important}
-  .testi-card{padding:36px 28px !important}
-  .services-hero{padding:100px 20px 48px !important}
-  .services-cats{padding:0 !important;top:52px !important;overflow-x:auto;flex-wrap:nowrap !important}
-  .s-cat{padding:14px 14px !important;font-size:8px !important}
-  .services-list{padding:40px 20px !important}
-  .service-item:hover{padding-left:0 !important}
-  .book-bar{padding:14px 20px !important;flex-direction:column !important;gap:10px !important;align-items:flex-start !important}
-  .about-hero{grid-template-columns:1fr !important;padding:100px 20px 48px !important;gap:24px !important}
-  .about-body{grid-template-columns:1fr !important;padding:48px 20px !important;gap:32px !important}
-  .about-img-col{display:none !important}
-  .team-section{padding:0 20px 60px !important}
-  .team-grid{grid-template-columns:1fr 1fr !important}
-  .journal-hero{padding:100px 20px 48px !important}
-  .journal-featured{grid-template-columns:1fr !important}
-  .jf-scene{min-height:240px !important}
-  .jf-body{padding:32px 24px !important}
-  .journal-grid{grid-template-columns:1fr !important}
-  .j-card-body{padding:24px 20px 32px !important}
-  .book-page{padding:100px 20px 60px !important}
-  .book-grid{grid-template-columns:1fr !important;gap:32px !important}
-  .book-steps{overflow-x:auto}
-  .b-step{min-width:60px;padding:14px 8px !important}
-  .b-step-label{font-size:8px !important}
-  .b-panel{padding:20px 16px !important}
-  .b-row{grid-template-columns:1fr !important}
-  .b-date-grid{gap:2px !important}
-  .b-date{font-size:10px !important}
-  .b-time-grid{grid-template-columns:1fr 1fr !important;gap:6px !important}
-  .b-success{padding:48px 24px !important}
-  footer{padding:48px 20px 28px !important}
-  .f-grid{grid-template-columns:1fr 1fr !important;gap:24px !important}
-  .f-bot{flex-direction:column !important;gap:8px !important;align-items:flex-start !important}
-  a,button{cursor:auto !important}
-}
-@media(max-width:480px){
-  .hero-h1,.hero-morph{font-size:clamp(34px,9vw,52px) !important}
-  .treat-grid,.testi-grid,.team-grid,.journal-grid{grid-template-columns:1fr !important}
-  .f-grid{grid-template-columns:1fr !important}
-  .b-time-grid{grid-template-columns:1fr 1fr !important}
-  .ba-slider-wrap{height:240px !important}
-}
 </style>
 </head>
 <body>
@@ -672,15 +586,7 @@ html{overflow-x:hidden;max-width:100vw}
     <li><a href="#" onclick="showPage('journal');return false" data-p="journal">Journal</a></li>
   </ul>
   <a href="#" class="n-book" onclick="showPage('book');return false">Reserve</a>
-  <button class="n-ham" id="nHam" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob-menu" id="mobMenu">
-  <a href="#" onclick="showPage('home');closeMob();return false">Sanctuary</a>
-  <a href="#" onclick="showPage('services');closeMob();return false">Treatments</a>
-  <a href="#" onclick="showPage('about');closeMob();return false">Our Story</a>
-  <a href="#" onclick="showPage('journal');closeMob();return false">Journal</a>
-  <a href="#" onclick="showPage('book');closeMob();return false">Reserve</a>
-</div>
 
 <!-- ═══════════ HOME ═══════════ -->
 <div class="page active" id="page-home">
@@ -851,7 +757,7 @@ html{overflow-x:hidden;max-width:100vw}
         <p>Answer three questions and our AI builds a personalized treatment protocol — the same assessment our practitioners use, available instantly.</p>
       </div>
       <div class="ai-widget">
-        <div class="ai-widget-title"><span class="ai-pulse"></span>Lumière AI — Treatment Advisor <span style="font-size:7px;letter-spacing:.2em;color:rgba(196,168,130,.5);font-family:'DM Mono',monospace;margin-left:8px">BETA</span></div>
+        <div class="ai-widget-title"><span class="ai-pulse"></span>Lumière AI — Treatment Advisor</div>
         <div class="ai-progress">
           <div class="ai-prog-dot done" id="pd1"></div>
           <div class="ai-prog-dot" id="pd2"></div>
@@ -948,10 +854,10 @@ html{overflow-x:hidden;max-width:100vw}
       <div>
         <div class="f-col-title">Visit</div>
         <ul class="f-links">
-          <li><a href="#">(239) 555-0180</a></li>
-          <li><a href="#">hello@lumierespa.com</a></li>
-          <li><a href="#">400 Fifth Ave S, Naples, FL</a></li>
-          <li><a href="#">Mon–Sat: 9am–7pm</a></li>
+          <li><a href="tel:2395550180">(239) 555-0180</a></li>
+          <li><a href="mailto:hello@lumierespa.com">hello@lumierespa.com</a></li>
+          <li><a href="https://maps.google.com/?q=400+Fifth+Ave+S+Naples+FL" target="_blank">400 Fifth Ave S, Naples, FL</a></li>
+          <li><span style="font-size:12px;color:rgba(250,248,244,.4)">Mon–Sat: 9am–7pm</span></li>
         </ul>
       </div>
     </div>
@@ -1370,16 +1276,8 @@ async function runAIRecommend(){
     document.getElementById('aiResult').classList.add('show');
   }catch(e){
     document.getElementById('aiLoad').classList.remove('show');
-    var protocols={
-      'Fine lines & wrinkles':{title:'Anti-Aging Renewal Protocol',text:'Based on your profile, we recommend our <strong>Microneedling with PRP</strong> series — 3 sessions spaced 4 weeks apart, stimulating collagen at the dermal level. Follow with monthly <strong>Lumière Signature Facials</strong> to maintain and amplify results.'},
-      'Uneven texture or tone':{title:'Radiance Correction Protocol',text:'For uneven texture and tone, begin with a <strong>HydraFacial MD Elite</strong> followed by an <strong>IPL Photofacial</strong> series. This combination resurfaces and corrects pigmentation in 4–6 sessions with minimal downtime.'},
-      'Acne or breakouts':{title:'Clarity & Balance Protocol',text:'We recommend our <strong>HydraFacial MD Elite</strong> with salicylic infusion combined with <strong>LED Blue Light Therapy</strong>. Our practitioners will pair this with a personalized home-care regimen for lasting clarity.'},
-      'Dullness & dehydration':{title:'Luminosity Restore Protocol',text:'Our <strong>Lumière Glow Drip</strong> IV infusion paired with <strong>Dermaplaning + Mask</strong> delivers immediate radiance. A monthly <strong>Lumière Signature Facial</strong> sustains your glow long-term.'}
-    };
-    var concern=aiAnswers[0]||'Fine lines & wrinkles';
-    var p=protocols[concern]||protocols['Fine lines & wrinkles'];
-    document.getElementById('aiResultTitle').textContent=p.title;
-    document.getElementById('aiResultText').innerHTML=p.text+'<br><br><em style="font-size:11px;opacity:.5">Beta mode · Book a consultation for your full personalized protocol</em>';
+    document.getElementById('aiResultTitle').textContent='Our Recommendation';
+    document.getElementById('aiResultText').innerHTML='Based on your profile, we recommend beginning with our <strong>Lumière Signature Facial</strong> — a deeply customized treatment that addresses your specific concerns while giving our practitioners a full picture of your skin. Book a complimentary consultation to discuss your full protocol.';
     document.getElementById('aiResult').classList.add('show');
   }
 }
@@ -1467,15 +1365,6 @@ function bSubmit(){
   var s=document.getElementById('bSuccess');
   s.classList.add('show');
   document.getElementById('bSuccessRef').textContent='REF: LUM-'+Math.random().toString(36).substr(2,6).toUpperCase();
-}
-
-function toggleMob(){
-  document.getElementById('nHam').classList.toggle('open');
-  document.getElementById('mobMenu').classList.toggle('open');
-}
-function closeMob(){
-  document.getElementById('nHam').classList.remove('open');
-  document.getElementById('mobMenu').classList.remove('open');
 }
 </script>
 </body>
