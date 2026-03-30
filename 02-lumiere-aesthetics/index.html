@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière — Where Transformation Begins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400&family=Jost:wght@200;300;400&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ivory:#FAF8F4;
+  --cream:#F4F0E8;
+  --parchment:#EDE8DC;
+  --sand:#D4C9B0;
+  --rose:#C4A882;
+  --rose-deep:#9A7B5A;
+  --blush:#E8D5C4;
+  --blush-deep:#C4A090;
+  --text:#2A2420;
+  --text-2:#6A5E54;
+  --text-3:#A8998C;
+  --text-4:#C4B8AC;
+  --border:#E4DDD4;
+  --border-dark:#C8BFB4;
+  --white:#FFFFFF;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ivory);
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
+}
+
+/* GRAIN */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .5s steps(1) infinite;
+}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-1%,-1%)}50%{transform:translate(1%,1%)}75%{transform:translate(-1%,1%)}100%{transform:translate(0,0)}}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--rose-deep);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),opacity .25s}
+#cur-r{position:fixed;width:30px;height:30px;border:1px solid rgba(154,123,90,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s,opacity .3s}
+#cur.h{width:4px;height:4px}
+#cur-r.h{width:48px;height:48px;border-color:var(--rose-deep)}
+#cur.ch{width:52px;height:52px;background:transparent;border:1px solid var(--rose-deep)}
+#cur-r.ch{opacity:0}
+#cur.off,#cur-r.off{opacity:0}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 56px;
+  transition:padding .4s var(--ease),background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.s{padding:16px 56px;background:rgba(250,248,244,.95);border-bottom-color:var(--border);backdrop-filter:blur(20px)}
+.n-logo{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:22px;letter-spacing:.35em;text-transform:uppercase;color:var(--text);text-decoration:none;cursor:none}
+.n-logo span{color:var(--rose-deep)}
+.n-links{display:flex;gap:40px;list-style:none}
+.n-links a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-2);text-decoration:none;cursor:none;position:relative;transition:color .3s}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--rose-deep);transition:width .4s var(--ease)}
+.n-links a:hover,.n-links a.active{color:var(--rose-deep)}
+.n-links a:hover::after,.n-links a.active::after{width:100%}
+.n-book{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--white);background:var(--rose-deep);padding:12px 28px;text-decoration:none;cursor:none;transition:background .25s,transform .2s}
+.n-book:hover{background:var(--rose);transform:translateY(-1px)}
+
+/* PAGES */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ═══ HOME PAGE ═══ */
+
+/* Hero */
+#hero{
+  position:relative;height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 70% at 70% 40%, rgba(196,168,130,.15) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 10% 80%, rgba(196,168,130,.08) 0%, transparent 60%),
+    linear-gradient(160deg, #F8F4EE 0%, #F2EDE4 40%, #EDE7DA 100%);
+}
+.hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-lines svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-img-scene{
+  position:absolute;right:0;top:0;bottom:0;width:52%;
+  overflow:hidden;
+}
+.hero-img-scene::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://source.unsplash.com/900x1100/?luxury+spa+treatment') center/cover no-repeat,
+    linear-gradient(145deg, #E8D8C4 0%, #D4C0A8 30%, #C8AE94 60%, #BCA080 100%);
+  animation:heroSceneShift 12s ease-in-out infinite alternate;
+  filter:brightness(.85) saturate(.9);
+}
+@keyframes heroSceneShift{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
+}
+.hero-img-scene::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 60%, rgba(232,215,196,.3) 0%, transparent 60%);
+  animation:glow 6s ease-in-out infinite alternate;
+}
+@keyframes glow{from{opacity:.5}to{opacity:1}}
+/* Botanical SVG overlay on hero scene */
+.hero-scene-overlay{position:absolute;inset:0;pointer-events:none}
+.hero-left-overlay{
+  position:absolute;top:0;bottom:0;left:0;width:30%;
+  background:linear-gradient(to right,var(--ivory),transparent);
+  z-index:2;
+}
+.hero-content{position:relative;z-index:3;padding:0 56px;max-width:600px}
+.hero-tag{
+  font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:var(--rose-deep);margin-bottom:32px;
+  display:flex;align-items:center;gap:16px;
+  opacity:0;animation:fadeUp .7s ease .2s forwards;
+}
+.hero-tag::before{content:'';width:40px;height:1px;background:var(--rose-deep)}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;font-weight:200;
+  font-size:clamp(56px,7.5vw,108px);line-height:.9;
+  letter-spacing:-.01em;color:var(--text);
+  opacity:0;animation:fadeUp 1s ease .35s forwards;
+}
+.hero-h1 em{font-style:italic;color:var(--rose-deep)}
+.hero-morph{
+  display:block;
+  font-family:'Cormorant Garamond',serif;font-weight:200;font-style:italic;
+  font-size:clamp(56px,7.5vw,108px);color:var(--rose-deep);
+  min-height:1.1em;transition:opacity .5s;
+}
+.hero-sub{
+  margin-top:32px;font-size:13px;letter-spacing:.06em;
+  color:var(--text-2);line-height:1.9;max-width:380px;
+  opacity:0;animation:fadeUp .8s ease .6s forwards;
+}
+.hero-btns{
+  margin-top:48px;display:flex;gap:24px;align-items:center;
+  opacity:0;animation:fadeUp .7s ease .8s forwards;
+}
+.btn-rose{
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--white);background:var(--rose-deep);
+  padding:16px 40px;text-decoration:none;cursor:none;
+  transition:background .3s,transform .2s;display:inline-block;
+}
+.btn-rose:hover{background:var(--rose);transform:translateY(-1px)}
+.btn-outline{
+  font-size:9px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--text-2);text-decoration:none;cursor:none;
+  display:flex;align-items:center;gap:14px;transition:color .3s;
+}
+.btn-outline::after{content:'';width:32px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.btn-outline:hover{color:var(--rose-deep)}
+.btn-outline:hover::after{width:52px}
+.hero-awards{
+  position:absolute;bottom:48px;left:56px;z-index:3;
+  display:flex;gap:48px;
+  opacity:0;animation:fadeUp .7s ease 1s forwards;
+}
+.award{border-left:1px solid var(--border-dark);padding-left:20px}
+.award-num{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;color:var(--rose-deep);line-height:1}
+.award-label{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-top:4px}
+.scroll-hint{
+  position:absolute;bottom:48px;right:56px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  opacity:0;animation:fadeUp .7s ease 1.2s forwards;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--rose-deep),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:1}50%{opacity:.2}}
+.scroll-txt{font-size:7px;letter-spacing:.38em;text-transform:uppercase;color:var(--text-3);writing-mode:vertical-rl}
+
+/* Marquee */
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;background:var(--cream)}
+.marquee-track{display:inline-flex;animation:marquee 28s linear infinite}
+.m-item{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:14px;letter-spacing:.08em;color:var(--text-3);padding:14px 52px;display:inline-block}
+.m-sep{color:var(--rose-deep);padding:14px 0;margin:0 -36px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Philosophy section */
+.section{padding:120px 56px;position:relative}
+.section-tag{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.section-tag::before{content:'';width:28px;height:1px;background:var(--rose-deep)}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(40px,5vw,72px);line-height:.92;color:var(--text)}
+.section-title em{font-style:italic;color:var(--rose-deep)}
+
+.philosophy{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.phil-left .section-title{margin-bottom:32px}
+.phil-left p{font-size:14px;letter-spacing:.04em;color:var(--text-2);line-height:1.95;margin-bottom:20px}
+.phil-scene{position:relative;height:560px;overflow:hidden}
+.phil-scene-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 40% 35%, rgba(212,196,168,.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 70% 70%, rgba(196,160,144,.3) 0%, transparent 55%),
+    linear-gradient(155deg, #EDE0CC 0%, #DFD0B8 30%, #D4C0A4 60%, #C8B090 100%);
+}
+.phil-scene-svg{position:absolute;inset:0;width:100%;height:100%}
+.phil-accent{
+  position:absolute;bottom:-20px;left:-20px;
+  width:60%;height:60%;
+  background:linear-gradient(145deg,#F0E8D8,#E4D4C0);
+  border:1px solid var(--border);
+}
+.phil-line{position:absolute;top:-16px;right:-16px;width:55%;height:55%;border:1px solid rgba(196,168,130,.3)}
+
+/* Treatments preview */
+.treatments{background:var(--cream)}
+.treat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;background:var(--border);margin-top:60px}
+.treat-card{
+  background:var(--ivory);padding:52px 44px;
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .4s;
+}
+.treat-card:hover{background:var(--white)}
+.treat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--rose-deep);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.treat-card:hover::before{transform:scaleX(1)}
+.treat-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-4);letter-spacing:.12em;margin-bottom:24px}
+.treat-icon{width:40px;height:40px;margin-bottom:20px;opacity:.5}
+.treat-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:var(--text);margin-bottom:12px;line-height:1.1}
+.treat-desc{font-size:11px;letter-spacing:.05em;color:var(--text-2);line-height:1.85;margin-bottom:28px}
+.treat-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--rose-deep);letter-spacing:.08em}
+.treat-link{margin-top:20px;font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--rose-deep);display:flex;align-items:center;gap:10px;cursor:none;text-decoration:none;transition:gap .3s}
+.treat-link::after{content:'';width:16px;height:1px;background:var(--rose-deep);transition:width .4s var(--ease)}
+.treat-link:hover{gap:14px}
+.treat-link:hover::after{width:28px}
+
+/* Before/After */
+.ba-section{padding:120px 56px;background:var(--parchment)}
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px}
+.ba-slider-wrap{position:relative;height:480px;overflow:hidden;cursor:none;user-select:none}
+.ba-before,.ba-after{position:absolute;inset:0}
+.ba-before{
+  background:url('https://source.unsplash.com/600x600/?woman+skin+portrait') center/cover no-repeat,
+    linear-gradient(145deg, #C8B89A 0%, #B8A888 40%, #A89878 100%);
+  filter:grayscale(80%) brightness(.75);
+}
+.ba-after{
+  background:url('https://source.unsplash.com/600x600/?woman+glowing+skin') center/cover no-repeat,
+    linear-gradient(145deg, #EAD8C0 0%, #DCC8A8 30%, #CEBC98 60%, #C4AE8A 100%);
+  filter:brightness(.9) saturate(1.05);
+}
+.ba-divider{
+  position:absolute;top:0;bottom:0;width:2px;background:white;
+  z-index:3;cursor:ew-resize;left:50%;transform:translateX(-50%);
+  transition:none;
+}
+.ba-handle{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:40px;height:40px;border-radius:50%;background:white;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 16px rgba(0,0,0,.15);cursor:ew-resize;
+}
+.ba-handle::before{content:'⟨';color:var(--rose-deep);font-size:14px;margin-right:2px}
+.ba-handle::after{content:'⟩';color:var(--rose-deep);font-size:14px;margin-left:2px}
+.ba-label{
+  position:absolute;bottom:20px;font-size:8px;letter-spacing:.25em;
+  text-transform:uppercase;color:white;background:rgba(0,0,0,.3);
+  padding:5px 12px;z-index:4;backdrop-filter:blur(4px);
+}
+.ba-label.before{left:20px}
+.ba-label.after{right:20px}
+.ba-right .section-title{margin-bottom:24px}
+.ba-right p{font-size:13px;letter-spacing:.05em;color:var(--text-2);line-height:1.95;margin-bottom:20px}
+.ba-cases{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.ba-case{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-deep);border:1px solid rgba(154,123,90,.25);background:rgba(154,123,90,.05);padding:8px 16px;cursor:none;transition:background .2s,border-color .2s}
+.ba-case:hover,.ba-case.active{background:rgba(154,123,90,.1);border-color:var(--rose-deep)}
+
+/* AI Recommender */
+.ai-section{padding:120px 56px;background:var(--text);position:relative;overflow:hidden}
+.ai-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(196,168,130,.08) 0%,transparent 65%)}
+.ai-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;position:relative;z-index:1}
+.ai-left .section-tag{color:var(--rose)}
+.ai-left .section-tag::before{background:var(--rose)}
+.ai-left .section-title{color:var(--ivory)}
+.ai-left .section-title em{color:var(--rose)}
+.ai-left p{font-size:13px;letter-spacing:.05em;color:rgba(250,248,244,.5);line-height:1.95;margin-top:24px}
+.ai-widget{
+  background:rgba(255,255,255,.04);border:1px solid rgba(196,168,130,.2);
+  padding:44px;position:relative;overflow:hidden;
+}
+.ai-widget::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent)}
+.ai-widget-title{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);margin-bottom:32px;display:flex;align-items:center;gap:10px}
+.ai-pulse{width:5px;height:5px;border-radius:50%;background:var(--rose);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+/* Question steps */
+.ai-step{display:none}
+.ai-step.active{display:block;animation:fadeUp .4s ease forwards}
+.ai-q{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--ivory);line-height:1.3;margin-bottom:24px}
+.ai-opts{display:flex;flex-direction:column;gap:10px}
+.ai-opt{
+  background:rgba(255,255,255,.04);border:1px solid rgba(196,168,130,.15);
+  color:rgba(250,248,244,.7);font-family:'Jost',sans-serif;
+  font-size:12px;letter-spacing:.06em;padding:14px 20px;
+  cursor:none;text-align:left;transition:background .2s,border-color .2s,color .2s;
+}
+.ai-opt:hover{background:rgba(196,168,130,.1);border-color:var(--rose);color:var(--ivory)}
+.ai-opt.selected{background:rgba(196,168,130,.12);border-color:var(--rose);color:var(--ivory)}
+.ai-progress{display:flex;gap:6px;margin-bottom:28px}
+.ai-prog-dot{width:24px;height:2px;background:rgba(196,168,130,.2);transition:background .3s}
+.ai-prog-dot.done{background:var(--rose)}
+.ai-result-box{display:none;padding:24px;background:rgba(196,168,130,.08);border:1px solid rgba(196,168,130,.2)}
+.ai-result-box.show{display:block;animation:fadeUp .5s ease forwards}
+.ai-result-tag{font-size:7px;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);margin-bottom:10px}
+.ai-result-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--ivory);margin-bottom:12px}
+.ai-result-text{font-size:12px;letter-spacing:.04em;color:rgba(250,248,244,.6);line-height:1.85}
+.ai-restart{margin-top:16px;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);background:none;border:none;cursor:none;transition:opacity .2s}
+.ai-restart:hover{opacity:.7}
+.ai-loading{display:none;align-items:center;gap:10px;padding:20px 0}
+.ai-loading.show{display:flex}
+.ld{width:5px;height:5px;border-radius:50%;background:var(--rose);animation:ldot 1.2s ease-in-out infinite}
+.ld:nth-child(2){animation-delay:.15s}.ld:nth-child(3){animation-delay:.3s}
+@keyframes ldot{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+
+/* Testimonials */
+.testi-section{padding:120px 56px}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:60px}
+.testi-card{background:var(--ivory);padding:52px;position:relative;transition:background .3s}
+.testi-card:hover{background:var(--cream)}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:20px;color:var(--text);line-height:1.65;margin-bottom:36px}
+.testi-mark{position:absolute;top:36px;right:44px;font-family:'Cormorant Garamond',serif;font-size:72px;color:rgba(196,168,130,.12);line-height:1}
+.testi-author{display:flex;align-items:center;gap:16px}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--parchment);border:1px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--rose-deep)}
+.testi-name{font-size:12px;letter-spacing:.1em;color:var(--text);margin-bottom:3px}
+.testi-role{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3)}
+
+/* ═══ SERVICES PAGE ═══ */
+.services-hero{
+  padding:180px 56px 80px;
+  background:
+    radial-gradient(ellipse 60% 70% at 85% 40%, rgba(196,168,130,.12) 0%, transparent 65%),
+    linear-gradient(160deg, #F8F4EE 0%, #F0EAE0 100%);
+  position:relative;overflow:hidden;
+}
+.services-hero-bg{position:absolute;inset:0;pointer-events:none}
+.services-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(56px,7vw,96px);color:var(--text);line-height:.92}
+.services-h1 em{font-style:italic;color:var(--rose-deep)}
+.services-sub{font-size:14px;letter-spacing:.05em;color:var(--text-2);margin-top:28px;max-width:460px;line-height:1.9}
+
+.services-cats{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 56px;background:rgba(250,248,244,.95);position:sticky;top:65px;z-index:100;backdrop-filter:blur(16px)}
+.s-cat{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);padding:18px 20px;cursor:none;background:none;border:none;position:relative;transition:color .25s;white-space:nowrap}
+.s-cat::after{content:'';position:absolute;bottom:0;left:20px;right:20px;height:1.5px;background:var(--rose-deep);transform:scaleX(0);transition:transform .35s var(--ease)}
+.s-cat:hover{color:var(--rose-deep)}
+.s-cat.active{color:var(--rose-deep)}
+.s-cat.active::after{transform:scaleX(1)}
+
+.services-list{padding:80px 56px}
+.service-group{margin-bottom:80px;display:none}
+.service-group.active{display:block}
+.service-group-title{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:44px;color:var(--text);margin-bottom:8px}
+.service-group-title em{font-style:italic;color:var(--rose-deep)}
+.service-group-desc{font-size:12px;letter-spacing:.05em;color:var(--text-2);margin-bottom:48px;line-height:1.85;max-width:520px}
+.service-items{display:flex;flex-direction:column;gap:0}
+.service-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:28px 0;border-bottom:1px solid var(--border);
+  cursor:none;transition:padding .3s var(--ease);
+  position:relative;
+}
+.service-item::before{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--rose-deep);transition:width .5s var(--ease)}
+.service-item:hover{padding-left:16px}
+.service-item:hover::before{width:100%}
+.s-item-left{}
+.s-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--text);margin-bottom:4px}
+.s-duration{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3)}
+.s-price{font-family:'DM Mono',monospace;font-size:14px;color:var(--rose-deep);white-space:nowrap}
+.s-price-note{font-size:8px;letter-spacing:.12em;color:var(--text-4);display:block;text-align:right;margin-top:2px}
+.book-bar{
+  position:sticky;bottom:0;background:var(--text);
+  padding:20px 56px;display:flex;justify-content:space-between;align-items:center;z-index:100;
+}
+.book-bar-text{font-size:12px;letter-spacing:.06em;color:rgba(250,248,244,.6)}
+.book-bar-text strong{color:var(--ivory);font-weight:300}
+.book-bar-btn{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--text);background:var(--rose);padding:14px 32px;cursor:none;border:none;transition:background .25s}
+.book-bar-btn:hover{background:var(--rose-deep);color:var(--ivory)}
+
+/* ═══ ABOUT PAGE ═══ */
+.about-hero{
+  padding:180px 56px 100px;
+  background:linear-gradient(160deg,#F8F4EE 0%,#EDE8DC 100%);
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;
+}
+.about-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(52px,6.5vw,88px);line-height:.92;color:var(--text)}
+.about-h1 em{font-style:italic;color:var(--rose-deep)}
+.about-hero-right p{font-size:14px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--text-2);line-height:1.8;margin-bottom:24px}
+.about-hero-right .small{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.05em;color:var(--text-3);line-height:1.9}
+.about-body{padding:100px 56px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.about-img-col{position:sticky;top:120px}
+.about-scene{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden}
+.about-scene-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 55% 40%, rgba(212,196,168,.6) 0%, transparent 60%),
+    linear-gradient(145deg, #EAD8C4 0%, #DCCCB0 30%, #D0BEA0 60%, #C4AE8C 100%);
+}
+.about-scene-line{position:absolute;top:-16px;left:-16px;width:60%;height:60%;border:1px solid rgba(196,168,130,.25)}
+.about-scene-accent{position:absolute;bottom:-24px;right:-24px;width:52%;aspect-ratio:1;background:var(--parchment);border:8px solid var(--ivory)}
+.about-text .section-tag{margin-bottom:18px}
+.about-text .section-title{margin-bottom:28px}
+.about-text p{font-size:13px;letter-spacing:.05em;color:var(--text-2);line-height:2;margin-bottom:18px}
+.about-sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;color:var(--rose-deep);margin-top:36px;font-weight:300}
+.about-sig-title{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-3);margin-top:6px}
+.team-section{padding:0 56px 100px}
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);margin-top:52px}
+.team-card{background:var(--ivory);padding:0;overflow:hidden;cursor:none;transition:background .3s}
+.team-card:hover{background:var(--cream)}
+.team-portrait{
+  width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;
+}
+.team-portrait-bg{position:absolute;inset:0;transition:transform .6s var(--ease)}
+.team-card:hover .team-portrait-bg{transform:scale(1.04)}
+.team-info{padding:28px 32px}
+.team-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--text);margin-bottom:4px}
+.team-role{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose-deep)}
+.team-bio{font-size:11px;letter-spacing:.04em;color:var(--text-2);line-height:1.8;margin-top:12px}
+
+/* ═══ BOOK PAGE ═══ */
+.book-page{background:var(--ivory);padding:180px 56px 100px}
+.book-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:100px;align-items:start}
+.book-left .section-title{margin-bottom:24px}
+.book-left p{font-size:13px;letter-spacing:.05em;color:var(--text-2);line-height:1.95;margin-bottom:32px}
+.book-promise{display:flex;flex-direction:column;gap:14px}
+.promise-item{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.08em;color:var(--text-2)}
+.p-dot{width:4px;height:4px;border-radius:50%;background:var(--rose-deep);flex-shrink:0}
+.book-form-wrap{background:var(--white);border:1px solid var(--border);padding:0;position:relative;overflow:hidden}
+.book-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rose-deep),transparent)}
+.book-steps{display:flex;border-bottom:1px solid var(--border)}
+.b-step{flex:1;padding:18px 20px;border-right:1px solid var(--border);position:relative}
+.b-step:last-child{border-right:none}
+.b-step-num{font-size:8px;letter-spacing:.2em;color:var(--text-4);margin-bottom:4px;font-family:'DM Mono',monospace}
+.b-step-label{font-size:10px;letter-spacing:.12em;color:var(--text-3)}
+.b-step.active .b-step-label{color:var(--text)}
+.b-step.done .b-step-label{color:var(--rose-deep)}
+.b-step::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--rose-deep);transform:scaleX(0);transition:transform .4s var(--ease)}
+.b-step.active::after,.b-step.done::after{transform:scaleX(1)}
+.b-panel{display:none;padding:36px 44px}
+.b-panel.active{display:block;animation:fadeUp .4s ease forwards}
+.b-group{margin-bottom:24px}
+.b-label{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;display:block}
+.b-input,.b-select,.b-textarea{
+  width:100%;background:var(--ivory);border:none;border-bottom:1px solid var(--border);
+  color:var(--text);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;
+  padding:12px 0;outline:none;transition:border-color .3s;cursor:none;
+  -webkit-appearance:none;
+}
+.b-input:focus,.b-select:focus,.b-textarea:focus{border-bottom-color:var(--rose-deep)}
+.b-textarea{resize:none;min-height:100px;border:1px solid var(--border);padding:14px;margin-top:2px}
+.b-textarea:focus{border-color:var(--rose-deep)}
+.b-select option{background:var(--ivory)}
+.b-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.b-service-opts{display:flex;flex-direction:column;gap:8px}
+.b-service-opt{
+  padding:14px 18px;border:1px solid var(--border);
+  font-size:12px;color:var(--text-2);cursor:none;
+  transition:border-color .2s,background .2s,color .2s;
+  display:flex;justify-content:space-between;align-items:center;
+  background:transparent;text-align:left;
+}
+.b-service-opt:hover{border-color:var(--rose-deep);color:var(--text)}
+.b-service-opt.sel{border-color:var(--rose-deep);background:rgba(154,123,90,.06);color:var(--text)}
+.b-service-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--rose-deep)}
+.b-date-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.b-date{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:11px;cursor:none;border:1px solid var(--border);
+  transition:background .2s,border-color .2s,color .2s;color:var(--text-2);
+}
+.b-date:hover:not(.dis){background:rgba(154,123,90,.08);border-color:var(--rose-deep);color:var(--text)}
+.b-date.sel{background:var(--rose-deep);border-color:var(--rose-deep);color:white}
+.b-date.dis{opacity:.25;cursor:not-allowed}
+.b-date.hdr{border:none;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-4);cursor:default}
+.b-time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+.b-time{padding:11px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);cursor:none;text-align:center;transition:all .2s;background:transparent}
+.b-time:hover{border-color:var(--rose-deep);color:var(--text)}
+.b-time.sel{background:rgba(154,123,90,.08);border-color:var(--rose-deep);color:var(--rose-deep)}
+.b-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
+.b-back{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);background:none;border:none;cursor:none;display:flex;align-items:center;gap:10px;transition:color .25s}
+.b-back::before{content:'';width:20px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.b-back:hover{color:var(--rose-deep)}
+.b-back:hover::before{width:36px}
+.b-next,.b-submit{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--white);background:var(--rose-deep);border:none;padding:15px 36px;cursor:none;transition:background .25s,transform .2s}
+.b-next:hover,.b-submit:hover{background:var(--rose);transform:translateY(-1px)}
+.b-success{display:none;text-align:center;padding:80px 44px;animation:fadeUp .5s ease forwards}
+.b-success.show{display:block}
+.b-success-icon{width:64px;height:64px;border:1px solid var(--rose-deep);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;font-size:24px;color:var(--rose-deep)}
+.b-success-h{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:44px;color:var(--text);margin-bottom:16px;line-height:1}
+.b-success-h em{font-style:italic;color:var(--rose-deep)}
+.b-success-p{font-size:12px;letter-spacing:.05em;color:var(--text-2);line-height:1.9;max-width:320px;margin:0 auto 32px}
+.b-success-ref{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-4);border:1px solid var(--border);padding:10px 24px;display:inline-block}
+
+/* ═══ JOURNAL PAGE ═══ */
+.journal-hero{
+  padding:180px 56px 80px;
+  background:linear-gradient(160deg,#F8F4EE 0%,#EDE8DC 100%);
+}
+.journal-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(52px,7vw,96px);line-height:.92;color:var(--text)}
+.journal-h1 em{font-style:italic;color:var(--rose-deep)}
+.journal-sub{font-size:13px;letter-spacing:.05em;color:var(--text-2);margin-top:24px;max-width:440px;line-height:1.9}
+.journal-featured{display:grid;grid-template-columns:1.5fr 1fr;gap:0;margin:0;background:var(--border)}
+.jf-scene{position:relative;overflow:hidden;min-height:460px}
+.jf-scene-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 55% 40%, rgba(212,192,164,.5) 0%, transparent 60%),
+    linear-gradient(145deg, #E8D4BC 0%, #DCC4A8 30%, #D0B898 60%, #C4AC8A 100%);
+  transition:transform .7s var(--ease);
+}
+.jf-scene:hover .jf-scene-bg{transform:scale(1.04)}
+.jf-body{background:var(--ivory);padding:52px;display:flex;flex-direction:column;justify-content:flex-end}
+.j-cat{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:16px}
+.jf-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;color:var(--text);line-height:1.15;margin-bottom:18px}
+.jf-excerpt{font-size:12px;letter-spacing:.04em;color:var(--text-2);line-height:1.85;margin-bottom:28px}
+.j-meta{display:flex;gap:20px;align-items:center}
+.j-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)}
+.j-read{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--rose-deep);text-decoration:none;cursor:none;display:flex;align-items:center;gap:10px;transition:gap .3s}
+.j-read::after{content:'';width:16px;height:1px;background:var(--rose-deep);transition:width .4s var(--ease)}
+.j-read:hover{gap:14px}
+.j-read:hover::after{width:28px}
+.journal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);padding:2px 0}
+.j-card{background:var(--ivory);cursor:none;overflow:hidden;transition:background .3s}
+.j-card:hover{background:var(--cream)}
+.j-card-scene{position:relative;height:220px;overflow:hidden}
+.j-card-scene-bg{position:absolute;inset:0;transition:transform .6s var(--ease)}
+.j-card:hover .j-card-scene-bg{transform:scale(1.04)}
+.j-card-body{padding:32px 36px 40px}
+.j-card-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--text);line-height:1.2;margin:12px 0 14px}
+.j-card-excerpt{font-size:11px;letter-spacing:.04em;color:var(--text-2);line-height:1.85}
+
+/* FOOTER */
+footer{background:var(--text);padding:72px 56px 36px}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px}
+.f-logo{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:22px;letter-spacing:.35em;text-transform:uppercase;color:var(--ivory);margin-bottom:16px}
+.f-logo span{color:var(--rose)}
+.f-desc{font-size:11px;letter-spacing:.04em;color:rgba(250,248,244,.35);line-height:1.9;max-width:260px}
+.f-col-title{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(250,248,244,.3);margin-bottom:20px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.f-links a{font-size:11px;letter-spacing:.05em;color:rgba(250,248,244,.4);text-decoration:none;cursor:none;transition:color .25s}
+.f-links a:hover{color:rgba(250,248,244,.8)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
+.f-legal{font-size:8px;letter-spacing:.14em;color:rgba(250,248,244,.25)}
+
+/* SHARED */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* Scroll top */
+#top-btn{position:fixed;bottom:28px;left:28px;z-index:400;width:40px;height:40px;border:1px solid var(--border-dark);background:rgba(250,248,244,.9);color:var(--rose-deep);cursor:none;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none}
+#top-btn.show{opacity:1;transform:none;pointer-events:auto}
+#top-btn:hover{background:var(--rose-deep);color:white}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<button id="top-btn" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="n-logo" onclick="showPage('home');return false">Lumi<span>è</span>re</a>
+  <ul class="n-links">
+    <li><a href="#" onclick="showPage('home');return false" data-p="home">Sanctuary</a></li>
+    <li><a href="#" onclick="showPage('services');return false" data-p="services">Treatments</a></li>
+    <li><a href="#" onclick="showPage('about');return false" data-p="about">Our Story</a></li>
+    <li><a href="#" onclick="showPage('journal');return false" data-p="journal">Journal</a></li>
+  </ul>
+  <a href="#" class="n-book" onclick="showPage('book');return false">Reserve</a>
+</nav>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="450" x2="1440" y2="450" stroke="rgba(196,168,130,0.1)" stroke-width="0.5"/>
+        <line x1="620" y1="0" x2="620" y2="900" stroke="rgba(196,168,130,0.08)" stroke-width="0.5"/>
+        <line x1="0" y1="0" x2="620" y2="450" stroke="rgba(196,168,130,0.06)" stroke-width="0.5"/>
+        <line x1="0" y1="900" x2="620" y2="450" stroke="rgba(196,168,130,0.06)" stroke-width="0.5"/>
+        <circle cx="620" cy="450" r="120" fill="none" stroke="rgba(196,168,130,0.06)" stroke-width="0.5"/>
+        <circle cx="620" cy="450" r="60" fill="none" stroke="rgba(196,168,130,0.08)" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="hero-img-scene">
+      <svg class="hero-scene-overlay" viewBox="0 0 700 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.3">
+        <ellipse cx="350" cy="450" rx="200" ry="300" fill="none" stroke="rgba(196,168,130,0.3)" stroke-width="0.5"/>
+        <ellipse cx="350" cy="450" rx="140" ry="220" fill="none" stroke="rgba(196,168,130,0.2)" stroke-width="0.5"/>
+        <line x1="350" y1="150" x2="350" y2="750" stroke="rgba(196,168,130,0.15)" stroke-width="0.5"/>
+        <line x1="150" y1="450" x2="550" y2="450" stroke="rgba(196,168,130,0.15)" stroke-width="0.5"/>
+        <ellipse cx="350" cy="452" rx="80" ry="20" fill="rgba(196,168,130,0.08)"/>
+      </svg>
+    </div>
+    <div class="hero-left-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Lumière Aesthetics — Est. 2018</p>
+      <h1 class="hero-h1">
+        The Art of<br>
+        <span class="hero-morph" id="morphText">Renewal</span>
+      </h1>
+      <p class="hero-sub">A sanctuary where science meets serenity. Bespoke treatments curated for the discerning few who believe beauty should feel as extraordinary as it looks.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-rose" onclick="showPage('book');return false">Reserve Your Experience</a>
+        <a href="#" class="btn-outline" onclick="showPage('services');return false">Explore Treatments</a>
+      </div>
+    </div>
+    <div class="hero-awards">
+      <div class="award"><div class="award-num">12</div><div class="award-label">Years of Excellence</div></div>
+      <div class="award"><div class="award-num">4.9★</div><div class="award-label">Client Satisfaction</div></div>
+      <div class="award"><div class="award-num">2K+</div><div class="award-label">Lives Transformed</div></div>
+    </div>
+    <div class="scroll-hint"><div class="scroll-line"></div><span class="scroll-txt">Discover</span></div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="m-item">Hydrafacial</span><span class="m-sep">·</span>
+      <span class="m-item">Laser Resurfacing</span><span class="m-sep">·</span>
+      <span class="m-item">Microneedling</span><span class="m-sep">·</span>
+      <span class="m-item">Body Sculpting</span><span class="m-sep">·</span>
+      <span class="m-item">Vitamin Infusion</span><span class="m-sep">·</span>
+      <span class="m-item">LED Therapy</span><span class="m-sep">·</span>
+      <span class="m-item">Dermaplaning</span><span class="m-sep">·</span>
+      <span class="m-item">Cryotherapy</span><span class="m-sep">·</span>
+      <span class="m-item">Hydrafacial</span><span class="m-sep">·</span>
+      <span class="m-item">Laser Resurfacing</span><span class="m-sep">·</span>
+      <span class="m-item">Microneedling</span><span class="m-sep">·</span>
+      <span class="m-item">Body Sculpting</span><span class="m-sep">·</span>
+      <span class="m-item">Vitamin Infusion</span><span class="m-sep">·</span>
+      <span class="m-item">LED Therapy</span><span class="m-sep">·</span>
+      <span class="m-item">Dermaplaning</span><span class="m-sep">·</span>
+      <span class="m-item">Cryotherapy</span><span class="m-sep">·</span>
+    </div>
+  </div>
+
+  <!-- Philosophy -->
+  <section class="section">
+    <div class="philosophy reveal">
+      <div class="phil-left">
+        <div class="section-tag">Our Philosophy</div>
+        <h2 class="section-title">Where <em>Science</em><br>Meets Soul</h2>
+        <p>We believe transformation is not a procedure — it is a journey. Every treatment at Lumière begins with a conversation, and ends with you seeing yourself differently.</p>
+        <p>Our practitioners hold advanced certifications in aesthetic medicine, but what sets them apart is their commitment to understanding you as a whole person, not just a set of concerns to correct.</p>
+        <a href="#" class="btn-outline" style="display:inline-flex;margin-top:32px" onclick="showPage('about');return false">Our Story</a>
+      </div>
+      <div class="phil-scene">
+        <div class="phil-scene-bg"></div>
+        <svg class="phil-scene-svg" viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="opacity:.25">
+          <ellipse cx="250" cy="300" rx="160" ry="220" fill="none" stroke="rgba(196,168,130,0.5)" stroke-width="0.5"/>
+          <ellipse cx="250" cy="300" rx="100" ry="160" fill="none" stroke="rgba(196,168,130,0.35)" stroke-width="0.5"/>
+          <line x1="250" y1="80" x2="250" y2="520" stroke="rgba(196,168,130,0.25)" stroke-width="0.5"/>
+          <line x1="90" y1="300" x2="410" y2="300" stroke="rgba(196,168,130,0.25)" stroke-width="0.5"/>
+          <circle cx="250" cy="300" r="20" fill="rgba(196,168,130,0.15)"/>
+        </svg>
+        <div class="phil-line"></div>
+        <div class="phil-accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Treatments -->
+  <section class="section treatments" style="padding-bottom:0">
+    <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div class="section-tag">Signature Experiences</div>
+        <h2 class="section-title">Curated for<br><em>Your Journey</em></h2>
+      </div>
+      <a href="#" class="btn-outline" onclick="showPage('services');return false">Full Menu</a>
+    </div>
+    <div class="treat-grid reveal">
+      <div class="treat-card">
+        <div class="treat-num">01</div>
+        <div class="treat-name">The Lumière Signature Facial</div>
+        <p class="treat-desc">Our flagship 90-minute experience combines deep cleansing, custom exfoliation, and advanced serum infusion — tailored entirely to your skin's needs that day.</p>
+        <div class="treat-price">From $285</div>
+        <a href="#" class="treat-link" onclick="showPage('book');return false">Reserve</a>
+      </div>
+      <div class="treat-card">
+        <div class="treat-num">02</div>
+        <div class="treat-name">Precision Laser Resurfacing</div>
+        <p class="treat-desc">Medical-grade fractional laser technology that works beneath the surface — stimulating collagen, refining texture, and unveiling the skin you were meant to have.</p>
+        <div class="treat-price">From $650</div>
+        <a href="#" class="treat-link" onclick="showPage('book');return false">Reserve</a>
+      </div>
+      <div class="treat-card">
+        <div class="treat-num">03</div>
+        <div class="treat-name">Sculpt & Renew Body</div>
+        <p class="treat-desc">A transformative full-body protocol combining cryotherapy, body contouring, and lymphatic drainage. One session. A completely new relationship with your body.</p>
+        <div class="treat-price">From $450</div>
+        <a href="#" class="treat-link" onclick="showPage('book');return false">Reserve</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before / After -->
+  <section class="ba-section reveal">
+    <div class="section-tag">Results</div>
+    <h2 class="section-title">The <em>Difference</em><br>Speaks Itself</h2>
+    <div class="ba-wrap">
+      <div class="ba-slider-wrap" id="baSlider">
+        <div class="ba-before" id="baB"></div>
+        <div class="ba-after" id="baA" style="clip-path:inset(0 50% 0 0)"></div>
+        <div class="ba-divider" id="baDivider" style="left:50%">
+          <div class="ba-handle"></div>
+        </div>
+        <div class="ba-label before">Before</div>
+        <div class="ba-label after">After</div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.2" viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="200" cy="200" rx="100" ry="130" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+          <ellipse cx="200" cy="200" rx="60" ry="90" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="ba-right">
+        <div class="section-tag">Client Transformations</div>
+        <h3 class="section-title" style="font-size:clamp(32px,3.5vw,48px)">Real People.<br><em>Real Results.</em></h3>
+        <p style="font-size:13px;letter-spacing:.05em;color:var(--text-2);line-height:1.95;margin-top:20px">Every transformation at Lumière is documented with your consent — a testament to what's possible when world-class technique meets the right candidate. Drag the slider to see the difference.</p>
+        <div class="ba-cases">
+          <button class="ba-case active" onclick="setCase(this,'skin')">Skin Renewal</button>
+          <button class="ba-case" onclick="setCase(this,'laser')">Laser</button>
+          <button class="ba-case" onclick="setCase(this,'sculpt')">Sculpting</button>
+        </div>
+        <div style="margin-top:28px">
+          <a href="#" class="btn-rose" onclick="showPage('book');return false">Book a Consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Recommender -->
+  <section class="ai-section reveal">
+    <div class="ai-bg"></div>
+    <div class="ai-inner">
+      <div class="ai-left">
+        <div class="section-tag">AI Intelligence</div>
+        <h2 class="section-title" style="font-size:clamp(36px,4vw,58px)">Find Your<br><em>Protocol</em></h2>
+        <p>Answer three questions and our AI builds a personalized treatment protocol — the same assessment our practitioners use, available instantly.</p>
+      </div>
+      <div class="ai-widget">
+        <div class="ai-widget-title"><span class="ai-pulse"></span>Lumière AI — Treatment Advisor</div>
+        <div class="ai-progress">
+          <div class="ai-prog-dot done" id="pd1"></div>
+          <div class="ai-prog-dot" id="pd2"></div>
+          <div class="ai-prog-dot" id="pd3"></div>
+        </div>
+        <div class="ai-step active" id="step1">
+          <div class="ai-q">What is your primary skin concern?</div>
+          <div class="ai-opts">
+            <button class="ai-opt" onclick="pickOpt(this,'Fine lines & wrinkles')">Fine lines &amp; wrinkles</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Uneven texture or tone')">Uneven texture or tone</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Acne or breakouts')">Acne or breakouts</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Dullness & dehydration')">Dullness &amp; dehydration</button>
+          </div>
+        </div>
+        <div class="ai-step" id="step2">
+          <div class="ai-q">How would you describe your skin type?</div>
+          <div class="ai-opts">
+            <button class="ai-opt" onclick="pickOpt(this,'Dry or sensitive')">Dry or sensitive</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Oily or combination')">Oily or combination</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Normal, fairly balanced')">Normal, fairly balanced</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Mature, 50+')">Mature, 50+</button>
+          </div>
+        </div>
+        <div class="ai-step" id="step3">
+          <div class="ai-q">What outcome matters most to you?</div>
+          <div class="ai-opts">
+            <button class="ai-opt" onclick="pickOpt(this,'Immediate glow, minimal downtime')">Immediate glow, minimal downtime</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Long-term transformation')">Long-term transformation</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Prevention & maintenance')">Prevention &amp; maintenance</button>
+            <button class="ai-opt" onclick="pickOpt(this,'Relaxation & self-care')">Relaxation &amp; self-care</button>
+          </div>
+        </div>
+        <div class="ai-loading" id="aiLoad">
+          <div class="ld"></div><div class="ld"></div><div class="ld"></div>
+          <span style="font-size:10px;letter-spacing:.14em;color:rgba(250,248,244,.4);margin-left:10px">Building your protocol...</span>
+        </div>
+        <div class="ai-result-box" id="aiResult">
+          <div class="ai-result-tag">Your Personalized Protocol</div>
+          <div class="ai-result-title" id="aiResultTitle">—</div>
+          <div class="ai-result-text" id="aiResultText"></div>
+          <button class="ai-restart" onclick="restartAI()">Start over →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testi-section reveal">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-title">Voices of<br><em>Transformation</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="testi-mark">"</span>
+        <p class="testi-quote">"I've been to spas across the world. Lumière is the only place that made me feel like my skin was being truly understood — not just treated."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">C</div>
+          <div><div class="testi-name">Catherine Rowan</div><div class="testi-role">Client since 2021</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <span class="testi-mark">"</span>
+        <p class="testi-quote">"After one Lumière Signature series my skin looked five years younger. The results are beyond what I thought possible without surgery."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div><div class="testi-name">Michelle Ashford</div><div class="testi-role">Client since 2019</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="f-grid">
+      <div>
+        <div class="f-logo">Lumi<span>è</span>re</div>
+        <p class="f-desc">A sanctuary of transformative aesthetic experiences, where science and serenity converge.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Treatments</div>
+        <ul class="f-links">
+          <li><a href="#" onclick="showPage('services');return false">Facial Treatments</a></li>
+          <li><a href="#" onclick="showPage('services');return false">Laser & Light</a></li>
+          <li><a href="#" onclick="showPage('services');return false">Body Sculpting</a></li>
+          <li><a href="#" onclick="showPage('services');return false">Wellness Infusions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Lumière</div>
+        <ul class="f-links">
+          <li><a href="#" onclick="showPage('about');return false">Our Story</a></li>
+          <li><a href="#" onclick="showPage('journal');return false">Journal</a></li>
+          <li><a href="#" onclick="showPage('book');return false">Reserve</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Visit</div>
+        <ul class="f-links">
+          <li><a href="#">(239) 555-0180</a></li>
+          <li><a href="#">hello@lumierespa.com</a></li>
+          <li><a href="#">400 Fifth Ave S, Naples, FL</a></li>
+          <li><a href="#">Mon–Sat: 9am–7pm</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <div class="f-legal">© 2025 Lumière Aesthetics. All Rights Reserved.</div>
+      <div class="f-legal">Powered by ARC Affiliates</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<div class="page" id="page-services">
+  <div class="services-hero">
+    <div class="section-tag">Treatment Menu</div>
+    <h1 class="services-h1">The Art of<br><em>Transformation</em></h1>
+    <p class="services-sub">Every treatment at Lumière is a bespoke experience — formulated around your skin, your goals, and your life.</p>
+  </div>
+  <div class="services-cats" id="sCats">
+    <button class="s-cat active" onclick="showCat(this,'facial')">Facial Treatments</button>
+    <button class="s-cat" onclick="showCat(this,'laser')">Laser &amp; Light</button>
+    <button class="s-cat" onclick="showCat(this,'body')">Body Sculpting</button>
+    <button class="s-cat" onclick="showCat(this,'wellness')">Wellness Infusions</button>
+  </div>
+  <div class="services-list">
+    <div class="service-group active" id="cat-facial">
+      <div class="service-group-title">Facial <em>Treatments</em></div>
+      <p class="service-group-desc">From our iconic signature facial to precision microneedling — each experience is formulated for your skin on the day of your visit.</p>
+      <div class="service-items">
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Lumière Signature Facial</div><div class="s-duration">90 minutes</div></div><div><div class="s-price">$285</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">HydraFacial MD Elite</div><div class="s-duration">60 minutes</div></div><div><div class="s-price">$225</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Microneedling with PRP</div><div class="s-duration">75 minutes</div></div><div><div class="s-price">$550</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Chemical Peel — Signature</div><div class="s-duration">45 minutes</div></div><div><div class="s-price">$195</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Dermaplaning + Mask</div><div class="s-duration">60 minutes</div></div><div><div class="s-price">$175</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">LED Light Therapy</div><div class="s-duration">30 minutes</div></div><div><div class="s-price">$95</div><span class="s-price-note">Add-on: $65</span></div></div>
+      </div>
+    </div>
+    <div class="service-group" id="cat-laser">
+      <div class="service-group-title">Laser <em>&amp; Light</em></div>
+      <p class="service-group-desc">Medical-grade laser and light technologies delivering measurable, lasting results with minimal downtime.</p>
+      <div class="service-items">
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Fractional Laser Resurfacing</div><div class="s-duration">90 minutes</div></div><div><div class="s-price">$650</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">IPL Photofacial</div><div class="s-duration">60 minutes</div></div><div><div class="s-price">$395</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Laser Hair Removal</div><div class="s-duration">Varies</div></div><div><div class="s-price">From $150</div><span class="s-price-note">Per area</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Vascular Lesion Treatment</div><div class="s-duration">45 minutes</div></div><div><div class="s-price">$325</div><span class="s-price-note">Per session</span></div></div>
+      </div>
+    </div>
+    <div class="service-group" id="cat-body">
+      <div class="service-group-title">Body <em>Sculpting</em></div>
+      <p class="service-group-desc">Non-invasive body contouring and rejuvenation for the whole self — not just the face.</p>
+      <div class="service-items">
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Sculpt &amp; Renew Full Body</div><div class="s-duration">120 minutes</div></div><div><div class="s-price">$750</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Cryotherapy Contouring</div><div class="s-duration">60 minutes</div></div><div><div class="s-price">$450</div><span class="s-price-note">Per area</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Lymphatic Drainage Massage</div><div class="s-duration">75 minutes</div></div><div><div class="s-price">$195</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Body Glow Exfoliation</div><div class="s-duration">60 minutes</div></div><div><div class="s-price">$165</div><span class="s-price-note">Per session</span></div></div>
+      </div>
+    </div>
+    <div class="service-group" id="cat-wellness">
+      <div class="service-group-title">Wellness <em>Infusions</em></div>
+      <p class="service-group-desc">IV vitamin therapy and wellness infusions formulated by our medical team to restore radiance from within.</p>
+      <div class="service-items">
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Lumière Glow Drip</div><div class="s-duration">45 minutes</div></div><div><div class="s-price">$285</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Immunity &amp; Energy Boost</div><div class="s-duration">45 minutes</div></div><div><div class="s-price">$225</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">NAD+ Anti-Aging Infusion</div><div class="s-duration">120 minutes</div></div><div><div class="s-price">$595</div><span class="s-price-note">Per session</span></div></div>
+        <div class="service-item"><div class="s-item-left"><div class="s-name">Custom Formulation</div><div class="s-duration">Varies</div></div><div><div class="s-price">From $195</div><span class="s-price-note">Consultation req.</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="book-bar">
+    <div class="book-bar-text">Ready to begin your journey? <strong>All consultations are complimentary.</strong></div>
+    <button class="book-bar-btn" onclick="showPage('book')">Reserve Now →</button>
+  </div>
+</div>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div>
+      <div class="section-tag">Our Story</div>
+      <h1 class="about-h1">Founded on<br>the Belief that<br><em>Beauty is a Right</em></h1>
+    </div>
+    <div class="about-hero-right">
+      <p>"I opened Lumière because I was tired of aesthetic medicine that treated people like procedures. Every person who walks through our door deserves to be seen."</p>
+      <p class="small">Dr. Isabelle Marchetti founded Lumière in Naples, Florida after 15 years in academic dermatology. She wanted to create something the industry lacked: a space where clinical excellence and genuine human warmth existed in the same room.</p>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="about-img-col reveal">
+      <div class="about-scene">
+        <div class="about-scene-bg"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.25" viewBox="0 0 400 533" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="40" width="320" height="453" fill="none" stroke="rgba(196,168,130,0.4)" stroke-width="0.5"/>
+          <ellipse cx="200" cy="200" rx="80" ry="100" fill="none" stroke="rgba(196,168,130,0.3)" stroke-width="0.5"/>
+          <line x1="200" y1="40" x2="200" y2="493" stroke="rgba(196,168,130,0.15)" stroke-width="0.5"/>
+          <line x1="40" y1="300" x2="360" y2="300" stroke="rgba(196,168,130,0.15)" stroke-width="0.5"/>
+        </svg>
+        <div class="about-scene-line"></div>
+        <div class="about-scene-accent"></div>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-d1">
+      <div class="section-tag">The Lumière Way</div>
+      <h2 class="section-title">Excellence<br>in Every <em>Detail</em></h2>
+      <p>From the moment you arrive, Lumière is designed to feel different. The light is softer. The music is quieter. The conversation is more careful. This is intentional.</p>
+      <p>We believe that the environment in which you receive care is as important as the care itself. Your nervous system deserves to feel safe before any treatment begins.</p>
+      <p>Our practitioners are selected not only for their credentials — which are exceptional — but for their emotional intelligence. We want people who listen before they recommend.</p>
+      <div class="about-sig">Dr. Isabelle Marchetti</div>
+      <div class="about-sig-title">Founder &amp; Medical Director</div>
+    </div>
+  </div>
+  <div class="team-section">
+    <div class="section-tag reveal">The Team</div>
+    <h2 class="section-title reveal">Experts Who <em>Care</em></h2>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?woman+doctor+professional') center top/cover no-repeat,linear-gradient(145deg,#D4C0A0 0%,#C4B090 100%);filter:brightness(.82) saturate(.85)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="140" rx="65" ry="80" fill="none" stroke="rgba(196,168,130,0.5)" stroke-width="0.5"/><line x1="150" y1="220" x2="150" y2="400" stroke="rgba(196,168,130,0.3)" stroke-width="36"/><ellipse cx="150" cy="312" rx="70" ry="10" fill="rgba(196,168,130,0.1)"/></svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(42,36,32,.5),transparent)"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Dr. Isabelle Marchetti</div>
+          <div class="team-role">Founder &amp; Medical Director</div>
+          <p class="team-bio">Board-certified dermatologist with 18 years of experience in aesthetic medicine and laser technology.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-d1">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?aesthetician+woman+beauty') center top/cover no-repeat,linear-gradient(145deg,#D8C4A4 0%,#C8B494 100%);filter:brightness(.82) saturate(.85)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="140" rx="65" ry="80" fill="none" stroke="rgba(196,168,130,0.5)" stroke-width="0.5"/><line x1="150" y1="220" x2="150" y2="400" stroke="rgba(196,168,130,0.3)" stroke-width="36"/></svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(42,36,32,.5),transparent)"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Sophia Laurent</div>
+          <div class="team-role">Lead Aesthetician</div>
+          <p class="team-bio">Advanced certified in HydraFacial, microneedling, and custom chemical peel protocols.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-d2">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?woman+laser+specialist') center top/cover no-repeat,linear-gradient(145deg,#D0BC9C 0%,#C0AC8C 100%);filter:brightness(.82) saturate(.85)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="140" rx="65" ry="80" fill="none" stroke="rgba(196,168,130,0.5)" stroke-width="0.5"/><line x1="150" y1="220" x2="150" y2="400" stroke="rgba(196,168,130,0.3)" stroke-width="36"/></svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(42,36,32,.5),transparent)"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Claire Renaud</div>
+          <div class="team-role">Laser Specialist</div>
+          <p class="team-bio">Certified laser technician specializing in fractional resurfacing and IPL photofacial treatments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ JOURNAL ═══════════ -->
+<div class="page" id="page-journal">
+  <div class="journal-hero">
+    <div class="section-tag">The Lumière Journal</div>
+    <h1 class="journal-h1">Beauty, Science<br>&amp; <em>the Art of</em><br>Living Well</h1>
+    <p class="journal-sub">Insights from our practitioners — on skincare, wellness, and the philosophy of looking your best at every age.</p>
+  </div>
+  <div class="journal-featured">
+    <div class="jf-scene">
+      <div class="jf-scene-bg" style="background:url('https://source.unsplash.com/800x500/?luxury+skincare+serum') center/cover no-repeat,linear-gradient(145deg,#E8D4BC 0%,#D0B898 100%);filter:brightness(.8) saturate(.85)"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.2;z-index:1" viewBox="0 0 700 460" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="350" cy="230" rx="200" ry="160" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+        <ellipse cx="350" cy="230" rx="120" ry="100" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="jf-body">
+      <div class="j-cat">Skin Science</div>
+      <div class="jf-title">The Truth About Collagen: What Actually Works and What Doesn't</div>
+      <p class="jf-excerpt">The market is flooded with collagen claims. Dr. Marchetti breaks down the science — and which treatments are worth your investment.</p>
+      <div class="j-meta"><span class="j-date">March 2025</span><a href="#" class="j-read">Read Article</a></div>
+    </div>
+  </div>
+  <div class="journal-grid">
+    <div class="j-card reveal">
+      <div class="j-card-scene"><div class="j-card-scene-bg" style="background:url('https://source.unsplash.com/500x300/?morning+skincare+routine') center/cover no-repeat,linear-gradient(145deg,#D4C4A4 0%,#C8B494 100%);filter:brightness(.78) saturate(.85)"></div></div>
+      <div class="j-card-body">
+        <div class="j-cat">Wellness</div>
+        <div class="j-card-title">The Morning Rituals of Our Practitioners</div>
+        <p class="j-card-excerpt">From double cleansing to SPF — what the women who know skin best actually do before 9am.</p>
+        <div class="j-meta" style="margin-top:20px"><span class="j-date">February 2025</span></div>
+      </div>
+    </div>
+    <div class="j-card reveal reveal-d1">
+      <div class="j-card-scene"><div class="j-card-scene-bg" style="background:url('https://source.unsplash.com/500x300/?facial+laser+treatment') center/cover no-repeat,linear-gradient(145deg,#DCC8A8 0%,#D0BC9C 100%);filter:brightness(.78) saturate(.85)"></div></div>
+      <div class="j-card-body">
+        <div class="j-cat">Treatments</div>
+        <div class="j-card-title">Microneedling vs. Laser: Which Is Right for You?</div>
+        <p class="j-card-excerpt">Two of our most requested treatments, compared side by side. The answer depends entirely on you.</p>
+        <div class="j-meta" style="margin-top:20px"><span class="j-date">January 2025</span></div>
+      </div>
+    </div>
+    <div class="j-card reveal reveal-d2">
+      <div class="j-card-scene"><div class="j-card-scene-bg" style="background:url('https://source.unsplash.com/500x300/?woman+sleeping+wellness') center/cover no-repeat,linear-gradient(145deg,#D8C4A4 0%,#CCC0A0 100%);filter:brightness(.78) saturate(.85)"></div></div>
+      <div class="j-card-body">
+        <div class="j-cat">Lifestyle</div>
+        <div class="j-card-title">Why Sleep Is the Most Underrated Skin Treatment</div>
+        <p class="j-card-excerpt">No serum, no treatment can replicate what eight hours of quality sleep does for cellular regeneration. The science, explained.</p>
+        <div class="j-meta" style="margin-top:20px"><span class="j-date">December 2024</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:80px"></div>
+  <footer>
+    <div class="f-bot" style="padding-top:0;border-top:none">
+      <div class="f-legal">© 2025 Lumière Aesthetics</div>
+      <div class="f-legal">Powered by ARC Affiliates</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ BOOK ═══════════ -->
+<div class="page" id="page-book">
+  <div class="book-page">
+    <div class="book-grid">
+      <div class="book-left">
+        <div class="section-tag">Reserve Your Experience</div>
+        <h1 class="section-title" style="font-size:clamp(44px,5.5vw,76px)">Begin Your<br><em>Transformation</em></h1>
+        <p>Every journey at Lumière starts with a conversation. Book your consultation — there is no obligation, only possibility.</p>
+        <div class="book-promise">
+          <div class="promise-item"><span class="p-dot"></span>Complimentary consultation included</div>
+          <div class="promise-item"><span class="p-dot"></span>Response confirmation within 2 hours</div>
+          <div class="promise-item"><span class="p-dot"></span>Flexible rescheduling, always</div>
+          <div class="promise-item"><span class="p-dot"></span>Private, discreet, and confidential</div>
+        </div>
+      </div>
+      <div>
+        <div class="book-form-wrap">
+          <div class="book-steps" id="bSteps">
+            <div class="b-step active" data-s="1"><div class="b-step-num">01</div><div class="b-step-label">About You</div></div>
+            <div class="b-step" data-s="2"><div class="b-step-num">02</div><div class="b-step-label">Treatment</div></div>
+            <div class="b-step" data-s="3"><div class="b-step-num">03</div><div class="b-step-label">Date &amp; Time</div></div>
+            <div class="b-step" data-s="4"><div class="b-step-num">04</div><div class="b-step-label">Confirm</div></div>
+          </div>
+          <div class="b-panel active" id="bp1">
+            <div class="b-row">
+              <div class="b-group"><label class="b-label">First Name</label><input class="b-input" type="text" id="bfn" placeholder="Isabelle"></div>
+              <div class="b-group"><label class="b-label">Last Name</label><input class="b-input" type="text" id="bln" placeholder="Marchetti"></div>
+            </div>
+            <div class="b-group"><label class="b-label">Email Address</label><input class="b-input" type="email" id="bem" placeholder="hello@example.com"></div>
+            <div class="b-group"><label class="b-label">Phone Number</label><input class="b-input" type="tel" placeholder="+1 (239) 555-0000"></div>
+            <div class="b-group"><label class="b-label">Have you visited Lumière before?</label><select class="b-select"><option>First visit — new client</option><option>Returning client</option></select></div>
+            <div class="b-nav"><div></div><div style="display:flex;align-items:center;gap:20px"><span style="font-size:9px;letter-spacing:.12em;color:var(--text-4);font-family:'DM Mono',monospace">1 of 4</span><button class="b-next" onclick="bNext(2)">Continue →</button></div></div>
+          </div>
+          <div class="b-panel" id="bp2">
+            <div class="b-group"><label class="b-label" style="margin-bottom:14px">Select your treatment of interest</label>
+              <div class="b-service-opts">
+                <button class="b-service-opt" onclick="bSelService(this)"><span>Lumière Signature Facial</span><span class="b-service-price">$285</span></button>
+                <button class="b-service-opt" onclick="bSelService(this)"><span>HydraFacial MD Elite</span><span class="b-service-price">$225</span></button>
+                <button class="b-service-opt" onclick="bSelService(this)"><span>Microneedling with PRP</span><span class="b-service-price">$550</span></button>
+                <button class="b-service-opt" onclick="bSelService(this)"><span>Fractional Laser Resurfacing</span><span class="b-service-price">$650</span></button>
+                <button class="b-service-opt" onclick="bSelService(this)"><span>Sculpt &amp; Renew Body</span><span class="b-service-price">$750</span></button>
+                <button class="b-service-opt" onclick="bSelService(this)"><span>Complimentary Consultation</span><span class="b-service-price">Free</span></button>
+              </div>
+            </div>
+            <div class="b-group" style="margin-top:20px"><label class="b-label">Any skin concerns or goals to share?</label><textarea class="b-textarea" placeholder="Tell us what you'd like to achieve..."></textarea></div>
+            <div class="b-nav"><button class="b-back" onclick="bNext(1)">Back</button><div style="display:flex;align-items:center;gap:20px"><span style="font-size:9px;letter-spacing:.12em;color:var(--text-4);font-family:'DM Mono',monospace">2 of 4</span><button class="b-next" onclick="bNext(3)">Continue →</button></div></div>
+          </div>
+          <div class="b-panel" id="bp3">
+            <div class="b-group"><label class="b-label" style="margin-bottom:14px">Select a date</label><div class="b-date-grid" id="bCalGrid"></div></div>
+            <div class="b-group"><label class="b-label">Select a time</label><div class="b-time-grid" id="bTimeGrid"></div></div>
+            <div class="b-nav"><button class="b-back" onclick="bNext(2)">Back</button><div style="display:flex;align-items:center;gap:20px"><span style="font-size:9px;letter-spacing:.12em;color:var(--text-4);font-family:'DM Mono',monospace">3 of 4</span><button class="b-next" onclick="bNext(4)">Continue →</button></div></div>
+          </div>
+          <div class="b-panel" id="bp4">
+            <div style="background:rgba(154,123,90,.06);border:1px solid rgba(154,123,90,.15);padding:28px;margin-bottom:24px">
+              <div class="section-tag" style="margin-bottom:20px">Reservation Summary</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div><div style="font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px">Name</div><div id="bConfName" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text)">—</div></div>
+                <div><div style="font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px">Email</div><div id="bConfEmail" style="font-size:12px;color:var(--text-2)">—</div></div>
+                <div><div style="font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px">Appointment</div><div id="bConfDate" style="font-size:12px;color:var(--text-2)">—</div></div>
+                <div><div style="font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px">Treatment</div><div id="bConfSvc" style="font-size:12px;color:var(--text-2)">—</div></div>
+              </div>
+            </div>
+            <div class="b-group"><label class="b-label">Preferred communication</label><select class="b-select"><option>Email</option><option>Text</option><option>Phone call</option></select></div>
+            <div class="b-group" style="flex-direction:row;align-items:center;gap:12px;margin-top:8px">
+              <input type="checkbox" id="bConsent" style="width:15px;height:15px;accent-color:var(--rose-deep);cursor:none">
+              <label for="bConsent" style="font-size:10px;letter-spacing:.05em;color:var(--text-3);text-transform:none;cursor:none">I consent to being contacted regarding my reservation. Your information is held in strict confidence.</label>
+            </div>
+            <div class="b-nav"><button class="b-back" onclick="bNext(3)">Back</button><div style="display:flex;align-items:center;gap:20px"><span style="font-size:9px;letter-spacing:.12em;color:var(--text-4);font-family:'DM Mono',monospace">4 of 4</span><button class="b-submit" onclick="bSubmit()">Confirm Reservation →</button></div></div>
+            <div class="b-success" id="bSuccess">
+              <div class="b-success-icon">✓</div>
+              <h2 class="b-success-h">You're<br><em>Confirmed</em></h2>
+              <p class="b-success-p">Your reservation is complete. A member of our team will reach out within 2 hours to finalize your experience.</p>
+              <div class="b-success-ref" id="bSuccessRef">REF: LUM-000000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── CURSOR ───
+var C=document.getElementById('cur'),R=document.getElementById('cur-r');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;R.style.left=rx+'px';R.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.addEventListener('mouseleave',function(){C.classList.add('off');R.classList.add('off')});
+document.addEventListener('mouseenter',function(){C.classList.remove('off');R.classList.remove('off')});
+document.querySelectorAll('a,button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){C.classList.add('h');R.classList.add('h')});
+  el.addEventListener('mouseleave',function(){C.classList.remove('h');R.classList.remove('h')});
+});
+
+// ─── NAV + SCROLL ───
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('s',scrollY>20);
+  document.getElementById('top-btn').classList.toggle('show',scrollY>400);
+});
+
+// ─── REVEAL ───
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// ─── PAGE ROUTING ───
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.n-links a').forEach(function(a){a.classList.toggle('active',a.dataset.p===id)});
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(function(){
+    var els=document.querySelectorAll('#page-'+id+' .reveal:not(.in)');
+    var o2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+    els.forEach(function(el){o2.observe(el)});
+  },50);
+  if(id==='book')buildCal();
+}
+
+// ─── HERO MORPH ───
+var morphWords=['Renewal','Radiance','Confidence','Luminosity','Transformation'];
+var morphIdx=0;
+function morphText(){
+  var el=document.getElementById('morphText');
+  if(!el)return;
+  el.style.opacity='0';
+  setTimeout(function(){
+    morphIdx=(morphIdx+1)%morphWords.length;
+    el.textContent=morphWords[morphIdx];
+    el.style.opacity='1';
+  },500);
+}
+setInterval(morphText,2800);
+
+// ─── BEFORE/AFTER SLIDER ───
+(function(){
+  var slider=document.getElementById('baSlider');
+  if(!slider)return;
+  var after=document.getElementById('baA');
+  var div=document.getElementById('baDivider');
+  var dragging=false;
+  function setPos(x){
+    var rect=slider.getBoundingClientRect();
+    var pct=Math.max(5,Math.min(95,(x-rect.left)/rect.width*100));
+    after.style.clipPath='inset(0 '+(100-pct)+'% 0 0)';
+    div.style.left=pct+'%';
+  }
+  slider.addEventListener('mousedown',function(e){dragging=true;setPos(e.clientX)});
+  document.addEventListener('mousemove',function(e){if(dragging)setPos(e.clientX)});
+  document.addEventListener('mouseup',function(){dragging=false});
+  slider.addEventListener('touchstart',function(e){dragging=true;setPos(e.touches[0].clientX)},{passive:true});
+  document.addEventListener('touchmove',function(e){if(dragging)setPos(e.touches[0].clientX)},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false});
+})();
+
+function setCase(btn,type){
+  document.querySelectorAll('.ba-case').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+}
+
+// ─── SERVICES FILTER ───
+function showCat(btn,cat){
+  document.querySelectorAll('.s-cat').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  document.querySelectorAll('.service-group').forEach(function(g){g.classList.remove('active')});
+  document.getElementById('cat-'+cat).classList.add('active');
+}
+
+// ─── AI RECOMMENDER ───
+var aiAnswers=[];
+var aiCurStep=1;
+
+function pickOpt(btn,val){
+  btn.closest('.ai-opts').querySelectorAll('.ai-opt').forEach(function(b){b.classList.remove('selected')});
+  btn.classList.add('selected');
+  aiAnswers[aiCurStep-1]=val;
+  setTimeout(function(){
+    if(aiCurStep<3){
+      document.getElementById('step'+aiCurStep).classList.remove('active');
+      aiCurStep++;
+      document.getElementById('pd'+aiCurStep).classList.add('done');
+      document.getElementById('step'+aiCurStep).classList.add('active');
+    } else {
+      document.getElementById('step3').classList.remove('active');
+      runAIRecommend();
+    }
+  },400);
+}
+
+async function runAIRecommend(){
+  document.getElementById('aiLoad').classList.add('show');
+  var prompt="You are the Lumière Aesthetics AI Treatment Advisor. Based on these client answers, recommend a specific treatment protocol in 3-4 sentences. Be warm, knowledgeable, and specific. End with one primary treatment recommendation in bold.\n\nPrimary concern: "+aiAnswers[0]+"\nSkin type: "+aiAnswers[1]+"\nDesired outcome: "+aiAnswers[2];
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompt}]})
+    });
+    var data=await res.json();
+    var text=data.content[0].text;
+    document.getElementById('aiLoad').classList.remove('show');
+    document.getElementById('aiResultTitle').textContent='Your Protocol';
+    document.getElementById('aiResultText').innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    document.getElementById('aiResult').classList.add('show');
+  }catch(e){
+    document.getElementById('aiLoad').classList.remove('show');
+    document.getElementById('aiResultTitle').textContent='Our Recommendation';
+    document.getElementById('aiResultText').innerHTML='Based on your profile, we recommend beginning with our <strong>Lumière Signature Facial</strong> — a deeply customized treatment that addresses your specific concerns while giving our practitioners a full picture of your skin. Book a complimentary consultation to discuss your full protocol.';
+    document.getElementById('aiResult').classList.add('show');
+  }
+}
+
+function restartAI(){
+  aiAnswers=[];aiCurStep=1;
+  document.querySelectorAll('.ai-step').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.ai-prog-dot').forEach(function(d,i){d.classList.toggle('done',i===0)});
+  document.querySelectorAll('.ai-opt').forEach(function(o){o.classList.remove('selected')});
+  document.getElementById('aiResult').classList.remove('show');
+  document.getElementById('step1').classList.add('active');
+}
+
+// ─── BOOKING FORM ───
+var bSelDate='',bSelTime='',bSelSvc='';
+
+function bNext(n){
+  document.querySelectorAll('.b-panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.b-step').forEach(function(s,i){
+    s.classList.remove('active');
+    if(i<n-1)s.classList.add('done');
+    else s.classList.remove('done');
+  });
+  document.getElementById('bp'+n).classList.add('active');
+  document.querySelector('.b-step[data-s="'+n+'"]').classList.add('active');
+  if(n===4)buildConfirm();
+  document.querySelector('.book-form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function bSelService(btn){
+  document.querySelectorAll('.b-service-opt').forEach(function(b){b.classList.remove('sel')});
+  btn.classList.add('sel');
+  bSelSvc=btn.querySelector('span').textContent;
+}
+
+function buildCal(){
+  var grid=document.getElementById('bCalGrid');
+  if(!grid||grid.children.length>0)return;
+  var days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  days.forEach(function(d){var c=document.createElement('div');c.className='b-date hdr';c.textContent=d;grid.appendChild(c)});
+  var today=new Date();
+  var dow=new Date(today.getFullYear(),today.getMonth(),1).getDay();
+  for(var i=0;i<dow;i++){var c=document.createElement('div');c.className='b-date dis';grid.appendChild(c)}
+  var dim=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
+  for(var d=1;d<=dim;d++){
+    var c=document.createElement('div');c.className='b-date';c.textContent=d;
+    var dt=new Date(today.getFullYear(),today.getMonth(),d);
+    if(dt<today||dt.getDay()===0)c.classList.add('dis');
+    else{
+      (function(day,cell){
+        cell.addEventListener('click',function(){
+          document.querySelectorAll('.b-date.sel').forEach(function(x){x.classList.remove('sel')});
+          cell.classList.add('sel');
+          bSelDate=today.toLocaleString('default',{month:'long'})+' '+day;
+        });
+      })(d,c);
+    }
+    grid.appendChild(c);
+  }
+  var tgrid=document.getElementById('bTimeGrid');
+  if(tgrid&&tgrid.children.length===0){
+    ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'].forEach(function(t){
+      var b=document.createElement('button');b.className='b-time';b.textContent=t;
+      b.addEventListener('click',function(){
+        document.querySelectorAll('.b-time.sel').forEach(function(x){x.classList.remove('sel')});
+        b.classList.add('sel');bSelTime=t;
+      });
+      tgrid.appendChild(b);
+    });
+  }
+}
+
+function buildConfirm(){
+  var fn=document.getElementById('bfn').value||'—';
+  var ln=document.getElementById('bln').value||'';
+  document.getElementById('bConfName').textContent=fn+' '+ln;
+  document.getElementById('bConfEmail').textContent=document.getElementById('bem').value||'—';
+  document.getElementById('bConfDate').textContent=(bSelDate&&bSelTime)?bSelDate+' at '+bSelTime:'Not selected';
+  document.getElementById('bConfSvc').textContent=bSelSvc||'Complimentary Consultation';
+}
+
+function bSubmit(){
+  var panels=document.querySelectorAll('#bp4 .b-group,#bp4 .b-nav');
+  panels.forEach(function(p){p.style.display='none'});
+  var s=document.getElementById('bSuccess');
+  s.classList.add('show');
+  document.getElementById('bSuccessRef').textContent='REF: LUM-'+Math.random().toString(36).substr(2,6).toUpperCase();
+}
+</script>
+</body>
+</html>
