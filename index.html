@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARC Library — Design Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Jost:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#050505;--deep:#0a0a0a;--charcoal:#111;--mid:#1a1a1a;
+  --border:#222;--border-l:#2e2e2e;
+  --cream:#E8E4DE;--cream-dim:#6E6A64;--cream-muted:#3A3834;--white:#F4F2EE;
+  --arc:#1E6FC2;--arc-l:#4A90D9;--arc-d:#144E8A;--arc-glow:rgba(30,111,194,.12);
+  --gold:#C9A96E;
+  --ease:cubic-bezier(.25,.46,.45,.94);--ease-out:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .45s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2%,-1%)}40%{transform:translate(1%,2%)}60%{transform:translate(-1%,1%)}80%{transform:translate(2%,-2%)}100%{transform:translate(0,0)}}
+#cur{position:fixed;width:9px;height:9px;background:var(--arc);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s var(--ease),height .2s var(--ease)}
+#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(30,111,194,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s,opacity .3s}
+#cur.h{width:5px;height:5px}#cur-r.h{width:52px;height:52px;border-color:var(--arc)}
+#cur.ch{width:58px;height:58px;background:transparent;mix-blend-mode:normal;border:1px solid var(--arc)}#cur-r.ch{opacity:0}
+#cur.off,#cur-r.off{opacity:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:26px 56px;transition:padding .4s,background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.s{padding:16px 56px;background:rgba(5,5,5,.97);border-bottom-color:var(--border);backdrop-filter:blur(20px)}
+.nl{display:flex;align-items:center;gap:14px;text-decoration:none;cursor:none}
+.nm{width:34px;height:34px;background:var(--arc);clip-path:polygon(0 0,82% 0,100% 18%,100% 100%,18% 100%,0 82%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:#fff;flex-shrink:0}
+.nt{font-family:'Jost',sans-serif;font-weight:400;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream)}
+.ns{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim);display:block;margin-top:2px}
+.nlinks{display:flex;gap:40px;list-style:none}
+.nlinks a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;cursor:none;position:relative;transition:color .3s}
+.nlinks a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--arc);transition:width .4s var(--ease)}
+.nlinks a:hover,.nlinks a:hover::after{color:var(--arc)}
+.nlinks a:hover::after{width:100%}
+.ncta{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--arc);padding:12px 28px;text-decoration:none;cursor:none;transition:background .25s,transform .2s}
+.ncta:hover{background:var(--arc-l);transform:translateY(-1px)}
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:160px 56px 100px;overflow:hidden}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 20%,var(--arc-glow) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 10% 80%,rgba(30,111,194,.05) 0%,transparent 60%),radial-gradient(ellipse 80% 50% at 50% 110%,rgba(201,169,110,.04) 0%,transparent 60%)}
+.hgrid{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hgrid svg{position:absolute;inset:0;width:100%;height:100%}
+.hwm{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:200;font-size:340px;color:rgba(30,111,194,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.02em}
+.hi{position:relative;z-index:2;max-width:960px}
+.heye{display:inline-flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--arc);margin-bottom:40px;opacity:0;animation:fup .7s ease .1s forwards}
+.heye-d{width:5px;height:5px;border-radius:50%;background:var(--arc);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.hh1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(60px,8.5vw,120px);line-height:.9;letter-spacing:-.015em;color:var(--white);opacity:0;animation:fup 1s ease .25s forwards}
+.hh1 em{font-style:italic;color:var(--arc)}
+.hh1 span{color:var(--cream-dim)}
+.hdesc{margin-top:40px;max-width:540px;font-size:14px;font-weight:300;line-height:1.85;color:var(--cream-dim);letter-spacing:.03em;opacity:0;animation:fup .8s ease .45s forwards}
+.hbtns{margin-top:56px;display:flex;gap:24px;align-items:center;opacity:0;animation:fup .7s ease .6s forwards}
+.barc{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);background:var(--arc);padding:16px 40px;text-decoration:none;cursor:none;transition:background .25s,transform .2s;display:inline-block}
+.barc:hover{background:var(--arc-l);transform:translateY(-1px)}
+.bghost{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;cursor:none;display:flex;align-items:center;gap:14px;transition:color .3s}
+.bghost::after{content:'';width:32px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.bghost:hover{color:var(--arc)}
+.bghost:hover::after{width:54px}
+.hstats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-top:88px;border-top:1px solid var(--border);padding-top:44px;opacity:0;animation:fup .7s ease .75s forwards}
+.hstat{padding-right:40px;border-right:1px solid var(--border)}
+.hstat:last-child{border-right:none;padding-left:40px;padding-right:0}
+.hstat:not(:first-child):not(:last-child){padding-left:40px}
+.sn{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:48px;color:var(--arc);line-height:1}
+.sl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-muted);margin-top:6px}
+.aiwrap{padding:0 56px;background:var(--black);position:relative;z-index:5}
+.aibox{background:var(--deep);border:1px solid var(--border-l);position:relative;overflow:hidden}
+.aibox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--arc),transparent)}
+.aibox::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 100% 50%,var(--arc-glow) 0%,transparent 65%);pointer-events:none}
+.aiinn{padding:52px 60px;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;position:relative;z-index:1}
+.aibadge{display:inline-flex;align-items:center;gap:8px;font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.08);padding:7px 16px;margin-bottom:24px}
+.aibd{width:5px;height:5px;border-radius:50%;background:var(--arc);animation:pulse 1.5s ease-in-out infinite}
+.aititle{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:42px;color:var(--white);line-height:1.05;margin-bottom:16px}
+.aititle em{font-style:italic;color:var(--arc)}
+.aidesc{font-size:12px;letter-spacing:.04em;color:var(--cream-dim);line-height:1.9}
+.airgt{display:flex;flex-direction:column;gap:14px}
+.airow{display:flex;gap:0}
+.aiinp{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border-l);border-right:none;color:var(--cream);font-family:'Jost',sans-serif;font-size:13px;font-weight:300;padding:14px 20px;outline:none;transition:border-color .3s;cursor:none}
+.aiinp:focus{border-color:rgba(30,111,194,.5)}
+.aiinp::placeholder{color:var(--cream-muted)}
+.aigo{background:var(--arc);border:1px solid var(--arc);color:white;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;padding:14px 28px;cursor:none;white-space:nowrap;transition:background .25s}
+.aigo:hover{background:var(--arc-l)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.2);background:rgba(30,111,194,.06);padding:7px 16px;cursor:none;transition:background .2s,border-color .2s}
+.chip:hover{background:rgba(30,111,194,.14);border-color:rgba(30,111,194,.5)}
+.aiout{padding:24px 60px;border-top:1px solid var(--border);background:rgba(0,0,0,.3);display:none}
+.aiout.on{display:block;animation:fup .4s ease forwards}
+.aithink{display:none;align-items:center;gap:10px}
+.aithink.on{display:flex}
+.td{width:5px;height:5px;border-radius:50%;background:var(--arc);animation:tdot 1.2s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.15s}.td:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+.aitxt{font-size:13px;line-height:1.85;color:var(--cream-dim)}
+.aitxt strong{color:var(--arc);font-weight:400}
+.fwrap{position:sticky;top:65px;z-index:400;background:rgba(5,5,5,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);transition:opacity .3s,visibility .3s}
+.finn{display:flex;align-items:center;gap:0;padding:0 56px;overflow-x:auto;scrollbar-width:none}
+.finn::-webkit-scrollbar{display:none}
+.flbl{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-muted);white-space:nowrap;padding:20px 28px 20px 0;border-right:1px solid var(--border);margin-right:24px;flex-shrink:0}
+.fbtn{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);background:transparent;border:none;padding:20px 18px;cursor:none;white-space:nowrap;position:relative;transition:color .25s}
+.fbtn::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:1px;background:var(--arc);transform:scaleX(0);transition:transform .3s var(--ease)}
+.fbtn:hover{color:var(--arc)}.fbtn.on{color:var(--arc)}.fbtn.on::after{transform:scaleX(1)}
+.fcnt{font-size:9px;letter-spacing:.14em;color:var(--cream-muted);padding:20px 0;margin-left:auto;white-space:nowrap;font-family:'DM Mono',monospace}
+.scwrap{padding:80px 56px 120px;position:relative;z-index:5}
+.schead{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px}
+.eyebrow{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--arc);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--arc)}
+.sctitle{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(40px,4.5vw,64px);line-height:.92;color:var(--white)}
+.sctitle em{font-style:italic;color:var(--arc)}
+.vtog{display:flex;gap:2px}
+.vbtn{width:36px;height:36px;border:1px solid var(--border-l);background:transparent;cursor:none;color:var(--cream-muted);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,color .2s}
+.vbtn svg{width:13px;height:13px}
+.vbtn.on{background:var(--arc);border-color:var(--arc);color:white}
+.scgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border)}
+.scgrid.lv{grid-template-columns:1fr;background:transparent;gap:1px}
+.card{background:var(--deep);position:relative;overflow:hidden;cursor:none;display:flex;flex-direction:column;transition:background .35s}
+.card:hover{background:var(--charcoal)}
+.card.gone{display:none}
+.prev{height:240px;position:relative;overflow:hidden;flex-shrink:0}
+.scgrid.lv .prev{height:200px;width:300px}
+.scgrid.lv .card{flex-direction:row}
+.pbg{position:absolute;inset:0;transition:transform .7s var(--ease)}
+.card:hover .pbg{transform:scale(1.06)}
+.pov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(5,5,5,.85) 100%)}
+.pnum{position:absolute;top:18px;left:22px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.1em}
+.pbadge{position:absolute;top:18px;right:18px;font-size:7px;letter-spacing:.28em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);background:rgba(0,0,0,.4);backdrop-filter:blur(8px)}
+.pbadge.live{border-color:rgba(30,111,194,.5);color:rgba(100,180,255,.85);background:rgba(30,111,194,.15)}
+.pbadge.soon{border-color:rgba(201,169,110,.25);color:rgba(201,169,110,.6);background:rgba(201,169,110,.06)}
+.prev svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cbody{padding:28px 32px 32px;flex:1;display:flex;flex-direction:column}
+.scgrid.lv .cbody{padding:32px 44px}
+.crow{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cnum{font-family:'DM Mono',monospace;font-size:9px;color:var(--cream-muted);letter-spacing:.1em}
+.ctag{font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.08);padding:4px 12px}
+.ctitle{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--white);margin-bottom:8px;line-height:1.1}
+.caes{font-size:11px;letter-spacing:.04em;color:var(--cream-dim);line-height:1.75;margin-bottom:20px;flex:1}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.ctag2{font-size:8px;letter-spacing:.12em;color:var(--cream-muted);background:var(--mid);padding:4px 10px}
+.cfoot{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--border)}
+.claunch{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--arc);display:flex;align-items:center;gap:10px;text-decoration:none;cursor:none;transition:gap .3s}
+.claunch::after{content:'';width:18px;height:1px;background:var(--arc);transition:width .4s var(--ease)}
+.claunch:hover{gap:14px}.claunch:hover::after{width:32px}
+.ctech{font-family:'DM Mono',monospace;font-size:8px;color:var(--cream-muted);letter-spacing:.06em}
+.band{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--deep)}
+.bitem{padding:60px 52px;border-right:1px solid var(--border);position:relative;overflow:hidden}
+.bitem:last-child{border-right:none}
+.bitem::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--arc);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.bitem.in::before{transform:scaleX(1)}
+.bnum{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:60px;color:var(--arc);line-height:1;margin-bottom:10px}
+.blbl{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-muted);margin-bottom:8px}
+.bsub{font-size:11px;letter-spacing:.03em;color:var(--cream-dim);line-height:1.8}
+.audwrap{padding:100px 56px;position:relative;z-index:5}
+.audgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-top:60px}
+.acard{background:var(--deep);padding:52px 44px;position:relative;overflow:hidden;transition:background .35s}
+.acard:hover{background:var(--charcoal)}
+.acard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--arc);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.acard:hover::before{transform:scaleX(1)}
+.aicon{width:48px;height:48px;border:1px solid rgba(30,111,194,.25);background:rgba(30,111,194,.06);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.aicon svg{width:20px;height:20px;stroke:var(--arc);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.atitle{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--white);margin-bottom:14px}
+.adesc{font-size:11px;letter-spacing:.04em;color:var(--cream-dim);line-height:1.9}
+.acta{margin-top:32px;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--arc);text-decoration:none;cursor:none;display:flex;align-items:center;gap:12px;transition:gap .3s}
+.acta::after{content:'';width:16px;height:1px;background:var(--arc);transition:width .4s var(--ease)}
+.acta:hover{gap:16px}.acta:hover::after{width:28px}
+.ctawrap{margin:0 56px 100px;position:relative;overflow:hidden}
+.ctainn{background:var(--arc);padding:80px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;position:relative;overflow:hidden}
+.ctainn::before{content:'ARC';position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:200;font-size:220px;color:rgba(255,255,255,.07);line-height:1;pointer-events:none;letter-spacing:-.02em}
+.ctainn::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 0% 50%,rgba(255,255,255,.06) 0%,transparent 60%)}
+.ctacont{position:relative;z-index:1}
+.ctah{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(40px,5vw,68px);color:white;line-height:.92}
+.ctah em{font-style:italic;opacity:.7}
+.ctasub{font-size:13px;color:rgba(255,255,255,.6);margin-top:20px;line-height:1.85;max-width:460px}
+.ctaacts{display:flex;flex-direction:column;gap:16px;align-items:flex-end;position:relative;z-index:1;flex-shrink:0}
+.bw{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--arc);background:white;padding:16px 40px;text-decoration:none;cursor:none;white-space:nowrap;transition:background .25s,transform .2s;display:inline-block}
+.bw:hover{background:#f0ede8;transform:translateY(-1px)}
+.bow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px;text-decoration:none;cursor:none;transition:color .25s,border-color .25s;white-space:nowrap}
+.bow:hover{color:white;border-color:white}
+footer{background:var(--deep);border-top:1px solid var(--border);padding:72px 56px 40px}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:56px}
+.fbrand{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.fmark{width:36px;height:36px;background:var(--arc);clip-path:polygon(0 0,82% 0,100% 18%,100% 100%,18% 100%,0 82%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;color:white}
+.fname{font-family:'Jost',sans-serif;font-weight:400;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream)}
+.fdesc{font-size:11px;letter-spacing:.04em;color:var(--cream-muted);line-height:1.9;max-width:280px}
+.fct{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-muted);margin-bottom:22px}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:13px}
+.flinks a{font-size:11px;letter-spacing:.06em;color:var(--cream-muted);text-decoration:none;cursor:none;transition:color .25s}
+.flinks a:hover{color:var(--cream)}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border)}
+.fleg{font-size:8px;letter-spacing:.16em;color:var(--cream-muted)}
+.furl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--cream-muted)}
+@keyframes fup{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ─── MODAL ─── */
+.modal-overlay{position:fixed;inset:0;z-index:2000;display:flex;align-items:stretch;opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(12px)}
+.modal-panel{position:relative;z-index:1;width:100%;max-width:720px;margin-left:auto;background:var(--deep);border-left:1px solid var(--border-l);display:flex;flex-direction:column;transform:translateX(60px);transition:transform .5s var(--ease-out);overflow-y:auto}
+.modal-overlay.open .modal-panel{transform:translateX(0)}
+.modal-header{padding:44px 52px 32px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0}
+.modal-header::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--arc),transparent)}
+.modal-eyebrow{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--arc);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.modal-eyebrow::before{content:"";width:20px;height:1px;background:var(--arc)}
+.modal-title{font-family:"Cormorant Garamond",serif;font-weight:200;font-size:44px;color:var(--white);line-height:.95;margin-bottom:12px;letter-spacing:-.01em}
+.modal-title em{font-style:italic;color:var(--arc)}
+.modal-sub{font-size:11px;letter-spacing:.06em;color:var(--cream-dim);line-height:1.8}
+.modal-close{position:absolute;top:32px;right:40px;background:none;border:1px solid var(--border-l);color:var(--cream-dim);width:36px;height:36px;cursor:none;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;transition:border-color .2s,color .2s}
+.modal-close:hover{border-color:var(--arc);color:var(--arc)}
+.modal-body{flex:1;padding:0;position:relative;min-height:968px;background:var(--deep)}
+.modal-body iframe{display:block;width:100%;min-height:968px;border:none;background:transparent;color-scheme:dark}
+.modal-blocked{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:600px;padding:80px 60px;text-align:center;background:var(--deep)}
+.modal-blocked.show{display:flex}
+.modal-blocked-title{font-family:"Cormorant Garamond",serif;font-weight:200;font-size:36px;color:var(--white);margin-bottom:16px;letter-spacing:-.01em}
+.modal-blocked-desc{font-size:12px;letter-spacing:.05em;color:var(--cream-dim);line-height:1.9;max-width:360px;margin-bottom:36px}
+.modal-blocked-link{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--arc);border:1px solid rgba(30,111,194,.35);padding:15px 36px;text-decoration:none;cursor:none;transition:background .25s,border-color .25s;display:inline-block}
+.modal-blocked-link:hover{background:rgba(30,111,194,.1);border-color:var(--arc)}
+.modal-trust{padding:20px 48px 28px;border-top:1px solid var(--border);display:flex;gap:28px;flex-shrink:0}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.14em;color:var(--cream-muted)}
+.trust-dot{width:4px;height:4px;border-radius:50%;background:var(--arc);flex-shrink:0}
+
+@media(max-width:640px){
+  .modal-panel{max-width:100%}
+  .modal-header{padding:32px 28px 24px}
+  .modal-title{font-size:34px}
+  .modal-close{top:24px;right:20px}
+  .modal-trust{padding:16px 28px 20px;flex-wrap:wrap;gap:12px}
+  .modal-blocked{padding:60px 28px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<nav id="nav">
+  <a href="#" class="nl" onclick="return false">
+    <div class="nm">A</div>
+    <div><span class="nt">ARC Affiliates</span><span class="ns">Design Library</span></div>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#sc" onclick="go('sc');return false">Showcase</a></li>
+    <li><a href="#ab" onclick="go('ab');return false">About</a></li>
+    <li><a href="https://arcaffiliates.com" target="_blank">arcaffiliates.com</a></li>
+  </ul>
+  <a href="#" class="ncta" onclick="openModal();return false">Start a Project</a>
+</nav>
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hgrid">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="225" x2="1440" y2="225" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
+      <line x1="0" y1="450" x2="1440" y2="450" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
+      <line x1="0" y1="675" x2="1440" y2="675" stroke="rgba(30,111,194,0.05)" stroke-width="1"/>
+      <line x1="360" y1="0" x2="360" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
+      <line x1="720" y1="0" x2="720" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
+      <line x1="1080" y1="0" x2="1080" y2="900" stroke="rgba(30,111,194,0.04)" stroke-width="1"/>
+      <rect x="1180" y="60" width="80" height="80" fill="none" stroke="rgba(30,111,194,0.1)" stroke-width="1"/>
+      <rect x="1196" y="76" width="48" height="48" fill="rgba(30,111,194,0.04)" stroke="rgba(30,111,194,0.08)" stroke-width="0.5"/>
+      <circle cx="1180" cy="60" r="3" fill="rgba(30,111,194,0.25)"/>
+    </svg>
+  </div>
+  <div class="hwm">ARC</div>
+  <div class="hi">
+    <div class="heye"><span class="heye-d"></span>ARC Affiliates — Design Library</div>
+    <h1 class="hh1">Multi Sites.<br><em>Multi Worlds.</em><br><span>One Standard.</span></h1>
+    <p class="hdesc">Most agencies sell you a website. ARC builds you a weapon.</p>
+    <div class="hbtns">
+      <a href="#sc" class="barc" onclick="go('sc');return false">Browse the Collection</a>
+      <a href="#aif" class="bghost" onclick="go('aif');return false">Find My Style</a>
+    </div>
+    <div class="hstats">
+      <div class="hstat"><div class="sn">10</div><div class="sl">Distinct Industries</div></div>
+      <div class="hstat"><div class="sn">10</div><div class="sl">Unique Aesthetics</div></div>
+      <div class="hstat"><div class="sn">AI</div><div class="sl">Integrated Throughout</div></div>
+      <div class="hstat"><div class="sn">0</div><div class="sl">Templates Used</div></div>
+    </div>
+  </div>
+</section>
+<div class="aiwrap" id="aif">
+  <div class="aibox">
+    <div class="aiinn">
+      <div>
+        <div class="aibadge"><span class="aibd"></span>ARC AI — Style Matcher</div>
+        <h2 class="aititle">Not sure which<br><em>direction fits?</em></h2>
+        <p class="aidesc">Tell our AI about your business, your audience, or the feeling you want. It will match you to the right showcase and tell you exactly why it fits.</p>
+      </div>
+      <div class="airgt">
+        <div class="airow">
+          <input class="aiinp" id="aiq" type="text" placeholder="e.g. I run a medical spa in Naples, upscale clientele..." autocomplete="off" onkeydown="if(event.key==='Enter')runAI()">
+          <button class="aigo" onclick="runAI()">Match &#8594;</button>
+        </div>
+        <div class="chips">
+          <button class="chip" onclick="qm('local restaurant, warm and inviting')">Restaurant</button>
+          <button class="chip" onclick="qm('law firm, professional and authoritative')">Law Firm</button>
+          <button class="chip" onclick="qm('luxury real estate agent')">Real Estate</button>
+          <button class="chip" onclick="qm('med spa, modern, upscale clientele')">Med Spa</button>
+          <button class="chip" onclick="qm('home builder, high-end custom homes')">Contractor</button>
+          <button class="chip" onclick="qm('financial advisor, wealth management')">Finance</button>
+        </div>
+      </div>
+    </div>
+    <div class="aiout" id="aiout">
+      <div class="aithink" id="aithink"><div class="td"></div><div class="td"></div><div class="td"></div><span style="font-size:10px;letter-spacing:.14em;color:var(--cream-muted);margin-left:10px">Analyzing...</span></div>
+      <div class="aitxt" id="aitxt"></div>
+    </div>
+  </div>
+</div>
+<div style="position:relative"><div class="fwrap" id="sc">
+  <div class="finn">
+    <span class="flbl">Filter</span>
+    <button class="fbtn on" onclick="df(this,'all')">All Ten</button>
+    <button class="fbtn" onclick="df(this,'dark')">Dark / Editorial</button>
+    <button class="fbtn" onclick="df(this,'light')">Light / Organic</button>
+    <button class="fbtn" onclick="df(this,'luxury')">Luxury</button>
+    <button class="fbtn" onclick="df(this,'professional')">Professional</button>
+    <button class="fbtn" onclick="df(this,'bold')">Bold / Kinetic</button>
+    <span class="fcnt" id="fcnt">10 sites</span>
+  </div>
+</div>
+<section class="scwrap">
+  <div class="schead reveal">
+    <div><div class="eyebrow">The Collection</div><h2 class="sctitle">Every Site a<br><em>Different World</em></h2></div>
+    <div class="vtog">
+      <button class="vbtn on" id="vg" onclick="sv('g')" title="Grid"><svg viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="6" height="6"/><rect x="8" y="0" width="6" height="6"/><rect x="0" y="8" width="6" height="6"/><rect x="8" y="8" width="6" height="6"/></svg></button>
+      <button class="vbtn" id="vl" onclick="sv('l')" title="List"><svg viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="1" width="14" height="2"/><rect x="0" y="6" width="14" height="2"/><rect x="0" y="11" width="14" height="2"/></svg></button>
+    </div>
+  </div>
+  <div class="scgrid" id="grid">
+    <div class="card reveal" data-t="dark luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 100% 60% at 60% 30%,#1a2a3a 0%,transparent 65%),radial-gradient(ellipse 70% 50% at 20% 80%,#1a1008 0%,transparent 55%),linear-gradient(160deg,#0e1828 0%,#141e10 40%,#0c0a06 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><line x1="200" y1="120" x2="0" y2="0" stroke="rgba(201,169,110,0.35)" stroke-width="0.5"/><line x1="200" y1="120" x2="400" y2="0" stroke="rgba(201,169,110,0.35)" stroke-width="0.5"/><rect x="70" y="18" width="260" height="168" fill="none" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/><ellipse cx="200" cy="122" rx="110" ry="14" fill="rgba(201,140,60,0.08)"/></svg><div class="pov"></div><div class="pnum">01</div><div class="pbadge live">Live &#10003;</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 01</span><span class="ctag">Real Estate</span></div><div class="ctitle">MAISON Estate Group</div><p class="caes">Dark editorial — Architectural Digest meets black-tie auction house. WebGL particle field, color-reveal cursor, cinematic parallax, 5 full pages.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Valuation</span><span class="ctag2">AI Concierge</span><span class="ctag2">WebGL</span></div><div class="cfoot"><a href="01-luxury-real-estate/index.html" class="claunch" target="_blank">Launch Site</a><span class="ctech">HTML &middot; CSS &middot; WebGL &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d1" data-t="light luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 55% 35%,#2a2420 0%,transparent 65%),linear-gradient(165deg,#28221e 0%,#181410 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><ellipse cx="200" cy="120" rx="150" ry="88" fill="none" stroke="rgba(200,175,140,0.25)" stroke-width="0.5"/><ellipse cx="200" cy="120" rx="100" ry="58" fill="none" stroke="rgba(200,175,140,0.15)" stroke-width="0.5"/><ellipse cx="200" cy="120" rx="50" ry="28" fill="none" stroke="rgba(200,175,140,0.2)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">02</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 02</span><span class="ctag">Med Spa</span></div><div class="ctitle">Lumi&#232;re Aesthetics</div><p class="caes">Organic minimalism — warm ivory tones, morphing hero text, editorial white space, before/after slider, AI intake form.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Booking Flow</span><span class="ctag2">Before/After</span><span class="ctag2">AI Intake</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d2" data-t="dark professional bold" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:linear-gradient(160deg,#111 0%,#0a0a0a 50%,#141414 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".45"><line x1="0" y1="0" x2="400" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="400" y1="0" x2="0" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><rect x="16" y="16" width="368" height="208" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/></svg><div class="pov"></div><div class="pnum">03</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 03</span><span class="ctag">Law Firm</span></div><div class="ctitle">Harmon &amp; Associates</div><p class="caes">Brutalist authority — stark monochrome, condensed display type, raw grid tension, horizontal scroll case studies.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Case Studies</span><span class="ctag2">AI Legal FAQ</span><span class="ctag2">Horiz. Scroll</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal" data-t="dark luxury bold" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 50% 40%,#3a0d15 0%,transparent 65%),linear-gradient(165deg,#2a0810 0%,#0e0808 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><circle cx="200" cy="120" r="90" fill="none" stroke="rgba(201,140,60,0.22)" stroke-width="0.5"/><circle cx="200" cy="120" r="60" fill="none" stroke="rgba(201,140,60,0.14)" stroke-width="0.5"/><circle cx="200" cy="120" r="30" fill="none" stroke="rgba(201,140,60,0.18)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">04</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 04</span><span class="ctag">Restaurant</span></div><div class="ctitle">Ember &amp; Oak</div><p class="caes">Sensory maximalism — deep burgundy, candlelight gold, animated menu reveals, full-bleed atmosphere, reservation widget.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Menu Builder</span><span class="ctag2">Reservations</span><span class="ctag2">AI Sommelier</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d1" data-t="light professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#1e2830 0%,transparent 65%),linear-gradient(165deg,#1a2430 0%,#101820 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polygon points="200,20 20,130 380,130" fill="none" stroke="rgba(140,170,200,0.3)" stroke-width="0.8"/><rect x="130" y="130" width="140" height="90" fill="none" stroke="rgba(140,170,200,0.22)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">05</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 05</span><span class="ctag">Contractor</span></div><div class="ctitle">Summit Build Group</div><p class="caes">Architectural precision — slate tones, hairline grids, structured geometry, 3D perspective portfolio cards, material swatch UI.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Project Gallery</span><span class="ctag2">AI Estimator</span><span class="ctag2">3D Cards</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d2" data-t="dark professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 30%,#0d2b52 0%,transparent 65%),linear-gradient(165deg,#0a1e3a 0%,#060e1e 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><polyline points="20,200 80,155 140,168 200,110 260,128 320,72 380,88" fill="none" stroke="rgba(100,160,240,0.3)" stroke-width="1"/><circle cx="320" cy="72" r="5" fill="rgba(100,180,255,0.4)"/></svg><div class="pov"></div><div class="pnum">06</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 06</span><span class="ctag">Finance</span></div><div class="ctitle">Ashford Capital Group</div><p class="caes">Restrained prestige — deep navy, platinum accents, Swiss typographic discipline, animated data visualization, scroll-locked sections.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Data Viz</span><span class="ctag2">AI Portfolio</span><span class="ctag2">Gated Portal</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal" data-t="dark luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 55% 35%,#1a3020 0%,transparent 65%),linear-gradient(165deg,#142010 0%,#0c1008 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".38"><path d="M 40,200 C 100,175 150,115 200,95 C 250,75 300,100 360,80" fill="none" stroke="rgba(80,200,130,0.2)" stroke-width="0.8"/><circle cx="200" cy="95" r="22" fill="rgba(120,220,140,0.07)"/></svg><div class="pov"></div><div class="pnum">07</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 07</span><span class="ctag">Hospitality</span></div><div class="ctitle">The Verdana Hotel</div><p class="caes">Immersive wanderlust — lush greens, warm terracotta, ambient video loops, room explorer carousel, soft reveal animations.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Room Explorer</span><span class="ctag2">Availability</span><span class="ctag2">AI Concierge</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d1" data-t="dark professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 60% 35%,#003530 0%,transparent 65%),linear-gradient(165deg,#002a28 0%,#001e20 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><line x1="200" y1="28" x2="200" y2="212" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><line x1="108" y1="120" x2="292" y2="120" stroke="rgba(0,210,190,0.3)" stroke-width="1.5"/><circle cx="200" cy="120" r="10" fill="rgba(0,210,190,0.2)"/></svg><div class="pov"></div><div class="pnum">08</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 08</span><span class="ctag">Health</span></div><div class="ctitle">Apex Functional Medicine</div><p class="caes">Clinical luxury — electric teal on deep emerald, geometric precision, symptom quiz funnel, timeline of care, trust-building layout.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Quiz</span><span class="ctag2">Doctor Cards</span><span class="ctag2">Care Timeline</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d2" data-t="bold dark" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:linear-gradient(135deg,#1a0828 0%,#0a1428 30%,#200814 60%,#0a0a14 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".5"><line x1="0" y1="0" x2="400" y2="240" stroke="rgba(255,60,172,0.15)" stroke-width="1"/><line x1="400" y1="0" x2="0" y2="240" stroke="rgba(43,134,197,0.15)" stroke-width="1"/><circle cx="200" cy="120" r="75" fill="none" stroke="rgba(255,60,172,0.1)" stroke-width="1"/><circle cx="200" cy="120" r="36" fill="rgba(120,75,160,0.08)"/></svg><div class="pov" style="background:linear-gradient(to bottom,transparent 20%,rgba(10,5,20,.9) 100%)"></div><div class="pnum">09</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 09</span><span class="ctag">Agency</span></div><div class="ctitle">VOLT Creative Studio</div><p class="caes">Kinetic chaos — bold color blocks, magnetic cursor, scramble text effects, anti-grid layout, dense portfolio reel.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Magnetic Cursor</span><span class="ctag2">Text Scramble</span><span class="ctag2">Work Reel</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal" data-t="dark bold luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 50% at 60% 30%,#080814 0%,transparent 70%),linear-gradient(165deg,#06060e 0%,#050508 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".5"><path d="M 30,160 C 75,110 125,88 200,84 C 275,80 325,106 370,160" fill="none" stroke="rgba(30,111,194,0.28)" stroke-width="0.8"/><circle cx="200" cy="84" r="7" fill="rgba(30,111,194,0.45)"/><circle cx="200" cy="84" r="22" fill="none" stroke="rgba(30,111,194,0.15)" stroke-width="0.5"/></svg><div class="pov"></div><div class="pnum">10</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 10</span><span class="ctag">Automotive</span></div><div class="ctitle">Apex Motor Group</div><p class="caes">Dark industrial glamour — carbon fiber depth, ARC electric blue, vehicle configurator UI, 360&deg; spin animation, speed-line motion.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Configurator</span><span class="ctag2">360&deg; Spin</span><span class="ctag2">AI Spec Match</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d1" data-t="light professional luxury" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 50% 35%,#1a1e28 0%,transparent 65%),linear-gradient(165deg,#161a24 0%,#0c1018 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".4"><ellipse cx="200" cy="120" rx="130" ry="70" fill="none" stroke="rgba(180,200,240,0.2)" stroke-width="0.5"/><ellipse cx="200" cy="120" rx="80" ry="42" fill="none" stroke="rgba(180,200,240,0.12)" stroke-width="0.5"/><line x1="200" y1="50" x2="200" y2="190" stroke="rgba(180,200,240,0.1)" stroke-width="0.5"/><line x1="70" y1="120" x2="330" y2="120" stroke="rgba(180,200,240,0.1)" stroke-width="0.5"/><circle cx="200" cy="120" r="12" fill="rgba(180,200,240,0.12)"/></svg><div class="pov"></div><div class="pnum">11</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 11</span><span class="ctag">Dental</span></div><div class="ctitle">Ivory Dental Studio</div><p class="caes">Cool-luxury minimalism — deep slate, soft silver accents, smile gallery, trust-forward layout, AI symptom checker, seamless booking flow.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">Smile Gallery</span><span class="ctag2">AI Checker</span><span class="ctag2">Booking</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+    <div class="card reveal d2" data-t="dark bold professional" onmouseenter="cc(true)" onmouseleave="cc(false)">
+      <div class="prev"><div class="pbg" style="background:radial-gradient(ellipse 80% 60% at 40% 30%,#1a0808 0%,transparent 65%),linear-gradient(165deg,#140808 0%,#080808 100%)"></div><svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" opacity=".45"><line x1="0" y1="40" x2="400" y2="200" stroke="rgba(220,60,60,0.15)" stroke-width="1"/><line x1="400" y1="40" x2="0" y2="200" stroke="rgba(220,60,60,0.1)" stroke-width="0.5"/><line x1="0" y1="120" x2="400" y2="120" stroke="rgba(220,60,60,0.12)" stroke-width="0.5"/><rect x="160" y="80" width="80" height="80" fill="none" stroke="rgba(220,60,60,0.2)" stroke-width="0.8" transform="rotate(45 200 120)"/><circle cx="200" cy="120" r="8" fill="rgba(220,60,60,0.3)"/></svg><div class="pov" style="background:linear-gradient(to bottom,transparent 20%,rgba(8,4,4,.9) 100%)"></div><div class="pnum">12</div><div class="pbadge soon">Coming Soon</div></div>
+      <div class="cbody"><div class="crow"><span class="cnum">Site 12</span><span class="ctag">Fitness</span></div><div class="ctitle">Forge Athletic</div><p class="caes">High-intensity editorial — deep black, razor-red accents, transformation gallery, trainer roster, AI program builder, membership funnel.</p><div class="ctags"><span class="ctag2">5 Pages</span><span class="ctag2">AI Program Builder</span><span class="ctag2">Before/After</span><span class="ctag2">Membership</span></div><div class="cfoot"><a href="#" class="claunch" onclick="cs();return false">Preview Soon</a><span class="ctech">HTML &middot; CSS &middot; AI</span></div></div>
+    </div>
+  </div>
+</section></div>
+<div class="band">
+  <div class="bitem reveal"><div class="bnum">10</div><div class="blbl">Industries</div><div class="bsub">From fine dining to wealth management — no vertical left uncovered.</div></div>
+  <div class="bitem reveal d1"><div class="bnum">0</div><div class="blbl">Templates Used</div><div class="bsub">Every site custom-designed from a blank canvas. No themes, no page builders.</div></div>
+  <div class="bitem reveal d2"><div class="bnum">AI</div><div class="blbl">In Every Build</div><div class="bsub">Valuation engines, concierge chat, intake forms, neighborhood intelligence.</div></div>
+  <div class="bitem reveal d3"><div class="bnum">1</div><div class="blbl">File Per Site</div><div class="bsub">Every showcase is a single self-contained HTML file. Deploy anywhere instantly.</div></div>
+</div>
+<section class="audwrap" id="ab">
+  <div class="reveal"><div class="eyebrow">Who This Is For</div><h2 class="sctitle">This Library<br>Speaks to <em>Everyone</em></h2></div>
+  <div class="audgrid">
+    <div class="acard reveal"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="atitle">Local Business Owners</div><p class="adesc">Browse 10 distinct industries and find the aesthetic that matches your vision. Every site can be adapted and deployed for your business — your brand, your content, your customers.</p><a href="#" class="acta" onclick="openModal();return false">Start a Conversation</a></div>
+    <div class="acard reveal d1"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="atitle">Agency Partners</div><p class="adesc">ARC offers wholesale white-label access to this entire design and AI infrastructure. Offer your clients enterprise-grade websites at a price point no one else can match.</p><a href="#" class="acta" onclick="openModal();return false">Partner with ARC</a></div>
+    <div class="acard reveal d2"><div class="aicon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div class="atitle">Current ARC Clients</div><p class="adesc">See what's possible beyond your current site. If something catches your eye for a sister brand, a redesign, or a second location — let's talk.</p><a href="#" class="acta" onclick="openModal();return false">Talk to Ty</a></div>
+  </div>
+</section>
+<div class="ctawrap reveal">
+  <div class="ctainn">
+    <div class="ctacont"><h2 class="ctah">Ready to Build<br><em>Your World?</em></h2><p class="ctasub">Every site in this library started as a blank page and a brief conversation. Let's have yours. No obligation — just a frank talk about what's possible for your business.</p></div>
+    <div class="ctaacts"><a href="#" class="bw" onclick="openModal();return false">Book a Free Call</a><a href="https://arcaffiliates.com" class="bow">arcaffiliates.com &#8594;</a></div>
+  </div>
+</div>
+<footer>
+  <div class="fgrid">
+    <div><div class="fbrand"><div class="fmark">A</div><span class="fname">ARC Affiliates</span></div><p class="fdesc">A USMC veteran-owned digital agency building AI-first infrastructure for local and regional business owners. CRM, automation, AI tools, and luxury custom websites.</p></div>
+    <div><div class="fct">The Library</div><ul class="flinks"><li><a href="01-luxury-real-estate/index.html" target="_blank">01 &mdash; Luxury Real Estate &#8599;</a></li><li><a href="#">02 &mdash; Medical Spa (Soon)</a></li><li><a href="#">03 &mdash; Law Firm (Soon)</a></li><li><a href="#">04 &mdash; Restaurant (Soon)</a></li><li><a href="#">05 &mdash; Home Builder (Soon)</a></li><li><a href="#">06 &mdash; Finance (Soon)</a></li><li><a href="#">07 &mdash; Hospitality (Soon)</a></li><li><a href="#">08 &mdash; Health (Soon)</a></li><li><a href="#">09 &mdash; Agency (Soon)</a></li><li><a href="#">10 &mdash; Automotive (Soon)</a></li></ul></div>
+    <div><div class="fct">ARC Affiliates</div><ul class="flinks"><li><a href="https://arcaffiliates.com">Main Website</a></li><li><a href="mailto:ty@arcaffiliates.com">ty@arcaffiliates.com</a></li><li><a href="tel:+13527069130">(352) 706-9130</a></li><li><a href="#">Middleton, Florida</a></li><li><a href="#">USMC Veteran-Owned &#10022;</a></li></ul></div>
+  </div>
+  <div class="fbot"><div class="fleg">&copy; 2025 ARC Affiliates LLC &mdash; All Rights Reserved</div><div class="furl">library.arcaffiliates.com</div></div>
+</footer>
+<script>
+const C=document.getElementById("cur"),R=document.getElementById("cur-r");
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;C.style.left=mx+"px";C.style.top=my+"px"});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;R.style.left=rx+"px";R.style.top=ry+"px";requestAnimationFrame(loop)})();
+document.addEventListener("mouseleave",()=>{C.classList.add("off");R.classList.add("off")});
+document.addEventListener("mouseenter",()=>{C.classList.remove("off");R.classList.remove("off")});
+document.querySelectorAll("a,button").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{C.classList.add("h");R.classList.add("h")});
+  el.addEventListener("mouseleave",()=>{C.classList.remove("h");R.classList.remove("h")});
+});
+function cc(on){C.classList.toggle("ch",on);R.classList.toggle("ch",on)}
+window.addEventListener("scroll",()=>{
+  document.getElementById("nav").classList.toggle("s",scrollY>20);
+  // Unstick filter bar when showcase section scrolls out of view
+  var scwrap=document.querySelector(".scwrap");
+  var fwrap=document.getElementById("sc");
+  if(scwrap&&fwrap){
+    var bottom=scwrap.getBoundingClientRect().bottom;
+    var fh=fwrap.offsetHeight;
+    if(bottom<fh+65){
+      fwrap.style.position="absolute";
+      fwrap.style.bottom="0";
+      fwrap.style.top="auto";
+      fwrap.style.width="100%";
+    } else {
+      fwrap.style.position="sticky";
+      fwrap.style.bottom="";
+      fwrap.style.top="65px";
+      fwrap.style.width="";
+    }
+  }
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("in")})},{threshold:.08});
+document.querySelectorAll(".reveal,.bitem").forEach(el=>obs.observe(el));
+function sv(v){const g=document.getElementById("grid");g.classList.toggle("lv",v==="l");document.getElementById("vg").classList.toggle("on",v==="g");document.getElementById("vl").classList.toggle("on",v==="l")}
+function df(btn,tag){document.querySelectorAll(".fbtn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");const cards=document.querySelectorAll(".card");let n=0;cards.forEach(c=>{const show=tag==="all"||c.dataset.t.includes(tag);c.classList.toggle("gone",!show);if(show)n++});document.getElementById("fcnt").textContent=n+" site"+(n!==1?"s":"")}
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function cs(){const m=document.createElement("div");m.style.cssText="position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #222;border-left:2px solid #1E6FC2;color:#E8E4DE;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.15em;padding:14px 28px;z-index:9999;animation:fup .3s ease forwards";m.textContent="This showcase is in production — check back soon.";document.body.appendChild(m);setTimeout(()=>m.remove(),3000)}
+function qm(q){document.getElementById("aiq").value=q;runAI()}
+async function runAI(){
+  var q=document.getElementById("aiq").value.trim();
+  if(!q)return;
+  var out=document.getElementById("aiout");
+  var think=document.getElementById("aithink");
+  var txt=document.getElementById("aitxt");
+  out.classList.add("on");
+  think.classList.add("on");
+  txt.innerHTML="";
+  var prompt="You are the ARC Affiliates Design Library AI. Recommend 1-2 showcase sites based on the business described. Be confident and concise in 3 sentences. Bold site names with ** syntax. Sites: **MAISON Estate Group** (01) Luxury real estate dark editorial WebGL AI valuation LIVE NOW. **Lumiere Aesthetics** (02) Med spa organic minimalism. **Harmon Associates** (03) Law firm brutalist monochrome. **Ember Oak** (04) Fine dining sensory maximalism. **Summit Build Group** (05) Home builder architectural precision. **Ashford Capital Group** (06) Wealth management navy prestige. **The Verdana Hotel** (07) Boutique hotel lush greens. **Apex Functional Medicine** (08) Health clinical luxury teal. **VOLT Creative Studio** (09) Creative agency kinetic chaos bold color. **Apex Motor Group** (10) Automotive dark industrial glamour. Business: "+q;
+  try{
+    var res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:300,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    var data=await res.json();
+    var raw=(data.content&&data.content[0])?data.content[0].text:"";
+    txt.innerHTML=raw.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+  }catch(e){
+    txt.innerHTML="Based on your description, start with <strong>Site 01 — MAISON Estate Group</strong> (live now). Reach out to Ty at ty@arcaffiliates.com for a personalized recommendation.";
+  }
+  think.classList.remove("on");
+}
+</script>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <div class="modal-eyebrow">ARC Affiliates — New Project</div>
+      <h2 class="modal-title">Let's Build<br><em>Something Real</em></h2>
+      <p class="modal-sub">Tell us about your business and what you're looking to build. A senior advisor will respond within 4 business hours.</p>
+      <button class="modal-close" onclick="closeModalDirect()" aria-label="Close">&#215;</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <iframe
+        src="https://link.arcaffiliates.com/widget/form/OTsbU2UVTH7vMh5skHL8"
+        id="inline-OTsbU2UVTH7vMh5skHL8"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="ATG - AI Automation & Custom App Development | Lead Generation Experts"
+        data-height="968"
+        data-layout-iframe-id="inline-OTsbU2UVTH7vMh5skHL8"
+        data-form-id="OTsbU2UVTH7vMh5skHL8"
+        title="Start a Project — ARC Affiliates"
+        onload="iframeLoaded(this)"
+        onerror="iframeBlocked()">
+      </iframe>
+      <div class="modal-blocked" id="modal-blocked">
+        <div style="width:48px;height:1px;background:var(--arc);margin:0 auto 36px"></div>
+        <div class="modal-blocked-title">Ready When You Are</div>
+        <p class="modal-blocked-desc">Fill out the project form and a senior ARC advisor will reach out within 4 business hours. No obligation — just a frank conversation about what's possible.</p>
+        <a href="https://link.arcaffiliates.com/widget/form/OTsbU2UVTH7vMh5skHL8" target="_blank" class="modal-blocked-link">Start Your Project &#8599;</a>
+        <div style="margin-top:28px;display:flex;gap:24px;justify-content:center">
+          <span style="font-size:9px;letter-spacing:.18em;color:var(--cream-muted);display:flex;align-items:center;gap:7px"><span style="width:3px;height:3px;border-radius:50%;background:var(--arc);display:inline-block"></span>Response within 4 hours</span>
+          <span style="font-size:9px;letter-spacing:.18em;color:var(--cream-muted);display:flex;align-items:center;gap:7px"><span style="width:3px;height:3px;border-radius:50%;background:var(--arc);display:inline-block"></span>No obligation</span>
+          <span style="font-size:9px;letter-spacing:.18em;color:var(--cream-muted);display:flex;align-items:center;gap:7px"><span style="width:3px;height:3px;border-radius:50%;background:var(--arc);display:inline-block"></span>Veteran-owned</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-trust">
+      <div class="trust-item"><span class="trust-dot"></span>Response within 4 hours</div>
+      <div class="trust-item"><span class="trust-dot"></span>No obligation</div>
+      <div class="trust-item"><span class="trust-dot"></span>USMC veteran-owned</div>
+      <div class="trust-item"><span class="trust-dot"></span>Complete confidentiality</div>
+    </div>
+  </div>
+</div>
+<script src="https://link.arcaffiliates.com/js/form_embed.js"></script>
+<script>
+function openModal(){
+  document.getElementById("modal").classList.add("open");
+  document.body.style.overflow="hidden";
+  document.getElementById("cur").style.opacity="0";
+  document.getElementById("cur-r").style.opacity="0";
+  // Check if iframe loaded after short delay
+  setTimeout(function(){
+    var iframe=document.getElementById("inline-OTsbU2UVTH7vMh5skHL8");
+    try{
+      var doc=iframe.contentDocument||iframe.contentWindow.document;
+      if(!doc||doc.body===null||doc.body.innerHTML===""){iframeBlocked();}
+    }catch(e){iframeBlocked();}
+  },2500);
+}
+function iframeLoaded(iframe){
+  try{
+    var doc=iframe.contentDocument||iframe.contentWindow.document;
+    if(doc&&doc.body&&doc.body.innerHTML!==""){
+      document.getElementById("modal-blocked").classList.remove("show");
+    }
+  }catch(e){iframeBlocked();}
+}
+function iframeBlocked(){
+  var iframe=document.getElementById("inline-OTsbU2UVTH7vMh5skHL8");
+  var blocked=document.getElementById("modal-blocked");
+  if(iframe)iframe.style.display="none";
+  if(blocked)blocked.classList.add("show");
+}
+function closeModalDirect(){
+  document.getElementById("modal").classList.remove("open");
+  document.body.style.overflow="";
+  document.getElementById("cur").style.opacity="1";
+  document.getElementById("cur-r").style.opacity="1";
+}
+function closeModal(e){
+  if(e.target===document.getElementById("modal")||e.target.classList.contains("modal-backdrop")){
+    closeModalDirect();
+  }
+}
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape") closeModalDirect();
+});
+</script>
+</body>
+</html>
