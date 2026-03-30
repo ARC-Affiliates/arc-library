@@ -55,7 +55,7 @@ body{
 /* ═══════════════════════════════════════
    NAV
 ═══════════════════════════════════════ */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:30px 52px;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav{position:fixed;max-width:100vw;overflow:hidden;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:30px 52px;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
 nav.scrolled{padding:18px 52px;background:rgba(6,6,6,.96);border-bottom-color:rgba(201,169,110,.08);backdrop-filter:blur(12px)}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:20px;letter-spacing:.45em;color:var(--cream);text-decoration:none;text-transform:uppercase;cursor:none}
 .nav-logo span{color:var(--gold)}
@@ -745,8 +745,19 @@ img[style*="display:none"]{display:none!important}
 .hero-img-wrap::before{z-index:0}
 .hero-img-wrap::after{z-index:1}
 
+/* ── OVERFLOW FIX ── */
+*{max-width:100%}
+img,svg,canvas,video{max-width:100%;height:auto}
+.marquee-wrap,.marquee-track{max-width:100vw}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
+  html,body{overflow-x:hidden;max-width:100vw}
+  nav{position:fixed;width:100%;max-width:100vw;overflow:hidden}
+  .n-ham{display:flex !important;position:relative;z-index:601}
+  .hero-rules svg,.hero-lines svg{max-width:100vw}
+  .marquee-track{animation-duration:20s}
+  section,div{max-width:100vw}
   body{cursor:auto}
   #cur,#cur-r{display:none !important}
   nav{padding:18px 24px}
