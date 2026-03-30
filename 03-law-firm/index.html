@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmon & Associates — Trial Attorneys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- GEO/AEO: LLMs.txt embedded -->
+<meta name="description" content="Harmon & Associates — Trial attorneys with an unbroken record of results. Criminal defense, civil litigation, and corporate law. Florida.">
+<meta name="author" content="Harmon & Associates — Trial Attorneys">
+<meta name="geo.region" content="US-FL">
+<meta name="geo.placename" content="Tampa, Florida">
+<meta property="og:title" content="Harmon & Associates — The Verdict Matters">
+<meta property="og:description" content="Trial attorneys who go to court. Criminal defense, civil litigation, corporate disputes. No settlements when winning is possible.">
+<meta property="og:url" content="https://harmon-associates.com">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://harmon-associates.com">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Harmon & Associates",
+  "url": "https://harmon-associates.com",
+  "description": "Trial attorneys specializing in criminal defense, civil litigation, and corporate law. Florida.",
+  "telephone": "[Phone Number]",
+  "email": "[Email Address]",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[Street Address]",
+    "addressLocality": "Tampa",
+    "addressRegion": "FL",
+    "postalCode": "[ZIP]",
+    "addressCountry": "US"
+  },
+  "founder": {"@type": "Person", "name": "James Harmon"},
+  "creator": {
+    "@type": "Organization",
+    "name": "ARC Affiliates LLC",
+    "url": "https://arcaffiliates.com"
+  }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;
+  --deep:#111111;
+  --surface:#161616;
+  --surface-2:#1c1c1c;
+  --border:#2a2a2a;
+  --border-l:#333;
+  --white:#F4F2EE;
+  --white-2:#C8C4BC;
+  --white-3:#A8A4A0;
+  --white-4:#5A5854;
+  --silver:#A8B0B8;
+  --silver-l:#B0B8C2;
+  --silver-d:#7A8088;
+  --gunmetal:#3A4048;
+  --gunmetal-glow:rgba(140,145,153,.15);
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .5s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-1%,-1%)}50%{transform:translate(1%,1%)}75%{transform:translate(-1%,1%)}100%{transform:translate(0,0)}}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--silver-l);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(140,145,153,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s}
+#cur.h{width:4px;height:4px}#cur-r.h{width:52px;height:52px;border-color:var(--silver-l)}
+#cur.off,#cur-r.off{opacity:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:28px 56px;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.s{padding:16px 56px;background:rgba(10,10,10,.96);border-bottom-color:var(--border);backdrop-filter:blur(20px)}
+.n-logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:18px;letter-spacing:.28em;text-transform:uppercase;color:var(--white);text-decoration:none;cursor:none}
+.n-links{display:flex;gap:36px;list-style:none}
+.n-links a{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--white-3);text-decoration:none;cursor:none;position:relative;transition:color .25s}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--white);transition:width .4s var(--ease)}
+.n-links a:hover,.n-links a.act{color:var(--white)}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--black);background:var(--silver-l);padding:12px 28px;text-decoration:none;cursor:none;transition:background .25s,color .25s}
+.n-cta:hover{background:var(--silver)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:4px}
+.ham span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mob-nav{position:fixed;inset:0;background:var(--black);z-index:490;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .5s var(--ease-out)}
+.mob-nav.open{transform:translateX(0)}
+.mob-nav a{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(36px,8vw,64px);color:var(--white);text-decoration:none;cursor:none;letter-spacing:.08em;transition:opacity .2s}
+.mob-nav a:hover{opacity:.5}
+
+/* PAGES */
+.page{display:none;min-height:100vh}
+.page.act{display:block}
+
+/* ═══ HOME ═══ */
+
+/* Hero */
+#hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden;padding:0 56px 80px}
+
+/* Unique hero backdrop — massive typographic grid */
+.hero-bg{position:absolute;inset:0;background:linear-gradient(165deg,#0c0c0c 0%,#080808 50%,#0f0f0f 100%)}
+.hero-grid-type{position:absolute;inset:0;overflow:hidden;pointer-events:none;user-select:none}
+.hgt-row{position:absolute;left:-5%;right:-5%;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(120px,18vw,280px);letter-spacing:-.03em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(244,242,238,.12);line-height:.9;pointer-events:none;animation:driftLeft 30s linear infinite}
+.hgt-row:nth-child(odd){animation-direction:reverse}
+.hgt-row:nth-child(1){top:-4%}
+.hgt-row:nth-child(2){top:22%;-webkit-text-stroke:1.5px rgba(244,242,238,.08);animation-duration:38s}
+.hgt-row:nth-child(3){top:46%;-webkit-text-stroke:1.5px rgba(244,242,238,.06);animation-duration:44s}
+.hgt-row:nth-child(4){top:68%;-webkit-text-stroke:1px rgba(244,242,238,.05);animation-duration:36s}
+.hgt-row:nth-child(5){top:88%;-webkit-text-stroke:1px rgba(244,242,238,.04)}
+@keyframes driftLeft{from{transform:translateX(0)}to{transform:translateX(-8%)}}
+.hero-rule{position:absolute;left:0;right:0;height:1px;background:rgba(140,145,153,.2)}
+.hero-rule:nth-child(6){top:30%}
+.hero-rule:nth-child(7){top:60%}
+.hero-vert{position:absolute;top:0;bottom:0;width:1px;background:rgba(140,145,153,.12)}
+.hero-vert:nth-child(8){left:33.33%}
+.hero-vert:nth-child(9){left:66.66%}
+.hero-img{position:absolute;right:0;top:0;bottom:0;width:45%;overflow:hidden}
+.hero-img::before{content:'';position:absolute;inset:0;background:url('https://source.unsplash.com/900x1100/?law+courtroom+attorney') center/cover no-repeat,linear-gradient(145deg,#141414,#0a0a0a);filter:grayscale(100%) brightness(.25) contrast(1.5)}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,rgba(10,10,10,.6) 55%,transparent 100%)}
+
+.hero-content{position:relative;z-index:3;max-width:700px;border-left:3px solid var(--silver);padding-left:32px}
+.hero-tag{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:var(--silver-l);margin-bottom:28px;display:flex;align-items:center;gap:14px;opacity:0;animation:fu .7s ease .2s forwards}
+.hero-tag::before{display:none}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(64px,9vw,140px);line-height:.82;letter-spacing:-.03em;text-transform:uppercase;color:var(--white);opacity:0;animation:fu 1s ease .3s forwards}
+.hero-h1 em{font-style:italic;font-weight:300;display:block;font-size:.75em;letter-spacing:.04em;text-transform:none}
+.hero-sub{margin-top:28px;font-size:13px;letter-spacing:.06em;color:var(--white-3);line-height:1.9;max-width:420px;opacity:0;animation:fu .8s ease .55s forwards}
+.hero-btns{margin-top:40px;display:flex;gap:20px;align-items:center;opacity:0;animation:fu .7s ease .7s forwards;flex-wrap:wrap}
+.btn-wh{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);background:var(--white);padding:15px 36px;text-decoration:none;cursor:none;transition:background .25s;display:inline-block}
+.btn-wh:hover{background:var(--white-2)}
+.btn-ghost{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--white-3);text-decoration:none;cursor:none;display:flex;align-items:center;gap:12px;transition:color .25s}
+.btn-ghost::after{content:'';width:28px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.btn-ghost:hover{color:var(--white)}
+.btn-ghost:hover::after{width:48px}
+.hero-stats{position:absolute;bottom:80px;right:56px;z-index:3;display:flex;flex-direction:column;gap:20px;opacity:0;animation:fu .7s ease .9s forwards}
+.h-stat{text-align:right;border-right:2px solid var(--silver-d);padding-right:20px}
+.h-stat-num{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:48px;color:var(--silver-l);line-height:1}
+.h-stat-lbl{font-size:7px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver);margin-top:3px}
+
+/* Marquee */
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;background:var(--deep)}
+.marquee-track{display:inline-flex;animation:marq 32s linear infinite}
+.m-item{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--silver);padding:12px 44px;display:inline-block}
+.m-sep{color:var(--silver-d);padding:12px 0;margin:0 -32px}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Statement section */
+.statement{padding:140px 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid var(--border)}
+.stmt-left{}
+.stmt-tag{font-size:8px;letter-spacing:.38em;text-transform:uppercase;color:var(--silver);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.stmt-tag::before{content:'';width:24px;height:1px;background:var(--silver)}
+.stmt-h{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,4.5vw,68px);line-height:.92;color:var(--white)}
+.stmt-h strong{font-weight:700;display:block}
+.stmt-h em{font-style:italic}
+.stmt-right p{font-size:14px;letter-spacing:.04em;color:var(--white-3);line-height:2;margin-bottom:18px}
+.stmt-right p strong{color:var(--white);font-weight:400}
+
+/* Practice preview */
+.practice-preview{padding:0 0 0 56px;border-bottom:1px solid var(--border)}
+.pp-head{display:flex;justify-content:space-between;align-items:flex-end;padding:80px 56px 60px 0}
+.pp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--border)}
+.pp-card{padding:52px 44px;border-right:1px solid var(--border);position:relative;overflow:hidden;cursor:none;transition:background .3s}
+.pp-card:last-child{border-right:none}
+.pp-card:hover{background:rgba(244,242,238,.03)}
+.pp-card::before{content:''position:absolute;top:0;left:0;right:0;height:1px;background:var(--silver-l);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.pp-card:hover::before{transform:scaleX(1)}
+.pp-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--white-4);letter-spacing:.14em;margin-bottom:24px}
+.pp-area{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;color:var(--white);margin-bottom:14px;line-height:1.1}
+.pp-area em{font-style:italic}
+.pp-desc{font-size:11px;letter-spacing:.05em;color:var(--white-3);line-height:1.85;margin-bottom:28px}
+.pp-link{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-3);text-decoration:none;cursor:none;display:flex;align-items:center;gap:10px;transition:color .25s}
+.pp-link::after{content:'';width:16px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.pp-link:hover{color:var(--white)}
+.pp-link:hover::after{width:28px}
+
+/* Results ticker */
+.results-ticker{padding:80px 56px;border-bottom:1px solid var(--border)}
+.ticker-label{font-size:8px;letter-spacing:.38em;text-transform:uppercase;color:var(--white-3);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.ticker-label::before{content:'';width:24px;height:1px;background:var(--white-3)}
+.ticker-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border:1px solid var(--border)}
+.tick-item{padding:36px 32px;border-right:1px solid var(--border);position:relative;transition:background .3s}
+.tick-item:last-child{border-right:none}
+.tick-item:hover{background:rgba(244,242,238,.03)}
+.tick-verdict{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--white-4);margin-bottom:14px;font-family:'DM Mono',monospace}
+.tick-amount{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;color:var(--white);line-height:1;margin-bottom:8px}
+.tick-type{font-size:10px;letter-spacing:.1em;color:var(--white-3)}
+
+/* Philosophy */
+.philosophy{padding:140px 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;border-bottom:1px solid var(--border);align-items:center}
+.phil-img{position:relative;overflow:hidden}
+.phil-img-inner{width:100%;aspect-ratio:4/5;position:relative;overflow:hidden}
+.phil-img-inner::before{content:'';position:absolute;inset:0;background:url('https://source.unsplash.com/700x900/?courtroom+judge+law') center/cover no-repeat,linear-gradient(145deg,#1a1a1a,#0e0e0e);filter:grayscale(100%) brightness(.45) contrast(1.1)}
+.phil-line{position:absolute;top:-16px;right:-16px;width:55%;height:55%;border:1px solid rgba(244,242,238,.08)}
+.phil-accent{position:absolute;bottom:-20px;left:-20px;width:48%;aspect-ratio:1;background:var(--surface);border:6px solid var(--black)}
+.phil-text .stmt-tag{margin-bottom:24px}
+.phil-text .stmt-h{margin-bottom:28px}
+.phil-text p{font-size:13px;letter-spacing:.05em;color:var(--white-3);line-height:2;margin-bottom:18px}
+.phil-sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:38px;color:var(--silver-l);margin-top:36px;font-weight:300;letter-spacing:.02em}
+.phil-sig-title{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--white-3);margin-top:6px}
+
+/* AI Section */
+.ai-section{padding:140px 56px;background:var(--deep);border-bottom:1px solid var(--border)}
+.ai-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+.ai-left .stmt-h{margin-bottom:20px}
+.ai-left p{font-size:13px;letter-spacing:.05em;color:var(--white-3);line-height:1.95;margin-top:20px}
+.ai-widget{border:1px solid var(--border-l);background:var(--surface);position:relative;overflow:hidden}
+.ai-widget::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(244,242,238,.2),transparent)}
+.ai-widget-hd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ai-widget-title{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--white-3);display:flex;align-items:center;gap:8px}
+.ai-pulse{width:5px;height:5px;border-radius:50%;background:var(--silver-l);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.ai-disclaimer{font-size:7px;letter-spacing:.14em;color:var(--white-4)}
+.ai-msgs{padding:20px 22px;min-height:160px;display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto}
+.ai-msgs::-webkit-scrollbar{width:2px}
+.ai-msgs::-webkit-scrollbar-thumb{background:var(--border-l)}
+.ai-msg-bot{background:rgba(244,242,238,.04);border-left:2px solid rgba(244,242,238,.2);padding:10px 14px;font-size:12px;letter-spacing:.04em;color:var(--white-3);line-height:1.75}
+.ai-msg-bot strong{color:var(--white);font-weight:400}
+.ai-msg-user{background:rgba(244,242,238,.03);border-right:2px solid var(--border-l);padding:10px 14px;font-size:12px;letter-spacing:.04em;color:var(--white-3);text-align:right;line-height:1.75}
+.ai-typing{display:flex;gap:4px;padding:10px 14px;align-items:center}
+.td{width:4px;height:4px;border-radius:50%;background:var(--white-3);animation:tdot 1.2s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.15s}.td:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+.ai-chips-wrap{padding:0 22px 14px;display:flex;gap:6px;flex-wrap:wrap}
+.ai-chip{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--white-3);border:1px solid var(--border);padding:6px 12px;cursor:none;transition:all .2s;background:none}
+.ai-chip:hover{border-color:rgba(244,242,238,.3);color:var(--white)}
+.ai-inp-row{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px}
+.ai-inp{flex:1;background:rgba(255,255,255,.03);border:none;border-bottom:1px solid var(--border);color:var(--white);font-family:'Outfit',sans-serif;font-size:12px;font-weight:300;padding:9px 0;outline:none;transition:border-color .25s}
+.ai-inp:focus{border-bottom-color:rgba(244,242,238,.4)}
+.ai-inp::placeholder{color:var(--white-4)}
+.ai-send{background:var(--silver-l);color:var(--black);border:none;font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:9px 18px;cursor:none;transition:background .2s}
+.ai-send:hover{background:var(--white-2)}
+
+/* Testimonials */
+.testi{padding:140px 56px;border-bottom:1px solid var(--border)}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:52px}
+.testi-card{background:var(--black);padding:52px;position:relative;transition:background .3s}
+.testi-card:hover{background:var(--deep)}
+.testi-mark{position:absolute;top:32px;right:44px;font-family:'Cormorant Garamond',serif;font-size:80px;color:rgba(244,242,238,.06);line-height:1}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:20px;color:var(--white);line-height:1.65;margin-bottom:32px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-av{width:36px;height:36px;border-radius:50%;background:var(--surface);border:1px solid var(--border-l);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--white-3)}
+.testi-name{font-size:11px;letter-spacing:.1em;color:var(--white);margin-bottom:2px}
+.testi-role{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--white-3)}
+
+/* ═══ PRACTICE AREAS ═══ */
+.practice-hero{padding:180px 56px 80px;border-bottom:1px solid var(--border);background:linear-gradient(165deg,#111 0%,#0a0a0a 100%);position:relative;overflow:hidden}
+.ph-bg{position:absolute;inset:0;pointer-events:none}
+.ph-bg svg{position:absolute;inset:0;width:100%;height:100%}
+.practice-h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(56px,8vw,120px);text-transform:uppercase;letter-spacing:-.02em;color:var(--white);line-height:.88;position:relative;z-index:1}
+.practice-h1 em{font-style:italic;font-weight:300;font-size:.7em;display:block;letter-spacing:.04em;text-transform:none}
+.practice-sub{font-size:14px;letter-spacing:.05em;color:var(--white-3);margin-top:28px;max-width:500px;line-height:1.9;position:relative;z-index:1}
+
+.practice-list{padding:0}
+.practice-item{display:grid;grid-template-columns:80px 1fr 280px;align-items:start;padding:60px 56px;border-bottom:1px solid var(--border);gap:40px;cursor:none;transition:background .3s;position:relative}
+.practice-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--silver);transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease)}
+.practice-item:hover{background:rgba(244,242,238,.02)}
+.practice-item:hover::before{transform:scaleY(1)}
+.pi-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--white-4);letter-spacing:.12em;padding-top:6px}
+.pi-main{}
+.pi-area{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(28px,3vw,44px);color:var(--white);margin-bottom:12px;line-height:1}
+.pi-area em{font-style:italic}
+.pi-desc{font-size:12px;letter-spacing:.05em;color:var(--white-3);line-height:1.9;max-width:520px}
+.pi-right{}
+.pi-pricing{border:1px solid var(--border);padding:24px}
+.pi-price-label{font-size:7px;letter-spacing:.28em;text-transform:uppercase;color:var(--white-4);margin-bottom:8px;font-family:'DM Mono',monospace}
+.pi-price{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:28px;color:var(--white);margin-bottom:14px}
+.pi-includes{display:flex;flex-direction:column;gap:7px}
+.pi-include{font-size:9px;letter-spacing:.1em;color:var(--white-3);display:flex;align-items:center;gap:8px}
+.pi-include::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--white-3);flex-shrink:0}
+
+/* ═══ CASE RESULTS ═══ */
+.results-hero{padding:180px 56px 80px;border-bottom:1px solid var(--border);background:var(--deep)}
+.results-h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(56px,8vw,120px);text-transform:uppercase;letter-spacing:-.02em;color:var(--white);line-height:.88}
+.results-h1 em{font-style:italic;font-weight:300;font-size:.65em;display:block;letter-spacing:.04em;text-transform:none}
+.results-sub{font-size:14px;letter-spacing:.05em;color:var(--white-3);margin-top:28px;max-width:520px;line-height:1.9}
+.results-grid{padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.result-card{background:var(--black);padding:52px 44px;transition:background .3s;cursor:none;position:relative;overflow:hidden}
+.result-card:hover{background:var(--deep)}
+.result-card::after{content:'';position:absolute;bottom:0;left:44px;right:44px;height:1px;background:var(--silver);transform:scaleX(0);transition:transform .5s var(--ease)}
+.result-card:hover::after{transform:scaleX(1)}
+.rc-type{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--white-4);margin-bottom:16px;font-family:'DM Mono',monospace}
+.rc-amount{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(48px,5vw,72px);color:var(--white);line-height:1;margin-bottom:10px;letter-spacing:-.02em}
+.rc-desc{font-size:12px;letter-spacing:.05em;color:var(--white-3);line-height:1.85;margin-bottom:20px}
+.rc-verdict{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--silver);border:1px solid var(--silver-d);padding:5px 14px;display:inline-block}
+
+/* ═══ ABOUT ═══ */
+.about-hero{padding:180px 56px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;border-bottom:1px solid var(--border)}
+.about-h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(52px,7vw,100px);text-transform:uppercase;letter-spacing:-.02em;color:var(--white);line-height:.88}
+.about-h1 em{font-style:italic;font-weight:300;font-size:.75em;display:block;letter-spacing:.04em;text-transform:none}
+.about-right p{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:18px;color:var(--white-3);line-height:1.75}
+.about-body{padding:100px 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.about-img{position:relative}
+.about-img-inner{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden}
+.about-img-inner::before{content:'';position:absolute;inset:0;background:url('https://source.unsplash.com/600x800/?lawyer+attorney+professional') center/cover no-repeat,linear-gradient(145deg,#1a1a1a,#0e0e0e);filter:grayscale(100%) brightness(.5) contrast(1.1)}
+.about-img-line{position:absolute;top:-12px;left:-12px;width:50%;height:50%;border:1px solid var(--border-l)}
+.about-text .stmt-tag{margin-bottom:18px}
+.about-text .stmt-h{margin-bottom:24px}
+.about-text p{font-size:13px;letter-spacing:.05em;color:var(--white-3);line-height:2;margin-bottom:16px}
+.team-section{padding:0 56px 100px}
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-top:52px}
+.team-card{background:var(--black);overflow:hidden;cursor:none;transition:background .3s}
+.team-card:hover{background:var(--deep)}
+.team-portrait{width:100%;aspect-ratio:3/4;position:relative;overflow:hidden}
+.team-portrait-bg{position:absolute;inset:0;transition:transform .6s var(--ease)}
+.team-card:hover .team-portrait-bg{transform:scale(1.04)}
+.team-grad{position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(10,10,10,.9),transparent)}
+.team-info{padding:24px 28px}
+.team-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:24px;color:var(--white);margin-bottom:3px}
+.team-role{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-3)}
+.team-bar{font-size:9px;letter-spacing:.1em;color:var(--white-4);margin-top:10px;font-family:'DM Mono',monospace}
+
+/* ═══ SCHEDULE ═══ */
+.schedule-page{background:var(--black);padding:180px 56px 100px}
+.schedule-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:0}
+.sch-left .stmt-h{margin-bottom:20px}
+.sch-left p{font-size:13px;letter-spacing:.05em;color:var(--white-3);line-height:1.95}
+.sch-promise{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.sch-p-item{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.07em;color:var(--white-3)}
+.sch-p-dot{width:3px;height:3px;border-radius:50%;background:var(--white-3);flex-shrink:0}
+.form-wrap{border:1px solid var(--border-l);position:relative;overflow:hidden}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(244,242,238,.25),transparent)}
+.form-steps{display:flex;border-bottom:1px solid var(--border)}
+.f-step{flex:1;padding:16px 12px;border-right:1px solid var(--border);position:relative}
+.f-step:last-child{border-right:none}
+.f-step-num{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.2em;color:var(--white-4);margin-bottom:3px}
+.f-step-lbl{font-size:9px;letter-spacing:.12em;color:var(--white-4)}
+.f-step.act .f-step-lbl{color:var(--white)}
+.f-step.done .f-step-lbl{color:var(--white-3)}
+.f-step::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--white);transform:scaleX(0);transition:transform .4s var(--ease)}
+.f-step.act::after,.f-step.done::after{transform:scaleX(1)}
+.f-panel{display:none;padding:32px 36px}
+.f-panel.act{display:block;animation:fu .3s ease forwards}
+.f-group{margin-bottom:20px}
+.f-label{font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--white-4);margin-bottom:8px;display:block}
+.f-input,.f-select,.f-textarea{width:100%;background:rgba(255,255,255,.03);border:none;border-bottom:1px solid var(--border);color:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;padding:11px 0;outline:none;transition:border-color .25s;-webkit-appearance:none}
+.f-input:focus,.f-select:focus,.f-textarea:focus{border-bottom-color:rgba(244,242,238,.4)}
+.f-textarea{resize:none;min-height:90px;border:1px solid var(--border);padding:12px;margin-top:2px}
+.f-textarea:focus{border-color:rgba(244,242,238,.3)}
+.f-select option{background:var(--black)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-matter-opts{display:flex;flex-direction:column;gap:8px}
+.f-matter-opt{padding:13px 16px;border:1px solid var(--border);font-size:12px;color:var(--white-3);cursor:none;transition:all .2s;display:flex;justify-content:space-between;align-items:center;background:none;text-align:left}
+.f-matter-opt:hover{border-color:rgba(244,242,238,.25);color:var(--white)}
+.f-matter-opt.sel{border-color:rgba(244,242,238,.4);background:rgba(244,242,238,.04);color:var(--white)}
+.f-matter-tag{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--white-4);font-family:'DM Mono',monospace}
+.f-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.f-back{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-4);background:none;border:none;cursor:none;display:flex;align-items:center;gap:10px;transition:color .25s}
+.f-back::before{content:'';width:20px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.f-back:hover{color:var(--white)}
+.f-back:hover::before{width:36px}
+.f-next,.f-submit{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--silver-l);border:none;padding:13px 32px;cursor:none;transition:background .25s}
+.f-next:hover,.f-submit:hover{background:var(--white-2)}
+.f-success{display:none;text-align:center;padding:64px 36px}
+.f-success.show{display:block;animation:fu .4s ease forwards}
+.f-success-icon{width:56px;height:56px;border:1px solid var(--white-3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:20px;color:var(--white)}
+.f-success-h{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:40px;color:var(--white);margin-bottom:12px;line-height:1}
+.f-success-h em{font-style:italic}
+.f-success-p{font-size:12px;letter-spacing:.05em;color:var(--white-3);line-height:1.9;max-width:300px;margin:0 auto 24px}
+.f-success-ref{font-family:'DM Mono',monospace;font-size:9px;color:var(--white-4);border:1px solid var(--border);padding:8px 20px;display:inline-block}
+/* GHL FORM EMBED: replace iframe src with client GHL form URL after sale */
+
+/* FOOTER */
+footer{background:var(--deep);padding:72px 56px 36px;border-top:1px solid var(--border)}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px}
+.f-logo-w{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:20px;letter-spacing:.28em;text-transform:uppercase;color:var(--white);margin-bottom:14px}
+.f-desc{font-size:11px;letter-spacing:.04em;color:var(--white-4);line-height:1.9;max-width:240px}
+.f-col-title{font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--white-4);margin-bottom:18px}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:11px}
+.f-links a{font-size:11px;letter-spacing:.05em;color:var(--white-3);text-decoration:none;cursor:none;transition:color .25s}
+.f-links a:hover{color:var(--white)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border)}
+.f-legal{font-size:8px;letter-spacing:.12em;color:var(--white-4)}
+.f-disc{font-size:8px;letter-spacing:.06em;color:var(--white-4);max-width:440px;line-height:1.7;margin-top:16px}
+
+/* SHARED */
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#cur-r{display:none}
+  nav{padding:20px 24px}
+  nav.s{padding:14px 24px}
+  .n-links,.n-cta{display:none}
+  .ham{display:flex}
+  #hero{padding:0 24px 60px}
+  .hero-h1{font-size:clamp(44px,12vw,80px)}
+  .hero-img{width:60%;opacity:.4}
+  .hero-stats{right:24px;bottom:60px}
+  .h-stat-num{font-size:28px}
+  .statement{grid-template-columns:1fr;gap:40px;padding:80px 24px}
+  .practice-preview{padding:0 0 0 24px}
+  .pp-head{padding:60px 24px 40px 0}
+  .pp-grid{grid-template-columns:1fr;border-top:none}
+  .pp-card{border-right:none;border-top:1px solid var(--border);padding:36px 24px}
+  .results-ticker{padding:60px 24px}
+  .ticker-grid{grid-template-columns:1fr 1fr}
+  .philosophy{grid-template-columns:1fr;gap:40px;padding:80px 24px}
+  .ai-section{padding:80px 24px}
+  .ai-inner{grid-template-columns:1fr;gap:40px}
+  .testi{padding:80px 24px}
+  .testi-grid{grid-template-columns:1fr}
+  .practice-hero{padding:120px 24px 60px}
+  .practice-item{grid-template-columns:40px 1fr;gap:20px;padding:40px 24px}
+  .pi-right{display:none}
+  .results-hero{padding:120px 24px 60px}
+  .results-grid{padding:0 24px;grid-template-columns:1fr}
+  .about-hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:32px}
+  .about-body{grid-template-columns:1fr;padding:60px 24px}
+  .about-img{display:none}
+  .team-section{padding:0 24px 60px}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .schedule-page{padding:120px 24px 60px}
+  .schedule-grid{grid-template-columns:1fr;gap:40px}
+  .f-grid{grid-template-columns:1fr 1fr;gap:32px}
+  footer{padding:52px 24px 28px}
+}
+@media(max-width:480px){
+  .hero-h1{font-size:clamp(38px,11vw,64px)}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+  .ticker-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .f-row{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="n-logo" onclick="sp('home');return false">Harmon <span style="font-style:italic;font-weight:300">&amp;</span> Associates</a>
+  <ul class="n-links">
+    <li><a href="#" onclick="sp('home');return false" data-p="home">Home</a></li>
+    <li><a href="#" onclick="sp('practice');return false" data-p="practice">Practice Areas</a></li>
+    <li><a href="#" onclick="sp('results');return false" data-p="results">Results</a></li>
+    <li><a href="#" onclick="sp('about');return false" data-p="about">About</a></li>
+  </ul>
+  <a href="#" class="n-cta" onclick="sp('schedule');return false">Schedule Consultation</a>
+  <button class="ham" id="ham" onclick="toggleMob()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#" onclick="sp('home');closeMob();return false">Home</a>
+  <a href="#" onclick="sp('practice');closeMob();return false">Practice Areas</a>
+  <a href="#" onclick="sp('results');closeMob();return false">Results</a>
+  <a href="#" onclick="sp('about');closeMob();return false">About</a>
+  <a href="#" onclick="sp('schedule');closeMob();return false">Schedule</a>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page act" id="page-home">
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-type">
+      <div class="hgt-row">HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES</div>
+      <div class="hgt-row">TRIAL ATTORNEYS AT LAW TRIAL ATTORNEYS AT LAW TRIAL ATTORNEYS AT LAW</div>
+      <div class="hgt-row">HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES</div>
+      <div class="hgt-row">CRIMINAL DEFENSE CIVIL LITIGATION CORPORATE LAW CRIMINAL DEFENSE</div>
+      <div class="hgt-row">HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES HARMON &amp; ASSOCIATES</div>
+    </div>
+    <div class="hero-rule"></div>
+    <div class="hero-rule"></div>
+    <div class="hero-vert"></div>
+    <div class="hero-vert"></div>
+    <div class="hero-img"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Harmon &amp; Associates — Established 1998</p>
+      <h1 class="hero-h1">The Verdict<br><em>Matters.</em></h1>
+      <p class="hero-sub">Trial attorneys who go to court. When your freedom, your company, or your future is on the line — you need someone who wins at trial, not someone who negotiates surrender.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-wh" onclick="sp('schedule');return false">Schedule Consultation</a>
+        <a href="#" class="btn-ghost" onclick="sp('results');return false">View Case Results</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-num">94%</div><div class="h-stat-lbl">Trial Win Rate</div></div>
+      <div class="h-stat"><div class="h-stat-num">26yr</div><div class="h-stat-lbl">In Courtroom</div></div>
+      <div class="h-stat"><div class="h-stat-num">$2.1B</div><div class="h-stat-lbl">Recovered</div></div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="m-item">Criminal Defense</span><span class="m-sep">·</span>
+      <span class="m-item">Civil Litigation</span><span class="m-sep">·</span>
+      <span class="m-item">Corporate Disputes</span><span class="m-sep">·</span>
+      <span class="m-item">Federal Cases</span><span class="m-sep">·</span>
+      <span class="m-item">Appellate Practice</span><span class="m-sep">·</span>
+      <span class="m-item">White Collar Defense</span><span class="m-sep">·</span>
+      <span class="m-item">Personal Injury</span><span class="m-sep">·</span>
+      <span class="m-item">Criminal Defense</span><span class="m-sep">·</span>
+      <span class="m-item">Civil Litigation</span><span class="m-sep">·</span>
+      <span class="m-item">Corporate Disputes</span><span class="m-sep">·</span>
+      <span class="m-item">Federal Cases</span><span class="m-sep">·</span>
+      <span class="m-item">Appellate Practice</span><span class="m-sep">·</span>
+      <span class="m-item">White Collar Defense</span><span class="m-sep">·</span>
+      <span class="m-item">Personal Injury</span><span class="m-sep">·</span>
+    </div>
+  </div>
+
+  <div class="statement reveal">
+    <div class="stmt-left">
+      <div class="stmt-tag">The Harmon Difference</div>
+      <h2 class="stmt-h"><strong>Most lawyers</strong><br>settle. We <em>try cases.</em></h2>
+    </div>
+    <div class="stmt-right">
+      <p>The legal industry has a dirty secret: most attorneys settle because trial is hard. It requires preparation, confidence, and a willingness to fight when the stakes are real.</p>
+      <p><strong>We prepare every case as if it will go to trial.</strong> That posture changes what opposing counsel offers. It changes outcomes. It changes lives.</p>
+      <a href="#" class="btn-ghost" onclick="sp('about');return false">Meet the Team</a>
+    </div>
+  </div>
+
+  <div class="practice-preview reveal">
+    <div class="pp-head">
+      <div>
+        <div class="stmt-tag">Practice Areas</div>
+        <h2 class="stmt-h" style="font-size:clamp(36px,4vw,56px)">We fight in<br><em>every arena.</em></h2>
+      </div>
+      <a href="#" class="btn-ghost" onclick="sp('practice');return false">All Practice Areas</a>
+    </div>
+    <div class="pp-grid">
+      <div class="pp-card">
+        <div class="pp-num">01</div>
+        <div class="pp-area">Criminal <em>Defense</em></div>
+        <p class="pp-desc">From DUI to federal charges — we handle the full spectrum of criminal matters with the aggression and preparation your case demands.</p>
+        <a href="#" class="pp-link" onclick="sp('practice');return false">Learn More</a>
+      </div>
+      <div class="pp-card">
+        <div class="pp-num">02</div>
+        <div class="pp-area">Civil <em>Litigation</em></div>
+        <p class="pp-desc">Business disputes, personal injury, wrongful termination — if someone has wronged you and you need a verdict, we take it to trial.</p>
+        <a href="#" class="pp-link" onclick="sp('practice');return false">Learn More</a>
+      </div>
+      <div class="pp-card">
+        <div class="pp-num">03</div>
+        <div class="pp-area">Corporate <em>Law</em></div>
+        <p class="pp-desc">Shareholder disputes, breach of contract, intellectual property. Boardroom conflicts that require courtroom resolution.</p>
+        <a href="#" class="pp-link" onclick="sp('practice');return false">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-ticker reveal">
+    <div class="ticker-label">Recent Verdicts &amp; Settlements</div>
+    <div class="ticker-grid">
+      <div class="tick-item"><div class="tick-verdict">Verdict — Not Guilty</div><div class="tick-amount">Federal Case</div><div class="tick-type">White collar fraud, all counts dismissed</div></div>
+      <div class="tick-item"><div class="tick-verdict">Civil Verdict</div><div class="tick-amount">$14.2M</div><div class="tick-type">Corporate breach of contract</div></div>
+      <div class="tick-item"><div class="tick-verdict">Verdict — Not Guilty</div><div class="tick-amount">Murder Case</div><div class="tick-type">First degree — complete acquittal</div></div>
+      <div class="tick-item"><div class="tick-verdict">Settlement</div><div class="tick-amount">$8.7M</div><div class="tick-type">Personal injury — catastrophic accident</div></div>
+    </div>
+  </div>
+
+  <div class="philosophy reveal">
+    <div class="phil-img">
+      <div class="phil-img-inner"></div>
+      <div class="phil-line"></div>
+      <div class="phil-accent"></div>
+    </div>
+    <div class="phil-text">
+      <div class="stmt-tag">Our Philosophy</div>
+      <h2 class="stmt-h" style="font-size:clamp(36px,4vw,56px)">The law is a<br><em>contact sport.</em></h2>
+      <p>James Harmon has tried over 200 jury trials in 26 years. He does not believe in giving up leverage before a case has been fully contested. Most verdicts are won in the preparation — in depositions, motions, and the thousand decisions made before a jury ever enters the room.</p>
+      <p>Every attorney at this firm is a trial attorney. None of us are settlement specialists. When you hire Harmon &amp; Associates, you hire people who are unafraid of what happens next.</p>
+      <div class="phil-sig">James R. Harmon</div>
+      <div class="phil-sig-title">Founding Partner</div>
+    </div>
+  </div>
+
+  <!-- AI Section -->
+  <div class="ai-section reveal">
+    <div class="ai-inner">
+      <div class="ai-left">
+        <div class="stmt-tag">AI Legal Advisor</div>
+        <h2 class="stmt-h" style="font-size:clamp(36px,4vw,52px)">Understand<br><em>your options.</em></h2>
+        <p>Our AI legal advisor answers general questions about criminal defense, civil claims, and corporate matters — 24 hours a day. Not a substitute for legal counsel. A way to understand your situation before the call.</p>
+      </div>
+      <div class="ai-widget">
+        <div class="ai-widget-hd">
+          <div class="ai-widget-title"><span class="ai-pulse"></span>Harmon AI — Legal Advisor</div>
+          <div class="ai-disclaimer">General information only — not legal advice</div>
+        </div>
+        <div class="ai-msgs" id="aiMsgs">
+          <div class="ai-msg-bot">I can answer general questions about criminal charges, civil claims, and corporate disputes. What would you like to understand about your situation?<br><br>Note: Nothing I say constitutes legal advice or creates an attorney-client relationship.</div>
+        </div>
+        <div class="ai-chips-wrap">
+          <button class="ai-chip" onclick="askAI('What should I do if I was just arrested?')">Just arrested</button>
+          <button class="ai-chip" onclick="askAI('What is the difference between a felony and a misdemeanor?')">Felony vs misdemeanor</button>
+          <button class="ai-chip" onclick="askAI('How does a civil lawsuit work?')">Civil lawsuit process</button>
+          <button class="ai-chip" onclick="askAI('When should I hire a lawyer?')">When to hire an attorney</button>
+        </div>
+        <div class="ai-inp-row">
+          <input class="ai-inp" id="aiInp" type="text" placeholder="Ask a legal question..." onkeydown="if(event.key==='Enter')sendAI()">
+          <button class="ai-send" onclick="sendAI()">Ask →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testi reveal">
+    <div class="stmt-tag">Client Statements</div>
+    <h2 class="stmt-h" style="font-size:clamp(36px,4vw,56px)">The record<br><em>speaks.</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card"><span class="testi-mark">"</span><p class="testi-quote">"They told me my case was unwinnable. James Harmon took it to trial and I walked out a free man. There is no other firm I would trust with my life."</p><div class="testi-author"><div class="testi-av">M</div><div><div class="testi-name">Marcus T.</div><div class="testi-role">Criminal Defense Client</div></div></div></div>
+      <div class="testi-card"><span class="testi-mark">"</span><p class="testi-quote">"After three other firms told us to settle, Harmon took our case to trial and won $14 million. The difference was preparation and willingness to fight."</p><div class="testi-author"><div class="testi-av">R</div><div><div class="testi-name">Richardson Holdings LLC</div><div class="testi-role">Corporate Litigation Client</div></div></div></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="f-grid">
+      <div><div class="f-logo-w">Harmon &amp; Associates</div><p class="f-desc">Trial attorneys with an unbroken commitment to taking cases to verdict. Tampa, Florida.</p><p class="f-disc">The information on this site is for general informational purposes only and does not constitute legal advice. No attorney-client relationship is formed by visiting this site.</p></div>
+      <div><div class="f-col-title">Practice Areas</div><ul class="f-links"><li><a href="#" onclick="sp('practice');return false">Criminal Defense</a></li><li><a href="#" onclick="sp('practice');return false">Civil Litigation</a></li><li><a href="#" onclick="sp('practice');return false">Corporate Law</a></li><li><a href="#" onclick="sp('practice');return false">Federal Cases</a></li><li><a href="#" onclick="sp('practice');return false">Appeals</a></li></ul></div>
+      <div><div class="f-col-title">Firm</div><ul class="f-links"><li><a href="#" onclick="sp('about');return false">About</a></li><li><a href="#" onclick="sp('results');return false">Case Results</a></li><li><a href="#" onclick="sp('schedule');return false">Schedule</a></li></ul></div>
+      <div><div class="f-col-title">Contact</div><ul class="f-links"><li><a href="#">[Phone Number]</a></li><li><a href="mailto:[Email Address]">[Email Address]</a></li><li><a href="#">[Street Address]</a></li><li><a href="#">[City, State ZIP]</a></li><li><a href="#">Mon–Fri: 8am–6pm</a></li></ul></div>
+    </div>
+    <div class="f-bot"><div class="f-legal">© 2025 Harmon &amp; Associates. All Rights Reserved.</div><div class="f-legal">Powered by ARC Affiliates</div></div>
+  </footer>
+</div>
+
+<!-- ══════════ PRACTICE AREAS ══════════ -->
+<div class="page" id="page-practice">
+  <div class="practice-hero">
+    <div class="ph-bg"><svg viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><line x1="0" y1="0" x2="1440" y2="500" stroke="rgba(244,242,238,0.04)" stroke-width="1"/><line x1="1440" y1="0" x2="0" y2="500" stroke="rgba(244,242,238,0.04)" stroke-width="1"/><line x1="720" y1="0" x2="720" y2="500" stroke="rgba(244,242,238,0.03)" stroke-width="1"/><rect x="200" y="60" width="1040" height="380" fill="none" stroke="rgba(244,242,238,0.03)" stroke-width="1"/></svg></div>
+    <div class="stmt-tag">Practice Areas</div>
+    <h1 class="practice-h1">Every<br>Arena. <em>Every</em><br>Verdict.</h1>
+    <p class="practice-sub">We practice in courts across Florida and federal districts nationwide. If you need a lawyer who tries cases, you've found them.</p>
+  </div>
+  <div class="practice-list">
+    <div class="practice-item reveal"><div class="pi-num">01</div><div class="pi-main"><div class="pi-area">Criminal <em>Defense</em></div><p class="pi-desc">From first-time misdemeanors to federal murder charges, we defend the full spectrum of criminal matters with the same preparation and aggression. Every case is different. Every client deserves a defense that goes the distance.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">Consultation</div><div class="pi-price">Complimentary</div><div class="pi-includes"><div class="pi-include">Case evaluation</div><div class="pi-include">Strategy overview</div><div class="pi-include">Fee structure discussion</div><div class="pi-include">No obligation</div></div></div></div></div>
+    <div class="practice-item reveal"><div class="pi-num">02</div><div class="pi-main"><div class="pi-area">Federal <em>Cases</em></div><p class="pi-desc">Federal prosecutors have unlimited resources. You need attorneys who have tried federal cases before federal judges and won. We know the system, the judges, and what it takes to beat the government in court.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">Federal Matters</div><div class="pi-price">From $25,000</div><div class="pi-includes"><div class="pi-include">Federal court experience</div><div class="pi-include">Grand jury representation</div><div class="pi-include">Sentencing advocacy</div></div></div></div></div>
+    <div class="practice-item reveal"><div class="pi-num">03</div><div class="pi-main"><div class="pi-area">Civil <em>Litigation</em></div><p class="pi-desc">Personal injury, wrongful termination, business disputes, and breach of contract. If someone has caused you harm and you deserve compensation, we build the case that forces the right outcome — at trial if necessary.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">Civil Cases</div><div class="pi-price">Contingency Available</div><div class="pi-includes"><div class="pi-include">No upfront fees on PI cases</div><div class="pi-include">Full trial capability</div><div class="pi-include">Expert witness network</div></div></div></div></div>
+    <div class="practice-item reveal"><div class="pi-num">04</div><div class="pi-main"><div class="pi-area">Corporate <em>Law</em></div><p class="pi-desc">Shareholder disputes, executive employment agreements, IP theft, and merger litigation. When business conflicts require courtroom resolution, we bring the same trial intensity that wins criminal cases to the boardroom battle.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">Corporate Matters</div><div class="pi-price">From $500/hr</div><div class="pi-includes"><div class="pi-include">Immediate injunctive relief</div><div class="pi-include">Full litigation team</div><div class="pi-include">ADR &amp; arbitration</div></div></div></div></div>
+    <div class="practice-item reveal"><div class="pi-num">05</div><div class="pi-main"><div class="pi-area">White Collar <em>Defense</em></div><p class="pi-desc">Fraud, embezzlement, money laundering, RICO. The stakes are your freedom, your career, and your reputation. We handle white collar matters with the discretion they demand and the aggression they require.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">White Collar</div><div class="pi-price">Confidential Evaluation</div><div class="pi-includes"><div class="pi-include">Grand jury subpoena response</div><div class="pi-include">Asset protection</div><div class="pi-include">Cooperation strategy</div></div></div></div></div>
+    <div class="practice-item reveal"><div class="pi-num">06</div><div class="pi-main"><div class="pi-area">Appellate <em>Practice</em></div><p class="pi-desc">When a verdict is wrong, the fight continues. We handle appeals in Florida District Courts and the 11th Circuit. A conviction is not final. A judgment is not the end. The record can be corrected.</p></div><div class="pi-right"><div class="pi-pricing"><div class="pi-price-label">Appeals</div><div class="pi-price">From $8,500</div><div class="pi-includes"><div class="pi-include">Record review</div><div class="pi-include">Brief preparation</div><div class="pi-include">Oral argument</div></div></div></div></div>
+  </div>
+  <footer style="margin-top:0">
+    <div class="f-bot" style="padding-top:0;border-top:none"><div class="f-legal">© 2025 Harmon &amp; Associates</div><div class="f-legal">Powered by ARC Affiliates</div></div>
+  </footer>
+</div>
+
+<!-- ══════════ RESULTS ══════════ -->
+<div class="page" id="page-results">
+  <div class="results-hero">
+    <div class="stmt-tag">Case Results</div>
+    <h1 class="results-h1">The<br>Record. <em>Unbroken.</em></h1>
+    <p class="results-sub">A selection of verdicts and settlements obtained on behalf of our clients. Results vary by case. Past outcomes do not guarantee future results.</p>
+  </div>
+  <div class="results-grid reveal">
+    <div class="result-card"><div class="rc-type">Verdict — Not Guilty</div><div class="rc-amount">Federal Murder</div><p class="rc-desc">First degree murder charge, federal jurisdiction. Complete acquittal on all counts after 3-week jury trial.</p><div class="rc-verdict">Not Guilty — All Counts</div></div>
+    <div class="result-card"><div class="rc-type">Civil Verdict</div><div class="rc-amount">$14,200,000</div><p class="rc-desc">Corporate breach of contract dispute. Jury verdict after opposing counsel rejected $3M settlement offer.</p><div class="rc-verdict">Plaintiff Verdict</div></div>
+    <div class="result-card"><div class="rc-type">Settlement</div><div class="rc-amount">$8,700,000</div><p class="rc-desc">Catastrophic personal injury — commercial vehicle accident. Settled on eve of trial after depositions.</p><div class="rc-verdict">Pre-Trial Settlement</div></div>
+    <div class="result-card"><div class="rc-type">Verdict — Not Guilty</div><div class="rc-amount">White Collar Fraud</div><p class="rc-desc">Federal securities fraud, 12 counts. All counts dismissed following motion practice and jury trial.</p><div class="rc-verdict">Complete Acquittal</div></div>
+    <div class="result-card"><div class="rc-type">Civil Verdict</div><div class="rc-amount">$6,400,000</div><p class="rc-desc">Wrongful termination and breach of executive employment agreement. Jury verdict after 2-week trial.</p><div class="rc-verdict">Plaintiff Verdict</div></div>
+    <div class="result-card"><div class="rc-type">Charges Dismissed</div><div class="rc-amount">DUI Manslaughter</div><p class="rc-desc">DUI manslaughter charge. All charges dismissed following suppression hearing on traffic stop validity.</p><div class="rc-verdict">Charges Dismissed</div></div>
+    <div class="result-card"><div class="rc-type">Appellate Victory</div><div class="rc-amount">Conviction Reversed</div><p class="rc-desc">Armed robbery conviction reversed on appeal. Ineffective assistance of prior counsel established. Client released.</p><div class="rc-verdict">Reversed &amp; Remanded</div></div>
+    <div class="result-card"><div class="rc-type">Settlement</div><div class="rc-amount">$3,900,000</div><p class="rc-desc">Shareholder derivative action against corporate officers. Settled following extensive discovery and depositions.</p><div class="rc-verdict">Corporate Settlement</div></div>
+  </div>
+  <div style="height:80px;background:var(--black)"></div>
+  <footer>
+    <div class="f-bot" style="padding-top:0;border-top:none"><div class="f-legal">© 2025 Harmon &amp; Associates — Results vary. Past outcomes do not guarantee future results.</div><div class="f-legal">Powered by ARC Affiliates</div></div>
+  </footer>
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div>
+      <div class="stmt-tag">The Firm</div>
+      <h1 class="about-h1">Built for<br>the<br><em>Courtroom.</em></h1>
+    </div>
+    <div class="about-right">
+      <p>"I have never once in 26 years advised a client to accept an outcome they didn't deserve. The courtroom exists to produce justice. That is what we go there to find."</p>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="about-img">
+      <div class="about-img-inner"></div>
+      <div class="about-img-line"></div>
+    </div>
+    <div class="about-text">
+      <div class="stmt-tag">Our Story</div>
+      <h2 class="stmt-h" style="font-size:clamp(36px,4vw,56px)">26 years.<br><em>200+ trials.</em></h2>
+      <p>James Harmon founded this firm in 1998 after leaving the State Attorney's Office, where he prosecuted serious felonies. He knew from the other side of the aisle what it took to win at trial — and he built a defense and litigation firm around that knowledge.</p>
+      <p>Every attorney hired at Harmon &amp; Associates is a trial attorney first. We do not hire settlement specialists. We do not hire attorneys who avoid the courtroom. The culture of this firm is built around one question: are you ready to try this case?</p>
+      <p>That posture has earned us the respect of judges, opposing counsel, and most importantly, our clients — whose freedom and futures have been entrusted to us over two and a half decades.</p>
+      <div class="phil-sig">James R. Harmon</div>
+      <div class="phil-sig-title">Founding Partner — 26 years at the bar</div>
+    </div>
+  </div>
+  <div class="team-section">
+    <div class="stmt-tag reveal">The Attorneys</div>
+    <h2 class="stmt-h reveal" style="font-size:clamp(36px,4vw,56px)">Trial lawyers.<br><em>All of them.</em></h2>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?male+lawyer+professional') center top/cover no-repeat,linear-gradient(145deg,#1a1a1a,#0e0e0e);filter:grayscale(100%) brightness(.5) contrast(1.1)"></div>
+          <div class="team-grad"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">James R. Harmon</div>
+          <div class="team-role">Founding Partner</div>
+          <div class="team-bar">26yr · 200+ jury trials · Former prosecutor</div>
+        </div>
+      </div>
+      <div class="team-card reveal d1">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?female+attorney+professional') center top/cover no-repeat,linear-gradient(145deg,#1c1c1c,#111);filter:grayscale(100%) brightness(.5) contrast(1.1)"></div>
+          <div class="team-grad"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Sarah Chen</div>
+          <div class="team-role">Partner — Civil Litigation</div>
+          <div class="team-bar">14yr · Federal courts · $40M+ recovered</div>
+        </div>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="team-portrait">
+          <div class="team-portrait-bg" style="background:url('https://source.unsplash.com/400x533/?male+attorney+suit') center top/cover no-repeat,linear-gradient(145deg,#181818,#0e0e0e);filter:grayscale(100%) brightness(.5) contrast(1.1)"></div>
+          <div class="team-grad"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">David Okafor</div>
+          <div class="team-role">Partner — Corporate</div>
+          <div class="team-bar">11yr · Former BigLaw · M&amp;A litigation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SCHEDULE ══════════ -->
+<div class="page" id="page-schedule">
+  <div class="schedule-page">
+    <div class="schedule-grid">
+      <div class="sch-left">
+        <div class="stmt-tag">Schedule a Consultation</div>
+        <h1 class="stmt-h" style="font-size:clamp(44px,5.5vw,72px)">The first<br><em>conversation</em><br>is free.</h1>
+        <p>Every matter begins with a confidential consultation. Tell us what happened. We will tell you honestly what your options are and what we would do.</p>
+        <div class="sch-promise">
+          <div class="sch-p-item"><span class="sch-p-dot"></span>Complimentary 45-minute consultation</div>
+          <div class="sch-p-item"><span class="sch-p-dot"></span>Response within 2 hours during business hours</div>
+          <div class="sch-p-item"><span class="sch-p-dot"></span>Full confidentiality — attorney-client privilege attaches</div>
+          <div class="sch-p-item"><span class="sch-p-dot"></span>No obligation to retain</div>
+          <div class="sch-p-item"><span class="sch-p-dot"></span>Evening and weekend appointments available</div>
+        </div>
+      </div>
+      <div>
+        <div class="form-wrap">
+          <div class="form-steps" id="fSteps">
+            <div class="f-step act" data-s="1"><div class="f-step-num">01</div><div class="f-step-lbl">Your Info</div></div>
+            <div class="f-step" data-s="2"><div class="f-step-num">02</div><div class="f-step-lbl">Matter Type</div></div>
+            <div class="f-step" data-s="3"><div class="f-step-num">03</div><div class="f-step-lbl">Details</div></div>
+            <div class="f-step" data-s="4"><div class="f-step-num">04</div><div class="f-step-lbl">Confirm</div></div>
+          </div>
+          <!-- GHL WEBHOOK: POST form data to client GHL webhook URL on submit -->
+          <div class="f-panel act" id="fp1">
+            <div class="f-row"><div class="f-group"><label class="f-label">First Name</label><input class="f-input" type="text" id="ffn" placeholder="James"></div><div class="f-group"><label class="f-label">Last Name</label><input class="f-input" type="text" id="fln" placeholder="Harmon"></div></div>
+            <div class="f-group"><label class="f-label">Email Address</label><input class="f-input" type="email" id="fem" placeholder="james@example.com"></div>
+            <div class="f-group"><label class="f-label">Phone Number</label><input class="f-input" type="tel" placeholder=""></div>
+            <div class="f-group"><label class="f-label">Preferred Contact Method</label><select class="f-select"><option>Phone call</option><option>Email</option><option>Text message</option></select></div>
+            <div class="f-nav"><div></div><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--white-4)">1 of 4</span><button class="f-next" onclick="fNext(2)">Continue →</button></div></div>
+          </div>
+          <div class="f-panel" id="fp2">
+            <div class="f-group"><label class="f-label" style="margin-bottom:14px">What type of matter do you need help with?</label>
+              <div class="f-matter-opts">
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Criminal Defense</span><span class="f-matter-tag">Felony / Misdemeanor</span></button>
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Federal Criminal</span><span class="f-matter-tag">Federal Court</span></button>
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Civil Litigation</span><span class="f-matter-tag">Personal Injury / Dispute</span></button>
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Corporate Matter</span><span class="f-matter-tag">Business Dispute</span></button>
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Appeal</span><span class="f-matter-tag">Prior Conviction</span></button>
+                <button class="f-matter-opt" onclick="fSel(this)"><span>Not Sure Yet</span><span class="f-matter-tag">General Consultation</span></button>
+              </div>
+            </div>
+            <div class="f-nav"><button class="f-back" onclick="fNext(1)">Back</button><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--white-4)">2 of 4</span><button class="f-next" onclick="fNext(3)">Continue →</button></div></div>
+          </div>
+          <div class="f-panel" id="fp3">
+            <div class="f-group"><label class="f-label">Briefly describe your situation</label><textarea class="f-textarea" placeholder="What happened? The more detail you share, the better we can prepare for your consultation. All information is protected by attorney-client privilege."></textarea></div>
+            <div class="f-group"><label class="f-label">When did this occur / is this time-sensitive?</label><select class="f-select"><option>Within the last 24 hours</option><option>Within the last week</option><option>Within the last month</option><option>More than a month ago</option><option>Ongoing matter</option></select></div>
+            <div class="f-group"><label class="f-label">Preferred consultation time</label><select class="f-select"><option>Morning (8am–12pm)</option><option>Afternoon (12pm–5pm)</option><option>Evening (5pm–8pm)</option><option>Weekend</option></select></div>
+            <div class="f-nav"><button class="f-back" onclick="fNext(2)">Back</button><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--white-4)">3 of 4</span><button class="f-next" onclick="fNext(4)">Continue →</button></div></div>
+          </div>
+          <div class="f-panel" id="fp4">
+            <div style="background:rgba(244,242,238,.03);border:1px solid var(--border);padding:24px;margin-bottom:20px">
+              <div style="font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--white-4);margin-bottom:16px">Consultation Summary</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div><div style="font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-4);margin-bottom:5px">Name</div><div id="fCN" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white)">—</div></div>
+                <div><div style="font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-4);margin-bottom:5px">Email</div><div id="fCE" style="font-size:12px;color:var(--white-3)">—</div></div>
+                <div><div style="font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-4);margin-bottom:5px">Matter Type</div><div id="fCM" style="font-size:12px;color:var(--white-3)">—</div></div>
+                <div><div style="font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--white-4);margin-bottom:5px">Status</div><div style="font-size:12px;color:var(--white-3)">Confidential</div></div>
+              </div>
+            </div>
+            <div class="f-group" style="flex-direction:row;align-items:flex-start;gap:10px;margin-top:4px">
+              <input type="checkbox" id="fConsent" style="width:14px;height:14px;accent-color:var(--white);cursor:none;margin-top:2px;flex-shrink:0">
+              <label for="fConsent" style="font-size:9px;letter-spacing:.05em;color:var(--white-4);cursor:none;line-height:1.7">I understand this consultation is confidential and does not create an attorney-client relationship until a retainer agreement is signed.</label>
+            </div>
+            <div class="f-nav"><button class="f-back" onclick="fNext(3)">Back</button><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--white-4)">4 of 4</span><button class="f-submit" onclick="fSubmit()">Request Consultation →</button></div></div>
+            <div class="f-success" id="fSuccess">
+              <div class="f-success-icon">✓</div>
+              <h2 class="f-success-h">Received.<br><em>We'll call you.</em></h2>
+              <p class="f-success-p">Your consultation request is confirmed. A member of our team will contact you within 2 hours during business hours.</p>
+              <div class="f-success-ref" id="fRef">REF: HA-000000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+var C=document.getElementById('cur'),R=document.getElementById('cur-r');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;R.style.left=rx+'px';R.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.addEventListener('mouseleave',function(){C.classList.add('off');R.classList.add('off')});
+document.addEventListener('mouseenter',function(){C.classList.remove('off');R.classList.remove('off')});
+document.querySelectorAll('a,button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){C.classList.add('h');R.classList.add('h')});
+  el.addEventListener('mouseleave',function(){C.classList.remove('h');R.classList.remove('h')});
+});
+
+// NAV
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('s',scrollY>20)});
+
+// REVEAL
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// PAGE ROUTING
+function sp(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('act')});
+  document.getElementById('page-'+id).classList.add('act');
+  document.querySelectorAll('.n-links a').forEach(function(a){a.classList.toggle('act',a.dataset.p===id)});
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(function(){
+    var els=document.querySelectorAll('#page-'+id+' .reveal:not(.in)');
+    var o2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+    els.forEach(function(el){o2.observe(el)});
+  },50);
+}
+
+// MOBILE NAV
+function toggleMob(){document.getElementById('ham').classList.toggle('open');document.getElementById('mobNav').classList.toggle('open')}
+function closeMob(){document.getElementById('ham').classList.remove('open');document.getElementById('mobNav').classList.remove('open')}
+
+// AI
+function askAI(q){document.getElementById('aiInp').value=q;sendAI()}
+async function sendAI(){
+  var inp=document.getElementById('aiInp');
+  var q=inp.value.trim();if(!q)return;inp.value='';
+  var msgs=document.getElementById('aiMsgs');
+  var ud=document.createElement('div');ud.className='ai-msg-user';ud.textContent=q;msgs.appendChild(ud);
+  var td=document.createElement('div');td.className='ai-typing';td.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';msgs.appendChild(td);
+  msgs.scrollTop=msgs.scrollHeight;
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:350,messages:[{role:'user',content:'You are the AI legal advisor for Harmon & Associates, a trial law firm in Tampa, Florida. Answer this general legal question in 2-3 sentences. Be clear and helpful but always remind the user this is general information only, not legal advice, and they should consult an attorney for their specific situation. Use **bold** for key terms.\n\nQuestion: '+q}]})});
+    var data=await res.json();td.remove();
+    var bd=document.createElement('div');bd.className='ai-msg-bot';
+    bd.innerHTML=data.content[0].text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    msgs.appendChild(bd);
+  }catch(e){
+    td.remove();
+    var bd=document.createElement('div');bd.className='ai-msg-bot';
+    bd.innerHTML='For general legal questions, the most important first step is always to <strong>consult with a licensed attorney</strong> as soon as possible. Time-sensitive matters like criminal charges or filing deadlines require immediate attention. This is general information only — not legal advice.';
+    msgs.appendChild(bd);
+  }
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+// FORM
+var fMatter='';
+function fSel(btn){document.querySelectorAll('.f-matter-opt').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel');fMatter=btn.querySelector('span').textContent}
+function fNext(n){
+  document.querySelectorAll('.f-panel').forEach(function(p){p.classList.remove('act')});
+  document.querySelectorAll('.f-step').forEach(function(s,i){s.classList.remove('act','done');if(i<n-1)s.classList.add('done');else if(i===n-1)s.classList.add('act')});
+  document.getElementById('fp'+n).classList.add('act');
+  if(n===4)fConfirm();
+  document.querySelector('.form-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function fConfirm(){
+  var fn=document.getElementById('ffn').value||'—';
+  var ln=document.getElementById('fln').value||'';
+  document.getElementById('fCN').textContent=fn+' '+ln;
+  document.getElementById('fCE').textContent=document.getElementById('fem').value||'—';
+  document.getElementById('fCM').textContent=fMatter||'General Consultation';
+}
+function fSubmit(){
+  document.querySelectorAll('#fp4 .f-group,#fp4 .f-nav').forEach(function(el){el.style.display='none'});
+  var s=document.getElementById('fSuccess');s.classList.add('show');
+  document.getElementById('fRef').textContent='REF: HA-'+Math.random().toString(36).substr(2,6).toUpperCase();
+}
+</script>
+</body>
+</html>
