@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON — Exceptional Properties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400&family=Tenor+Sans&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#060606;
+  --deep:#0c0c0c;
+  --charcoal:#141414;
+  --mid:#1e1e1e;
+  --border:#2a2a2a;
+  --gold:#C9A96E;
+  --gold-light:#E8D5A3;
+  --gold-dim:#8A6A35;
+  --cream:#F2EDE6;
+  --cream-dim:#9A948D;
+  --white:#FAFAF8;
+  --muted:#4A4540;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:'Tenor Sans',sans-serif;
+  cursor:none;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════ */
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),opacity .25s;mix-blend-mode:difference}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,169,110,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .45s var(--ease),height .45s var(--ease),border-color .3s,opacity .3s}
+#cur.hover{width:5px;height:5px}
+#cur-ring.hover{width:56px;height:56px;border-color:var(--gold)}
+#cur.card-hover{width:64px;height:64px;background:transparent;mix-blend-mode:normal;border:1px solid var(--gold)}
+#cur-ring.card-hover{width:64px;height:64px;border-color:transparent}
+#cur.hidden,#cur-ring.hidden{opacity:0}
+
+/* ═══════════════════════════════════════
+   GRAIN
+═══════════════════════════════════════ */
+#grain{position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-2%,-1%)}40%{transform:translate(1%,2%)}60%{transform:translate(-1%,1%)}80%{transform:translate(2%,-2%)}100%{transform:translate(0,0)}}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:30px 52px;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{padding:18px 52px;background:rgba(6,6,6,.96);border-bottom-color:rgba(201,169,110,.08);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:20px;letter-spacing:.45em;color:var(--cream);text-decoration:none;text-transform:uppercase;cursor:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;position:relative;transition:color .3s;cursor:none}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:28px}
+.nav-enquire{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.35);padding:11px 26px;text-decoration:none;transition:background .3s,color .3s;cursor:none}
+.nav-enquire:hover{background:var(--gold);color:var(--black)}
+
+/* ═══════════════════════════════════════
+   PAGES
+═══════════════════════════════════════ */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════
+   WEBGL CANVAS BACKDROP
+═══════════════════════════════════════ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+
+/* ═══════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════ */
+
+/* Hero */
+#hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero-backdrop{position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 65% 35%, rgba(201,169,110,.09) 0%, transparent 65%),
+  radial-gradient(ellipse 50% 40% at 20% 70%, rgba(201,169,110,.04) 0%, transparent 60%),
+  linear-gradient(160deg, #0e0b08 0%, #090909 50%, #060606 100%);z-index:1}
+.hero-img-wrap{position:absolute;inset:0;z-index:2;overflow:hidden}
+.hero-img{width:100%;height:100%;object-fit:cover;filter:grayscale(55%) brightness(.5);transform:scale(1.08);animation:hZoom 20s ease-in-out infinite alternate}
+@keyframes hZoom{from{transform:scale(1.08)}to{transform:scale(1.15)}}
+.hero-color-reveal{position:absolute;inset:0;background:radial-gradient(circle 180px at var(--mx,50%) var(--my,50%),rgba(0,0,0,0) 0%,rgba(0,0,0,.85) 100%);z-index:3;pointer-events:none;mix-blend-mode:multiply;transition:opacity .3s}
+.hero-overlay{position:absolute;inset:0;z-index:4;background:linear-gradient(to top,rgba(6,6,6,.96) 0%,rgba(6,6,6,.45) 45%,rgba(6,6,6,.1) 100%)}
+
+/* Animated scan lines */
+.hero-scanlines{position:absolute;inset:0;z-index:5;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
+
+/* Architectural rule lines */
+.hero-rules{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.rule-v{position:absolute;top:0;width:1px;height:0;background:linear-gradient(to bottom,transparent,rgba(201,169,110,.2),transparent);animation:ruleDown 1.8s var(--ease) forwards}
+.rule-v:nth-child(1){left:30%;animation-delay:.4s}
+.rule-v:nth-child(2){left:62%;animation-delay:.7s;opacity:.5}
+.rule-v:nth-child(3){right:18%;animation-delay:1s;opacity:.3}
+@keyframes ruleDown{to{height:100%}}
+
+.hero-content{position:relative;z-index:6;padding:0 64px 80px;max-width:900px}
+.hero-tag{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;display:flex;align-items:center;gap:18px;opacity:0;animation:fadeUp .8s ease .3s forwards}
+.hero-tag::before{content:'';width:44px;height:1px;background:var(--gold);flex-shrink:0}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(70px,9.5vw,136px);line-height:.9;letter-spacing:-.01em;color:var(--white);opacity:0;animation:fadeUp 1s ease .5s forwards}
+.hero-h1 em{font-style:italic;color:var(--gold-light)}
+.hero-sub{margin-top:36px;font-size:12px;letter-spacing:.14em;color:var(--cream-dim);max-width:400px;line-height:2;opacity:0;animation:fadeUp .8s ease .8s forwards}
+.hero-btns{margin-top:52px;display:flex;gap:28px;align-items:center;opacity:0;animation:fadeUp .8s ease 1s forwards}
+.btn-gold{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:17px 44px;text-decoration:none;cursor:none;display:inline-block;transition:background .3s,transform .3s}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-line{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;display:flex;align-items:center;gap:14px;cursor:none;transition:color .3s}
+.btn-line::after{content:'';width:36px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.btn-line:hover{color:var(--gold)}
+.btn-line:hover::after{width:60px}
+
+.hero-stats{position:absolute;right:64px;bottom:80px;z-index:6;display:flex;flex-direction:column;gap:32px;opacity:0;animation:fadeUp .8s ease 1.2s forwards}
+.stat{text-align:right;padding-right:20px;border-right:1px solid rgba(201,169,110,.25)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px;color:var(--gold-light);line-height:1}
+.stat-l{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeUp .8s ease 1.6s forwards}
+.scroll-hint span{font-size:7px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:52px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Marquee */
+.marquee-wrap{position:relative;z-index:6;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;background:rgba(6,6,6,.9)}
+.marquee-inner{display:inline-flex;animation:marquee 30s linear infinite}
+.marquee-item{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:13px;letter-spacing:.1em;color:var(--muted);padding:14px 60px;display:inline-block}
+.marquee-dot{color:var(--gold);margin:0 -40px;padding:14px 0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Featured Properties */
+.section{padding:120px 64px;position:relative;z-index:5}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:72px}
+.section-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.section-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(42px,5vw,72px);line-height:.95;color:var(--white)}
+.section-title em{font-style:italic;color:var(--gold-light)}
+.section-link{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;display:flex;align-items:center;gap:12px;cursor:none;transition:color .3s;flex-shrink:0}
+.section-link::after{content:'';width:28px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.section-link:hover{color:var(--gold)}
+.section-link:hover::after{width:50px}
+
+/* Property Cards */
+.props-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+.prop-card{position:relative;overflow:hidden;cursor:none;background:var(--charcoal)}
+.prop-card:first-child{grid-row:span 2}
+.prop-img-wrap{width:100%;height:100%;min-height:320px;overflow:hidden;position:relative}
+.prop-card:first-child .prop-img-wrap{min-height:640px}
+.prop-img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.8);transition:filter .8s var(--ease),transform .8s var(--ease)}
+.prop-card:hover .prop-img{filter:brightness(.85) saturate(1);transform:scale(1.05)}
+.prop-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.9) 0%,rgba(6,6,6,.1) 60%,transparent 100%);transition:opacity .4s}
+.prop-info{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;transform:translateY(8px);transition:transform .4s var(--ease)}
+.prop-card:hover .prop-info{transform:translateY(0)}
+.prop-tag{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.prop-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:26px;color:var(--white);line-height:1.1;margin-bottom:8px}
+.prop-loc{font-size:10px;letter-spacing:.15em;color:var(--cream-dim);margin-bottom:14px}
+.prop-price{font-family:'DM Mono',monospace;font-size:14px;color:var(--gold-light);letter-spacing:.05em}
+.prop-details{display:flex;gap:20px;margin-top:12px;opacity:0;transform:translateY(10px);transition:opacity .4s .05s,transform .4s .05s var(--ease)}
+.prop-card:hover .prop-details{opacity:1;transform:translateY(0)}
+.prop-detail{font-size:9px;letter-spacing:.15em;color:var(--cream-dim)}
+.prop-badge{position:absolute;top:22px;right:22px;font-size:8px;letter-spacing:.25em;text-transform:uppercase;background:var(--gold);color:var(--black);padding:6px 14px}
+
+/* Services / Value Props */
+.services-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--border);margin:0 0 0 0}
+.service-item{background:var(--black);padding:52px 36px;border-top:1px solid var(--border);position:relative;overflow:hidden;transition:background .4s}
+.service-item::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--gold);transition:width .6s var(--ease)}
+.service-item:hover{background:var(--charcoal)}
+.service-item:hover::before{width:100%}
+.service-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold-dim);letter-spacing:.1em;margin-bottom:28px}
+.service-icon{width:36px;height:36px;margin-bottom:24px;opacity:.6}
+.service-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--cream);margin-bottom:14px;line-height:1.2}
+.service-desc{font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.9}
+
+/* AI Valuation Section */
+.ai-section{padding:120px 64px;background:var(--deep);position:relative;overflow:hidden;z-index:5}
+.ai-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201,169,110,.06) 0%, transparent 70%),
+  radial-gradient(ellipse 40% 60% at 10% 30%, rgba(201,169,110,.03) 0%, transparent 60%)}
+.ai-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.ai-left .section-tag{margin-bottom:16px}
+.ai-left .section-title{font-size:clamp(38px,4.5vw,62px);margin-bottom:24px}
+.ai-left p{font-size:13px;letter-spacing:.06em;color:var(--cream-dim);line-height:2;max-width:440px}
+
+.ai-widget{background:rgba(14,14,14,.9);border:1px solid rgba(201,169,110,.15);padding:40px;position:relative;overflow:hidden}
+.ai-widget::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ai-widget-title{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:10px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:aiPulse 1.5s ease-in-out infinite}
+@keyframes aiPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.ai-field{margin-bottom:20px}
+.ai-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:8px;display:block}
+.ai-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,169,110,.15);color:var(--cream);font-family:'Tenor Sans',sans-serif;font-size:13px;padding:13px 16px;outline:none;transition:border-color .3s;cursor:none}
+.ai-input:focus{border-color:rgba(201,169,110,.5)}
+.ai-input option{background:var(--charcoal)}
+.ai-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ai-submit{width:100%;margin-top:8px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Tenor Sans',sans-serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:15px;cursor:none;transition:background .3s,color .3s;margin-top:24px}
+.ai-submit:hover{background:var(--gold);color:var(--black)}
+.ai-result{margin-top:24px;padding:20px;background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.15);display:none}
+.ai-result.visible{display:block;animation:fadeUp .5s ease forwards}
+.ai-result-label{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.ai-result-value{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;color:var(--gold-light)}
+.ai-result-range{font-size:11px;color:var(--cream-dim);margin-top:6px;letter-spacing:.05em}
+.ai-result-insight{font-size:11px;color:var(--cream-dim);margin-top:12px;line-height:1.8;border-top:1px solid rgba(201,169,110,.1);padding-top:12px}
+.ai-thinking{display:none;align-items:center;gap:12px;margin-top:24px;padding:16px;background:rgba(201,169,110,.04)}
+.ai-thinking.visible{display:flex}
+.ai-think-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:thinkDot 1.2s ease-in-out infinite}
+.ai-think-dot:nth-child(2){animation-delay:.15s}
+.ai-think-dot:nth-child(3){animation-delay:.3s}
+@keyframes thinkDot{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+.ai-think-text{font-size:10px;letter-spacing:.15em;color:var(--cream-dim)}
+
+/* Testimonials */
+.testimonials{padding:120px 64px;position:relative;z-index:5}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:72px}
+.testi-item{padding:52px;background:var(--charcoal);border:1px solid var(--border);position:relative;transition:border-color .4s}
+.testi-item:hover{border-color:rgba(201,169,110,.25)}
+.testi-item::before{content:'\201C';position:absolute;top:36px;right:44px;font-family:'Cormorant Garamond',serif;font-size:80px;color:rgba(201,169,110,.12);line-height:1}
+.testi-text{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:20px;color:var(--cream);line-height:1.65;margin-bottom:36px}
+.testi-author{display:flex;align-items:center;gap:16px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--mid);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold)}
+.testi-name{font-size:12px;letter-spacing:.1em;color:var(--cream);margin-bottom:4px}
+.testi-role{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* Footer */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:80px 64px 40px;position:relative;z-index:5}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:28px;letter-spacing:.35em;text-transform:uppercase;color:var(--cream);margin-bottom:20px}
+.footer-brand span{color:var(--gold)}
+.footer-desc{font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.9;max-width:260px}
+.footer-col-title{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:14px}
+.footer-links a{font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;cursor:none;transition:color .3s}
+.footer-links a:hover{color:var(--cream)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border)}
+.footer-legal{font-size:9px;letter-spacing:.15em;color:var(--muted)}
+.footer-social{display:flex;gap:28px}
+.footer-social a{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;cursor:none;transition:color .3s}
+.footer-social a:hover{color:var(--gold)}
+
+/* ═══════════════════════════════════════
+   PROPERTIES PAGE
+═══════════════════════════════════════ */
+.page-hero{position:relative;height:60vh;display:flex;align-items:flex-end;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;z-index:1}
+.page-hero-img{width:100%;height:100%;object-fit:cover;filter:grayscale(60%) brightness(.4);transform:scale(1.05)}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,1) 0%,rgba(6,6,6,.3) 100%)}
+.page-hero-content{position:relative;z-index:2;padding:0 64px 64px}
+.page-hero-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.page-hero-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.page-hero-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(52px,7vw,96px);color:var(--white);line-height:.95}
+.page-hero-h1 em{font-style:italic;color:var(--gold-light)}
+
+.filter-bar{padding:28px 64px;background:var(--deep);border-bottom:1px solid var(--border);display:flex;gap:20px;align-items:center;position:sticky;top:65px;z-index:100}
+.filter-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.filter-btn{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);background:transparent;border:1px solid var(--border);padding:9px 20px;cursor:none;transition:border-color .3s,color .3s,background .3s}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.06)}
+.filter-sep{width:1px;height:24px;background:var(--border);margin:0 8px}
+
+.props-masonry{padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.prop-full{grid-column:span 2;position:relative;overflow:hidden;min-height:520px;cursor:none}
+.prop-full .prop-img-wrap{min-height:520px}
+.prop-half{position:relative;overflow:hidden;min-height:400px;cursor:none}
+.prop-half .prop-img-wrap{min-height:400px}
+.prop-card-img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(.85);transition:transform .8s var(--ease),filter .8s var(--ease)}
+.prop-full:hover .prop-card-img,.prop-half:hover .prop-card-img{transform:scale(1.04);filter:brightness(.8) saturate(1)}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,rgba(6,6,6,.1) 65%,transparent 100%)}
+.card-body{position:absolute;bottom:0;left:0;right:0;padding:40px 44px}
+.card-tag{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.card-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;color:var(--white);line-height:1.1;margin-bottom:8px}
+.card-loc{font-size:10px;letter-spacing:.15em;color:var(--cream-dim);margin-bottom:16px}
+.card-footer{display:flex;justify-content:space-between;align-items:flex-end}
+.card-price{font-family:'DM Mono',monospace;font-size:16px;color:var(--gold-light)}
+.card-specs{display:flex;gap:18px}
+.card-spec{font-size:9px;letter-spacing:.15em;color:var(--cream-dim)}
+.card-view{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s var(--ease)}
+.prop-full:hover .card-view,.prop-half:hover .card-view{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════════ */
+.about-hero{position:relative;height:70vh;display:flex;align-items:center;overflow:hidden}
+.about-hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 60% at 80% 40%, rgba(201,169,110,.1) 0%, transparent 65%),
+  linear-gradient(135deg, #0e0b08 0%, #060606 100%)}
+
+/* Animated background mesh */
+.mesh{position:absolute;inset:0;overflow:hidden}
+.mesh-line{position:absolute;background:linear-gradient(90deg,transparent,rgba(201,169,110,.06),transparent);height:1px;width:100%;animation:meshMove 8s ease-in-out infinite alternate}
+.mesh-line:nth-child(1){top:20%;animation-delay:0s}
+.mesh-line:nth-child(2){top:40%;animation-delay:-.8s}
+.mesh-line:nth-child(3){top:60%;animation-delay:-1.6s}
+.mesh-line:nth-child(4){top:80%;animation-delay:-2.4s}
+.mesh-line-v{position:absolute;background:linear-gradient(0deg,transparent,rgba(201,169,110,.04),transparent);width:1px;height:100%;animation:meshMoveV 10s ease-in-out infinite alternate}
+.mesh-line-v:nth-child(5){left:25%;animation-delay:0s}
+.mesh-line-v:nth-child(6){left:50%;animation-delay:-1s}
+.mesh-line-v:nth-child(7){left:75%;animation-delay:-2s}
+@keyframes meshMove{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+@keyframes meshMoveV{from{transform:translateY(-20px)}to{transform:translateY(20px)}}
+
+.about-hero-content{position:relative;z-index:2;padding:0 64px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;width:100%}
+.about-hero-left .hero-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.about-hero-left .hero-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.about-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(52px,6.5vw,90px);line-height:.93;color:var(--white)}
+.about-h1 em{font-style:italic;color:var(--gold-light)}
+.about-hero-right p{font-size:15px;font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;color:var(--cream-dim);line-height:1.8;margin-bottom:28px}
+.about-hero-right .about-para{font-size:12px;letter-spacing:.06em;color:var(--muted);line-height:2}
+
+.about-body{padding:0 64px 120px;display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:start}
+.about-img-col{position:sticky;top:120px}
+.about-img-frame{position:relative}
+.about-img-main{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(40%) brightness(.75)}
+.about-img-accent{position:absolute;bottom:-32px;right:-32px;width:55%;aspect-ratio:1;object-fit:cover;filter:grayscale(50%) brightness(.6);border:8px solid var(--black)}
+.about-img-line{position:absolute;top:-16px;left:-16px;width:60%;height:60%;border:1px solid rgba(201,169,110,.2);pointer-events:none}
+.about-text-col{padding-top:60px}
+.about-section-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.about-section-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.about-section-h{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(36px,4vw,56px);line-height:.95;color:var(--white);margin-bottom:32px}
+.about-section-h em{font-style:italic;color:var(--gold-light)}
+.about-p{font-size:13px;letter-spacing:.06em;color:var(--cream-dim);line-height:2;margin-bottom:20px}
+.about-sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:var(--gold-light);margin-top:40px;font-weight:300}
+.about-sig-title{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+.awards-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin:0 64px;margin-bottom:0}
+.award-item{background:var(--black);padding:44px 36px;border-top:2px solid var(--border);text-align:center}
+.award-year{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold-dim);margin-bottom:12px}
+.award-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:18px;color:var(--cream);margin-bottom:6px}
+.award-org{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+.team-section{padding:120px 64px 0}
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;margin-top:64px}
+.team-card{position:relative;overflow:hidden;cursor:none}
+.team-img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(70%) brightness(.6);transition:filter .6s var(--ease),transform .6s var(--ease)}
+.team-card:hover .team-img{filter:grayscale(30%) brightness(.75);transform:scale(1.04)}
+.team-info{position:absolute;bottom:0;left:0;right:0;padding:28px 28px;background:linear-gradient(to top,rgba(6,6,6,.95),transparent)}
+.team-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--white);margin-bottom:4px}
+.team-role{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+
+/* ═══════════════════════════════════════
+   JOURNAL PAGE
+═══════════════════════════════════════ */
+.journal-hero{padding:180px 64px 80px;background:var(--deep);position:relative;overflow:hidden}
+.journal-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 90% 50%,rgba(201,169,110,.07) 0%,transparent 65%)}
+.journal-hero-content{position:relative;z-index:1}
+.journal-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(56px,7vw,100px);line-height:.92;color:var(--white)}
+.journal-h1 em{font-style:italic;color:var(--gold-light)}
+.journal-sub{font-size:12px;letter-spacing:.1em;color:var(--cream-dim);margin-top:28px;max-width:420px;line-height:2}
+
+.journal-featured{display:grid;grid-template-columns:1.6fr 1fr;gap:2px;margin:0}
+.journal-feat-img{width:100%;height:480px;object-fit:cover;filter:brightness(.65) saturate(.8);transition:filter .6s var(--ease)}
+.journal-feat-wrap{position:relative;overflow:hidden;cursor:none}
+.journal-feat-wrap:hover .journal-feat-img{filter:brightness(.75) saturate(1)}
+.journal-feat-body{padding:52px;background:var(--charcoal);display:flex;flex-direction:column;justify-content:flex-end}
+.journal-cat{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.journal-feat-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;color:var(--white);line-height:1.15;margin-bottom:20px;cursor:none}
+.journal-feat-excerpt{font-size:12px;letter-spacing:.06em;color:var(--muted);line-height:1.9;margin-bottom:28px}
+.journal-meta{display:flex;gap:20px;align-items:center}
+.journal-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.journal-read{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;cursor:none;text-decoration:none;transition:gap .3s}
+.journal-read::after{content:'';width:20px;height:1px;background:var(--gold);transition:width .4s var(--ease)}
+.journal-read:hover::after{width:36px}
+
+.journal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px 0}
+.journal-card{background:var(--charcoal);cursor:none;overflow:hidden;position:relative}
+.journal-card-img{width:100%;height:240px;object-fit:cover;filter:brightness(.65) saturate(.8);transition:filter .6s var(--ease),transform .6s var(--ease)}
+.journal-card:hover .journal-card-img{filter:brightness(.8) saturate(1);transform:scale(1.04)}
+.journal-card-body{padding:36px 36px 40px}
+.journal-card-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:22px;color:var(--cream);line-height:1.2;margin:12px 0 16px}
+.journal-card-excerpt{font-size:11px;letter-spacing:.05em;color:var(--muted);line-height:1.85}
+
+/* AI Neighborhood Insights */
+.insight-section{padding:100px 64px;background:var(--deep);border-top:1px solid var(--border)}
+.insight-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+.insight-widget{background:rgba(14,14,14,.9);border:1px solid rgba(201,169,110,.15);padding:40px;position:relative}
+.insight-widget::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.insight-title{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.insight-input-wrap{display:flex;gap:0}
+.insight-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(201,169,110,.15);border-right:none;color:var(--cream);font-family:'Tenor Sans',sans-serif;font-size:13px;padding:13px 16px;outline:none;transition:border-color .3s;cursor:none}
+.insight-input:focus{border-color:rgba(201,169,110,.4)}
+.insight-btn{background:var(--gold);border:1px solid var(--gold);color:var(--black);font-family:'Tenor Sans',sans-serif;font-size:9px;letter-spacing:.28em;text-transform:uppercase;padding:13px 24px;cursor:none;white-space:nowrap;transition:background .3s}
+.insight-btn:hover{background:var(--gold-light)}
+.insight-output{margin-top:24px;min-height:120px}
+.insight-loading{display:none;padding:20px;text-align:center}
+.insight-loading.visible{display:block}
+.insight-cards{display:none;gap:12px;flex-direction:column}
+.insight-cards.visible{display:flex}
+.insight-card{padding:16px 20px;background:rgba(201,169,110,.05);border:1px solid rgba(201,169,110,.1)}
+.insight-card-label{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.insight-card-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);line-height:1}
+.insight-card-note{font-size:10px;color:var(--muted);margin-top:4px}
+
+/* ═══════════════════════════════════════
+   SCHEDULE PAGE
+═══════════════════════════════════════ */
+.schedule-page{background:var(--black);min-height:100vh}
+.schedule-hero{position:relative;padding:180px 64px 80px;overflow:hidden}
+.schedule-hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 80% at 0% 50%, rgba(201,169,110,.06) 0%, transparent 60%),
+  radial-gradient(ellipse 40% 60% at 100% 30%, rgba(201,169,110,.04) 0%, transparent 55%)}
+.schedule-hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:end}
+.schedule-h1{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:clamp(52px,7vw,96px);line-height:.92;color:var(--white)}
+.schedule-h1 em{font-style:italic;color:var(--gold-light)}
+.schedule-sub{font-size:13px;letter-spacing:.07em;color:var(--cream-dim);line-height:2;margin-bottom:36px}
+.schedule-promise{display:flex;flex-direction:column;gap:16px}
+.promise-item{display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:.1em;color:var(--cream-dim)}
+.promise-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+.schedule-form-wrap{padding:0 64px 120px}
+.schedule-form{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.form-col-left,.form-col-right{display:flex;flex-direction:column;gap:0}
+
+/* Multi-step form */
+.form-steps{display:flex;gap:0;margin-bottom:52px;grid-column:span 2}
+.form-step{flex:1;position:relative}
+.form-step-inner{padding:18px 24px;border-bottom:1px solid var(--border);transition:border-color .4s}
+.form-step.active .form-step-inner{border-bottom-color:var(--gold)}
+.form-step-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px}
+.form-step-label{font-size:11px;letter-spacing:.1em;color:var(--cream-dim)}
+.form-step.active .form-step-label{color:var(--cream)}
+.form-step.done .form-step-label{color:var(--gold)}
+.form-step.done .form-step-inner{border-bottom-color:rgba(201,169,110,.3)}
+
+.form-panel{display:none;grid-column:span 2}
+.form-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:32px;animation:fadeUp .5s ease forwards}
+
+.form-group{display:flex;flex-direction:column;gap:10px}
+.form-group.full{grid-column:span 2}
+.form-group label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim)}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.03);border:none;border-bottom:1px solid var(--border);color:var(--cream);font-family:'Tenor Sans',sans-serif;font-size:14px;padding:14px 0;outline:none;transition:border-color .3s;cursor:none;-webkit-appearance:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-bottom-color:var(--gold)}
+.form-group select option{background:var(--charcoal)}
+.form-group textarea{resize:none;min-height:120px;border:1px solid var(--border);padding:16px;margin-top:2px}
+.form-group textarea:focus{border-color:rgba(201,169,110,.35)}
+
+/* Date/time grid */
+.date-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;grid-column:span 2}
+.date-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:none;border:1px solid var(--border);transition:background .2s,border-color .2s,color .2s;color:var(--cream-dim)}
+.date-cell:hover:not(.disabled){background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.3);color:var(--cream)}
+.date-cell.selected{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.date-cell.disabled{opacity:.25;cursor:not-allowed}
+.date-cell.header{border:none;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);cursor:default}
+.time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;grid-column:span 2}
+.time-btn{padding:12px;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--cream-dim);background:transparent;cursor:none;transition:all .2s;text-align:center}
+.time-btn:hover{border-color:rgba(201,169,110,.4);color:var(--cream)}
+.time-btn.selected{background:rgba(201,169,110,.1);border-color:var(--gold);color:var(--gold)}
+
+/* Service selector cards */
+.service-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;grid-column:span 2}
+.service-opt{padding:24px;border:1px solid var(--border);cursor:none;transition:border-color .3s,background .3s;position:relative}
+.service-opt:hover{border-color:rgba(201,169,110,.3)}
+.service-opt.selected{border-color:var(--gold);background:rgba(201,169,110,.05)}
+.service-opt-check{position:absolute;top:16px;right:16px;width:18px;height:18px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.service-opt.selected .service-opt-check{background:var(--gold);border-color:var(--gold)}
+.service-opt-check::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--black);opacity:0;transition:opacity .2s}
+.service-opt.selected .service-opt-check::after{opacity:1}
+.service-opt-title{font-size:13px;color:var(--cream);margin-bottom:6px;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:18px}
+.service-opt-desc{font-size:10px;letter-spacing:.06em;color:var(--muted);line-height:1.7}
+
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:48px;grid-column:span 2;padding-top:32px;border-top:1px solid var(--border)}
+.form-back{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:none;transition:color .3s;display:flex;align-items:center;gap:10px}
+.form-back::before{content:'';width:24px;height:1px;background:currentColor;transition:width .4s var(--ease)}
+.form-back:hover{color:var(--cream)}
+.form-back:hover::before{width:40px}
+.form-next{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);background:var(--gold);border:1px solid var(--gold);padding:15px 40px;cursor:none;transition:background .3s,transform .2s}
+.form-next:hover{background:var(--gold-light);transform:translateY(-1px)}
+.form-submit{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--black);background:var(--gold);border:1px solid var(--gold);padding:15px 52px;cursor:none;transition:background .3s,transform .2s}
+.form-submit:hover{background:var(--gold-light)}
+.form-progress-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+
+/* AI Form Assistant */
+.ai-form-assistant{position:fixed;bottom:28px;right:28px;z-index:500}
+.ai-toggle{width:56px;height:56px;border-radius:50%;background:var(--gold);border:none;cursor:none;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s;box-shadow:0 8px 32px rgba(201,169,110,.3)}
+.ai-toggle:hover{transform:scale(1.08);background:var(--gold-light)}
+.ai-toggle svg{width:22px;height:22px;fill:var(--black)}
+.ai-chat{position:absolute;bottom:72px;right:0;width:340px;background:rgba(14,14,14,.98);border:1px solid rgba(201,169,110,.2);padding:0;overflow:hidden;display:none;backdrop-filter:blur(20px)}
+.ai-chat.open{display:flex;flex-direction:column;animation:chatOpen .3s var(--ease) forwards}
+@keyframes chatOpen{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ai-chat-header{padding:18px 22px;border-bottom:1px solid rgba(201,169,110,.1);display:flex;align-items:center;gap:12px}
+.ai-chat-name{font-size:12px;letter-spacing:.08em;color:var(--cream);flex:1}
+.ai-chat-status{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:6px}
+.ai-chat-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);display:block;animation:aiPulse 1.5s infinite}
+.ai-chat-close{background:none;border:none;cursor:none;color:var(--muted);font-size:18px;transition:color .2s;line-height:1}
+.ai-chat-close:hover{color:var(--cream)}
+.ai-messages{padding:20px 22px;max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.ai-messages::-webkit-scrollbar{width:2px}
+.ai-messages::-webkit-scrollbar-track{background:transparent}
+.ai-messages::-webkit-scrollbar-thumb{background:rgba(201,169,110,.2)}
+.ai-msg{padding:12px 16px;font-size:12px;letter-spacing:.04em;line-height:1.7}
+.ai-msg.assistant{background:rgba(201,169,110,.07);border-left:2px solid var(--gold);color:var(--cream-dim)}
+.ai-msg.user{background:rgba(255,255,255,.04);color:var(--cream-dim);text-align:right;border-right:2px solid rgba(255,255,255,.1)}
+.ai-msg-typing{display:flex;gap:5px;align-items:center;padding:12px 16px}
+.ai-chat-input-row{padding:16px 22px;border-top:1px solid rgba(201,169,110,.1);display:flex;gap:10px}
+.ai-chat-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(201,169,110,.15);color:var(--cream);font-family:'Tenor Sans',sans-serif;font-size:12px;padding:10px 14px;outline:none;transition:border-color .3s;cursor:none}
+.ai-chat-input:focus{border-color:rgba(201,169,110,.4)}
+.ai-chat-send{background:var(--gold);border:none;color:var(--black);padding:10px 16px;cursor:none;font-size:11px;transition:background .2s}
+.ai-chat-send:hover{background:var(--gold-light)}
+
+/* Success Screen */
+.form-success{display:none;grid-column:span 2;text-align:center;padding:80px 40px;animation:fadeUp .6s ease forwards}
+.form-success.visible{display:block}
+.success-icon{width:72px;height:72px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 36px;font-size:28px;color:var(--gold)}
+.success-h{font-family:'Cormorant Garamond',serif;font-weight:200;font-size:52px;color:var(--white);margin-bottom:20px}
+.success-h em{font-style:italic;color:var(--gold-light)}
+.success-p{font-size:13px;letter-spacing:.08em;color:var(--cream-dim);line-height:2;max-width:400px;margin:0 auto 44px}
+.success-ref{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);padding:14px 28px;border:1px solid var(--border);display:inline-block}
+
+/* ═══════════════════════════════════════
+   SHARED ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════
+   DIVIDERS
+═══════════════════════════════════════ */
+.gold-divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 64px;opacity:.4}
+.section-divider{height:1px;background:var(--border);margin:0}
+
+/* Scroll to top */
+#scrolltop{position:fixed;bottom:28px;left:28px;z-index:400;width:44px;height:44px;border:1px solid rgba(201,169,110,.3);background:rgba(6,6,6,.9);color:var(--gold);cursor:none;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s,background .3s;pointer-events:none}
+#scrolltop.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+#scrolltop:hover{background:rgba(201,169,110,.1)}
+
+/* ═══════════════════════════════════════
+   CSS GRADIENT IMAGE SYSTEM
+   All images replaced with cinematic
+   gradient compositions + SVG overlays
+═══════════════════════════════════════ */
+
+/* Hide broken img tags - replaced by sibling divs */
+img[style*="display:none"]{display:none!important}
+
+/* Hero - oceanfront dusk: deep navy horizon, warm amber zenith */
+.hero-img-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 120% 60% at 60% 100%, #1a0e04 0%, transparent 55%),
+    radial-gradient(ellipse 80% 40% at 30% 80%, #0d1a2e 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 70% 30%, #c4904a22 0%, transparent 60%),
+    linear-gradient(170deg, #0b1929 0%, #152236 25%, #1a1408 55%, #2a1a08 75%, #0e0806 100%);
+  animation:hZoom 20s ease-in-out infinite alternate;
+  transform-origin:center;
+}
+.hero-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 20% at 50% 68%, rgba(201,140,60,.18) 0%, transparent 100%),
+    radial-gradient(ellipse 40% 8% at 50% 72%, rgba(240,180,80,.12) 0%, transparent 100%);
+  animation:hZoom 20s ease-in-out infinite alternate;
+}
+
+/* Property card gradient scenes */
+.prop-img-wrap{position:relative;overflow:hidden}
+
+/* Casa del Mar - Pacific dusk, aqua + warm sand */
+.prop-card:nth-child(1) .prop-img-wrap::before{
+  content:'';position:absolute;inset:0;width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 150% 40% at 50% 100%, #0a1f2e 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 75% 40%, #1a3a4a 0%, transparent 65%),
+    radial-gradient(ellipse 60% 30% at 20% 60%, #0d2030 0%, transparent 55%),
+    linear-gradient(175deg, #1a3550 0%, #0d2035 30%, #1c2a1a 60%, #0c1208 100%);
+  filter:brightness(.75) saturate(.8);
+  transition:filter .8s var(--ease),transform .8s var(--ease);
+}
+.prop-card:nth-child(1):hover .prop-img-wrap::before{filter:brightness(.85) saturate(1);transform:scale(1.05)}
+
+/* One57 Penthouse - Manhattan midnight steel */
+.prop-card:nth-child(2) .prop-img-wrap::before{
+  content:'';position:absolute;inset:0;width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 100% 50% at 50% 0%, #1a1f2e 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, #0d1520 0%, transparent 55%),
+    radial-gradient(ellipse 80% 30% at 20% 80%, #1a1510 0%, transparent 50%),
+    linear-gradient(190deg, #0e1420 0%, #141c28 25%, #1a1a14 60%, #0e0e08 100%);
+  filter:brightness(.75) saturate(.8);
+  transition:filter .8s var(--ease),transform .8s var(--ease);
+}
+.prop-card:nth-child(2):hover .prop-img-wrap::before{filter:brightness(.85) saturate(1);transform:scale(1.05)}
+
+/* Snowmass Peak - Alpine dusk, slate + pine */
+.prop-card:nth-child(3) .prop-img-wrap::before{
+  content:'';position:absolute;inset:0;width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 100% 50% at 50% 0%, #1a2030 0%, transparent 65%),
+    radial-gradient(ellipse 70% 40% at 30% 50%, #0a1a10 0%, transparent 55%),
+    radial-gradient(ellipse 50% 30% at 80% 80%, #1a1208 0%, transparent 50%),
+    linear-gradient(175deg, #1a2535 0%, #0f1a20 30%, #0a150c 55%, #0c100a 100%);
+  filter:brightness(.75) saturate(.8);
+  transition:filter .8s var(--ease),transform .8s var(--ease);
+}
+.prop-card:nth-child(3):hover .prop-img-wrap::before{filter:brightness(.85) saturate(1);transform:scale(1.05)}
+
+/* Properties page hero */
+.page-hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 60% at 60% 30%, #1a2a1a 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 20% 70%, #0a1520 0%, transparent 55%),
+    linear-gradient(160deg, #1a2818 0%, #0d1f1a 35%, #0a1520 65%, #060c0a 100%);
+}
+
+/* Property masonry gradients - each unique */
+.prop-full .prop-img-wrap::before,
+.prop-half .prop-img-wrap::before{
+  content:'';position:absolute;inset:0;width:100%;height:100%;
+  transition:filter .8s var(--ease),transform .8s var(--ease);
+}
+.prop-full:hover .prop-img-wrap::before,
+.prop-half:hover .prop-img-wrap::before{filter:brightness(1.1)!important;transform:scale(1.04)}
+
+/* Whitmore Estate - Grand oceanfront at golden hour */
+.prop-full .prop-img-wrap::before{
+  background:
+    radial-gradient(ellipse 120% 50% at 50% 100%, #1a0e04 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 70% 40%, #1e2a3a 0%, transparent 65%),
+    radial-gradient(ellipse 50% 30% at 20% 60%, #2a1e0a 0%, transparent 50%),
+    linear-gradient(165deg, #12243a 0%, #1a1e2a 30%, #201408 60%, #100c06 100%);
+  filter:brightness(.7) saturate(.85);
+}
+
+/* One57 props page */
+.prop-half:nth-child(2) .prop-img-wrap::before{
+  background:
+    radial-gradient(ellipse 100% 40% at 50% 0%, #0e1828 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 60%, #101828 0%, transparent 55%),
+    radial-gradient(ellipse 70% 30% at 10% 80%, #201a0e 0%, transparent 50%),
+    linear-gradient(190deg, #0c1422 0%, #141c2a 30%, #1a1812 60%, #0e0c08 100%);
+  filter:brightness(.7) saturate(.85);
+}
+
+/* Star Island */
+.prop-half:nth-child(3) .prop-img-wrap::before{
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 100%, #0a1a14 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 65% 35%, #0f2535 0%, transparent 65%),
+    radial-gradient(ellipse 50% 30% at 20% 65%, #181408 0%, transparent 50%),
+    linear-gradient(170deg, #0f2030 0%, #0d1c28 30%, #141808 55%, #0a0e06 100%);
+  filter:brightness(.7) saturate(.85);
+}
+
+/* Ridge Peak */
+.prop-half:nth-child(4) .prop-img-wrap::before{
+  background:
+    radial-gradient(ellipse 100% 50% at 40% 0%, #1a2030 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 50%, #0c1a10 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 80% 75%, #1a1208 0%, transparent 50%),
+    linear-gradient(175deg, #1a2535 0%, #111c22 30%, #0e160c 55%, #0c100a 100%);
+  filter:brightness(.7) saturate(.85);
+}
+
+/* Casa del Mar props page */
+.prop-half:nth-child(5) .prop-img-wrap::before{
+  background:
+    radial-gradient(ellipse 130% 40% at 50% 100%, #0a1824 0%, transparent 55%),
+    radial-gradient(ellipse 80% 55% at 70% 35%, #102030 0%, transparent 65%),
+    radial-gradient(ellipse 50% 30% at 15% 65%, #1a1808 0%, transparent 50%),
+    linear-gradient(168deg, #0e2038 0%, #0c1a2c 30%, #14180a 55%, #080c06 100%);
+  filter:brightness(.7) saturate(.85);
+}
+
+/* About page images */
+.about-img-main{
+  display:block;width:100%;aspect-ratio:3/4;
+  background:
+    radial-gradient(ellipse 80% 50% at 60% 30%, #1e1a14 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 20% 70%, #141010 0%, transparent 55%),
+    linear-gradient(165deg, #1a1814 0%, #141210 40%, #100e0c 100%);
+  filter:grayscale(40%) brightness(.75)!important;
+}
+.about-img-accent{
+  display:block;width:55%;aspect-ratio:1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, #1e1610 0%, transparent 65%),
+    linear-gradient(145deg, #1a1410 0%, #12100e 100%);
+  filter:grayscale(50%) brightness(.6)!important;
+  position:absolute;bottom:-32px;right:-32px;border:8px solid var(--black);
+}
+
+/* Team member gradient portraits */
+.team-img{
+  display:block!important;width:100%;aspect-ratio:3/4;object-fit:cover;
+  transition:filter .6s var(--ease),transform .6s var(--ease);
+}
+.team-card:nth-child(1) .team-img{background:linear-gradient(165deg,#1a1814 0%,#14120e 40%,#0e0c0a 100%);filter:grayscale(70%) brightness(.6)}
+.team-card:nth-child(2) .team-img{background:linear-gradient(160deg,#181618 0%,#12101a 40%,#0e0c12 100%);filter:grayscale(70%) brightness(.6)}
+.team-card:nth-child(3) .team-img{background:linear-gradient(170deg,#141818 0%,#10140e 40%,#0c100a 100%);filter:grayscale(70%) brightness(.6)}
+.team-card:nth-child(4) .team-img{background:linear-gradient(155deg,#181414 0%,#141010 40%,#100c0c 100%);filter:grayscale(70%) brightness(.6)}
+.team-card:hover .team-img{filter:grayscale(30%) brightness(.75);transform:scale(1.04)}
+
+/* Journal featured */
+.journal-feat-img{
+  display:block;width:100%;height:480px;object-fit:cover;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 30%, #1e1a10 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 20% 70%, #101418 0%, transparent 55%),
+    linear-gradient(165deg, #1a1610 0%, #12141a 40%, #0e0c10 100%);
+  filter:brightness(.65) saturate(.8);
+  transition:filter .6s var(--ease);
+}
+.journal-feat-wrap:hover .journal-feat-img{filter:brightness(.75) saturate(1)}
+
+/* Journal cards */
+.journal-card-img{
+  display:block;width:100%;height:240px;object-fit:cover;
+  transition:filter .6s var(--ease),transform .6s var(--ease);
+  filter:brightness(.65) saturate(.8);
+}
+.journal-card:nth-child(1) .journal-card-img{
+  background:
+    radial-gradient(ellipse 80% 50% at 55% 40%, #1a1e14 0%, transparent 65%),
+    linear-gradient(160deg, #141a10 0%, #0e1408 100%);
+}
+.journal-card:nth-child(2) .journal-card-img{
+  background:
+    radial-gradient(ellipse 70% 60% at 45% 35%, #1e1414 0%, transparent 65%),
+    linear-gradient(155deg, #1a1010 0%, #140c0a 100%);
+}
+.journal-card:nth-child(3) .journal-card-img{
+  background:
+    radial-gradient(ellipse 75% 55% at 60% 45%, #101820 0%, transparent 65%),
+    linear-gradient(170deg, #0c1420 0%, #080e18 100%);
+}
+.journal-card:hover .journal-card-img{filter:brightness(.8) saturate(1);transform:scale(1.04)}
+
+/* Architectural SVG overlay on gradient scenes — adds depth lines and geometry */
+.hero-img-wrap .arch-overlay,
+.prop-img-wrap .arch-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.25;
+}
+
+/* Subtle light ray effect for hero */
+.hero-img-wrap::before{z-index:0}
+.hero-img-wrap::after{z-index:1}
+</style>
+</head>
+<body>
+
+<!-- Grain -->
+<div id="grain"></div>
+
+<!-- WebGL Canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Cursor -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- Scroll to top -->
+<button id="scrolltop" aria-label="Scroll to top">↑</button>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#" class="nav-logo" onclick="showPage('home');return false">MAI<span>SON</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home');return false" data-page="home">Collection</a></li>
+    <li><a href="#" onclick="showPage('properties');return false" data-page="properties">Properties</a></li>
+    <li><a href="#" onclick="showPage('about');return false" data-page="about">About</a></li>
+    <li><a href="#" onclick="showPage('journal');return false" data-page="journal">Journal</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" onclick="showPage('schedule');return false" class="nav-enquire">Private Consultation</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-backdrop"></div>
+    <div class="hero-img-wrap">
+      <img class="hero-img" style="display:none" alt="">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <line x1="720" y1="450" x2="0" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+        <line x1="720" y1="450" x2="1440" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+        <line x1="720" y1="450" x2="0" y2="900" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+        <line x1="720" y1="450" x2="1440" y2="900" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+        <rect x="460" y="90" width="520" height="380" fill="none" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+        <line x1="590" y1="90" x2="590" y2="470" stroke="rgba(201,169,110,0.04)" stroke-width="0.5"/>
+        <line x1="720" y1="90" x2="720" y2="470" stroke="rgba(201,169,110,0.04)" stroke-width="0.5"/>
+        <line x1="850" y1="90" x2="850" y2="470" stroke="rgba(201,169,110,0.04)" stroke-width="0.5"/>
+        <line x1="460" y1="215" x2="980" y2="215" stroke="rgba(201,169,110,0.04)" stroke-width="0.5"/>
+        <line x1="460" y1="340" x2="980" y2="340" stroke="rgba(201,169,110,0.04)" stroke-width="0.5"/>
+        <ellipse cx="720" cy="452" rx="300" ry="55" fill="rgba(201,140,60,0.06)"/>
+        <ellipse cx="720" cy="452" rx="130" ry="22" fill="rgba(220,165,80,0.08)"/>
+      </svg>
+      <div class="hero-color-reveal" id="heroReveal"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-scanlines"></div>
+    <div class="hero-rules">
+      <div class="rule-v"></div>
+      <div class="rule-v"></div>
+      <div class="rule-v"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tag">Curated Estates — Est. 1994</p>
+      <h1 class="hero-h1">Where<br><em>Exceptional</em><br>Lives</h1>
+      <p class="hero-sub">An invitation-only collection of the world's most distinguished properties — each one a singular expression of architecture and place.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-gold" onclick="showPage('properties');return false">Explore Collection</a>
+        <a href="#" class="btn-line" onclick="showPage('schedule');return false">Private Viewing</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">$2.4B</div><div class="stat-l">In Closed Volume</div></div>
+      <div class="stat"><div class="stat-n">340+</div><div class="stat-l">Estates Placed</div></div>
+      <div class="stat"><div class="stat-n">30yr</div><div class="stat-l">Of Discretion</div></div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="marquee-item">Palm Beach</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Malibu</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Manhattan</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Aspen</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">St. Barts</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">London</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Monaco</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Dubai</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">The Hamptons</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Miami</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Santorini</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Palm Beach</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Malibu</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Manhattan</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Aspen</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">St. Barts</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">London</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Monaco</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">Dubai</span><span class="marquee-dot">·</span>
+      <span class="marquee-item">The Hamptons</span><span class="marquee-dot">·</span>
+    </div>
+  </div>
+
+  <!-- Featured Properties -->
+  <section class="section" style="padding-bottom:0">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-tag">Featured Collection</div>
+        <h2 class="section-title">Curated<br><em>Masterworks</em></h2>
+      </div>
+      <a href="#" class="section-link" onclick="showPage('properties');return false">Full Collection</a>
+    </div>
+    <div class="props-grid">
+      <div class="prop-card" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+        <div class="prop-img-wrap">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 50% at 55% 100%,#0a1824 0%,transparent 55%),radial-gradient(ellipse 80% 60% at 70% 35%,#102a3a 0%,transparent 65%),radial-gradient(ellipse 50% 30% at 15% 60%,#1a1a0a 0%,transparent 50%),linear-gradient(168deg,#0e2038 0%,#0c1a2c 30%,#14180a 55%,#080c06 100%)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.4" viewBox="0 0 500 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="350" x2="500" y2="350" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+            <line x1="250" y1="350" x2="0" y2="0" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+            <line x1="250" y1="350" x2="500" y2="0" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+            <ellipse cx="250" cy="352" rx="200" ry="30" fill="rgba(180,140,60,0.08)"/>
+            <rect x="80" y="60" width="340" height="240" fill="none" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+            <line x1="163" y1="60" x2="163" y2="300" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="250" y1="60" x2="250" y2="300" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="337" y1="60" x2="337" y2="300" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="80" y1="155" x2="420" y2="155" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="prop-card-overlay"></div>
+        <div class="prop-badge">New Listing</div>
+        <div class="prop-info">
+          <div class="prop-tag">Oceanfront Estate</div>
+          <div class="prop-name">Casa del Mar</div>
+          <div class="prop-loc">Malibu, California</div>
+          <div class="prop-price">$38,500,000</div>
+          <div class="prop-details">
+            <span class="prop-detail">8 BD</span>
+            <span class="prop-detail">12 BA</span>
+            <span class="prop-detail">14,200 SQ FT</span>
+            <span class="prop-detail">Private Beach</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+        <div class="prop-img-wrap">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,#1a1f2e 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 60%,#0d1520 0%,transparent 55%),radial-gradient(ellipse 80% 30% at 20% 80%,#1a1510 0%,transparent 50%),linear-gradient(190deg,#0e1420 0%,#141c28 25%,#1a1a14 60%,#0e0e08 100%)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="0" x2="500" y2="400" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+            <line x1="500" y1="0" x2="0" y2="400" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+            <rect x="60" y="40" width="380" height="280" fill="none" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+            <line x1="155" y1="40" x2="155" y2="320" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="250" y1="40" x2="250" y2="320" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="345" y1="40" x2="345" y2="320" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="60" y1="133" x2="440" y2="133" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+            <line x1="60" y1="227" x2="440" y2="227" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="prop-card-overlay"></div>
+        <div class="prop-info">
+          <div class="prop-tag">Penthouse</div>
+          <div class="prop-name">One57 Penthouse</div>
+          <div class="prop-loc">Manhattan, New York</div>
+          <div class="prop-price">$26,000,000</div>
+          <div class="prop-details">
+            <span class="prop-detail">5 BD</span>
+            <span class="prop-detail">6 BA</span>
+            <span class="prop-detail">8,840 SQ FT</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+        <div class="prop-img-wrap">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,#1a2030 0%,transparent 65%),radial-gradient(ellipse 70% 40% at 30% 50%,#0a1a10 0%,transparent 55%),radial-gradient(ellipse 50% 30% at 80% 80%,#1a1208 0%,transparent 50%),linear-gradient(175deg,#1a2535 0%,#0f1a20 30%,#0a150c 55%,#0c100a 100%)"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="0,300 100,180 180,220 280,100 360,160 420,80 500,120" fill="none" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+            <polyline points="0,400 100,280 180,320 280,200 360,260 420,180 500,220" fill="none" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/>
+            <line x1="0" y1="260" x2="500" y2="260" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="prop-card-overlay"></div>
+        <div class="prop-badge">Just Sold</div>
+        <div class="prop-info">
+          <div class="prop-tag">Mountain Estate</div>
+          <div class="prop-name">Snowmass Peak</div>
+          <div class="prop-loc">Aspen, Colorado</div>
+          <div class="prop-price">$19,750,000</div>
+          <div class="prop-details">
+            <span class="prop-detail">6 BD</span>
+            <span class="prop-detail">8 BA</span>
+            <span class="prop-detail">9,600 SQ FT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section style="position:relative;z-index:5;padding:120px 0 0">
+    <div style="padding:0 64px;margin-bottom:0" class="reveal">
+      <div class="section-tag">Our Distinction</div>
+      <h2 class="section-title" style="margin-bottom:52px">A Standard<br><em>Apart</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <div class="service-num">01</div>
+        <div class="service-title">Private Advisory</div>
+        <p class="service-desc">Decades of discretion. Every acquisition guided by counsel that goes beyond transaction into legacy planning.</p>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <div class="service-title">Global Reach</div>
+        <p class="service-desc">Proprietary access to off-market estates across 40 countries — properties that never appear on public listings.</p>
+      </div>
+      <div class="service-item reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <div class="service-title">AI Valuation</div>
+        <p class="service-desc">Proprietary market intelligence powered by machine learning — real-time pricing insights no other firm provides.</p>
+      </div>
+      <div class="service-item reveal reveal-delay-3">
+        <div class="service-num">04</div>
+        <div class="service-title">White Glove Close</div>
+        <p class="service-desc">From offer to keys, our team orchestrates every detail — legal, title, relocation, and beyond.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Valuation -->
+  <section class="ai-section reveal">
+    <div class="ai-bg"></div>
+    <div class="ai-inner">
+      <div class="ai-left">
+        <div class="section-tag">AI Intelligence</div>
+        <h2 class="section-title">Instant<br><em>Valuation</em></h2>
+        <p style="margin-top:24px">Our proprietary AI analyzes thousands of comparable sales, market trends, and neighborhood dynamics to give you an institutional-grade estimate in seconds — the same intelligence our top advisors use.</p>
+        <p style="margin-top:16px">Powered by 30 years of proprietary transaction data layered with live market signals.</p>
+      </div>
+      <div class="ai-widget">
+        <div class="ai-widget-title"><span class="ai-dot"></span> MAISON AI — Property Valuator</div>
+        <div class="ai-field">
+          <label class="ai-label">Property Address or Area</label>
+          <input class="ai-input" type="text" id="val-address" placeholder="e.g. 123 Ocean Drive, Miami Beach" autocomplete="off">
+        </div>
+        <div class="ai-row">
+          <div class="ai-field">
+            <label class="ai-label">Property Type</label>
+            <select class="ai-input" id="val-type">
+              <option>Single Family Estate</option>
+              <option>Penthouse</option>
+              <option>Waterfront Villa</option>
+              <option>Ranch / Land</option>
+              <option>Historic Mansion</option>
+            </select>
+          </div>
+          <div class="ai-field">
+            <label class="ai-label">Square Footage</label>
+            <input class="ai-input" type="number" id="val-sqft" placeholder="e.g. 8,500">
+          </div>
+        </div>
+        <div class="ai-row">
+          <div class="ai-field">
+            <label class="ai-label">Bedrooms</label>
+            <select class="ai-input" id="val-beds">
+              <option>3</option><option>4</option><option>5</option>
+              <option>6</option><option>7</option><option>8+</option>
+            </select>
+          </div>
+          <div class="ai-field">
+            <label class="ai-label">Year Built</label>
+            <input class="ai-input" type="number" id="val-year" placeholder="e.g. 2019">
+          </div>
+        </div>
+        <button class="ai-submit" onclick="runValuation()">Generate AI Valuation →</button>
+        <div class="ai-thinking" id="val-thinking">
+          <div class="ai-think-dot"></div>
+          <div class="ai-think-dot"></div>
+          <div class="ai-think-dot"></div>
+          <span class="ai-think-text">Analyzing market data...</span>
+        </div>
+        <div class="ai-result" id="val-result">
+          <div class="ai-result-label">AI Estimated Value</div>
+          <div class="ai-result-value" id="val-value">—</div>
+          <div class="ai-result-range" id="val-range"></div>
+          <div class="ai-result-insight" id="val-insight"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-tag">Client Stories</div>
+        <h2 class="section-title">Those Who<br><em>Trust Us</em></h2>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-item reveal">
+        <p class="testi-text">"MAISON found us a property that didn't exist on any market — a private island estate in the Bahamas. Their access to off-market opportunities is simply without parallel."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Richard Ashworth</div>
+            <div class="testi-role">Chairman, Ashworth Capital</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-item reveal reveal-delay-1">
+        <p class="testi-text">"Three discreet transactions over eight years. Every time, MAISON exceeded what I thought was possible. Unmatched discretion, unmatched results."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">C</div>
+          <div>
+            <div class="testi-name">Catherine Voss</div>
+            <div class="testi-role">Founder, Voss Ventures</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">MAI<span>SON</span></div>
+        <p class="footer-desc">The world's most distinguished estates, represented by a firm built on discretion, artistry, and an unwavering commitment to excellence.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Explore</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('properties');return false">Property Collection</a></li>
+          <li><a href="#" onclick="showPage('about');return false">Our Story</a></li>
+          <li><a href="#" onclick="showPage('journal');return false">Journal</a></li>
+          <li><a href="#" onclick="showPage('schedule');return false">Schedule a Viewing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Buyer Representation</a></li>
+          <li><a href="#">Seller Advisory</a></li>
+          <li><a href="#">Portfolio Strategy</a></li>
+          <li><a href="#">Global Relocation</a></li>
+          <li><a href="#">Private Financing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="tel:+18005550100">+1 800 555 0100</a></li>
+          <li><a href="mailto:enquire@maison.estate">enquire@maison.estate</a></li>
+          <li><a href="#">277 Park Avenue, 43rd Floor</a></li>
+          <li><a href="#">New York, NY 10172</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2025 MAISON Estate Group. All Rights Reserved. | License #01234567</div>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROPERTIES PAGE
+════════════════════════════════════════════ -->
+<div class="page" id="page-properties">
+  <div class="page-hero">
+    <div class="page-hero-bg">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 100% 60% at 60% 30%,#1a2a1a 0%,transparent 65%),radial-gradient(ellipse 70% 50% at 20% 70%,#0a1520 0%,transparent 55%),linear-gradient(160deg,#1a2818 0%,#0d1f1a 35%,#0a1520 65%,#060c0a 100%)"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.3" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <line x1="720" y1="300" x2="0" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+        <line x1="720" y1="300" x2="1440" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+        <ellipse cx="720" cy="300" rx="400" ry="50" fill="rgba(180,140,60,0.05)"/>
+        <rect x="360" y="60" width="720" height="380" fill="none" stroke="rgba(201,169,110,0.06)" stroke-width="0.5"/>
+      </svg>
+      <div class="page-hero-overlay"></div>
+    </div>
+    <div class="page-hero-content">
+      <p class="page-hero-tag">The Collection</p>
+      <h1 class="page-hero-h1">Exceptional<br><em>Estates</em></h1>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterProps(this,'all')">All</button>
+    <button class="filter-btn" onclick="filterProps(this,'ocean')">Oceanfront</button>
+    <button class="filter-btn" onclick="filterProps(this,'urban')">Urban</button>
+    <button class="filter-btn" onclick="filterProps(this,'mountain')">Mountain</button>
+    <div class="filter-sep"></div>
+    <button class="filter-btn" onclick="filterProps(this,'under20')">Under $20M</button>
+    <button class="filter-btn" onclick="filterProps(this,'over20')">$20M+</button>
+  </div>
+
+  <div class="props-masonry" id="props-masonry">
+    <div class="prop-full property-item" data-cat="ocean" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+      <div class="prop-img-wrap">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 50% at 50% 100%,#1a0e04 0%,transparent 55%),radial-gradient(ellipse 80% 60% at 70% 40%,#1e2a3a 0%,transparent 65%),linear-gradient(165deg,#12243a 0%,#1a1e2a 30%,#201408 60%,#100c06 100%);filter:brightness(.7) saturate(.85);transition:filter .8s,transform .8s"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 700 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><line x1="350" y1="300" x2="0" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/><line x1="350" y1="300" x2="700" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/><rect x="100" y="40" width="500" height="380" fill="none" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><line x1="225" y1="40" x2="225" y2="420" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="350" y1="40" x2="350" y2="420" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="475" y1="40" x2="475" y2="420" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="100" y1="167" x2="600" y2="167" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="100" y1="294" x2="600" y2="294" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><ellipse cx="350" cy="302" rx="220" ry="35" fill="rgba(180,140,60,0.07)"/></svg>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-body">
+        <div class="card-tag">Oceanfront — Palm Beach</div>
+        <div class="card-title">The Whitmore Estate</div>
+        <div class="card-loc">Palm Beach, Florida</div>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">$54,000,000</div>
+            <div class="card-specs" style="margin-top:10px">
+              <span class="card-spec">10 BD · 14 BA · 18,400 SQ FT</span>
+            </div>
+          </div>
+          <div class="card-view">View Estate →</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-half property-item" data-cat="urban" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+      <div class="prop-img-wrap">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 100% 40% at 50% 0%,#0e1828 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 80% 60%,#101828 0%,transparent 55%),linear-gradient(190deg,#0c1422 0%,#141c2a 30%,#1a1812 60%,#0e0c08 100%);filter:brightness(.7) saturate(.85);transition:filter .8s,transform .8s"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.3" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="500" y2="400" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><line x1="500" y1="0" x2="0" y2="400" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><rect x="50" y="30" width="400" height="310" fill="none" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/><line x1="183" y1="30" x2="183" y2="340" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="317" y1="30" x2="317" y2="340" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="50" y1="133" x2="450" y2="133" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/><line x1="50" y1="237" x2="450" y2="237" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/></svg>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-body">
+        <div class="card-tag">Penthouse — New York</div>
+        <div class="card-title">One57 Penthouse</div>
+        <div class="card-loc">Manhattan, New York</div>
+        <div class="card-footer">
+          <div><div class="card-price">$26,000,000</div></div>
+          <div class="card-view">View →</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-half property-item" data-cat="ocean" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+      <div class="prop-img-wrap">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 40% at 50% 100%,#0a1a14 0%,transparent 55%),radial-gradient(ellipse 70% 60% at 65% 35%,#0f2535 0%,transparent 65%),linear-gradient(170deg,#0f2030 0%,#0d1c28 30%,#141808 55%,#0a0e06 100%);filter:brightness(.7) saturate(.85);transition:filter .8s,transform .8s"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="220" x2="500" y2="220" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/><line x1="250" y1="220" x2="0" y2="0" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><line x1="250" y1="220" x2="500" y2="0" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><ellipse cx="250" cy="222" rx="180" ry="25" fill="rgba(180,140,60,0.07)"/></svg>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-body">
+        <div class="card-tag">Waterfront — Miami</div>
+        <div class="card-title">Star Island Villa</div>
+        <div class="card-loc">Miami Beach, Florida</div>
+        <div class="card-footer">
+          <div><div class="card-price">$31,500,000</div></div>
+          <div class="card-view">View →</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-half property-item" data-cat="mountain" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+      <div class="prop-img-wrap">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 100% 50% at 40% 0%,#1a2030 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 20% 50%,#0c1a10 0%,transparent 55%),linear-gradient(175deg,#1a2535 0%,#111c22 30%,#0e160c 55%,#0c100a 100%);filter:brightness(.7) saturate(.85);transition:filter .8s,transform .8s"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><polyline points="0,350 80,230 150,270 230,140 310,200 380,110 460,170 500,150" fill="none" stroke="rgba(201,169,110,0.12)" stroke-width="0.8"/><polyline points="0,400 80,330 150,370 230,240 310,300 380,210 460,270 500,250" fill="none" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><line x1="0" y1="280" x2="500" y2="280" stroke="rgba(201,169,110,0.06)" stroke-width="0.5"/></svg>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-body">
+        <div class="card-tag">Mountain — Aspen</div>
+        <div class="card-title">Ridge Peak Lodge</div>
+        <div class="card-loc">Aspen, Colorado</div>
+        <div class="card-footer">
+          <div><div class="card-price">$22,800,000</div></div>
+          <div class="card-view">View →</div>
+        </div>
+      </div>
+    </div>
+    <div class="prop-half property-item" data-cat="ocean" onmouseenter="setCursorCard(true)" onmouseleave="setCursorCard(false)">
+      <div class="prop-img-wrap">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 130% 40% at 50% 100%,#0a1824 0%,transparent 55%),radial-gradient(ellipse 80% 55% at 70% 35%,#102030 0%,transparent 65%),linear-gradient(168deg,#0e2038 0%,#0c1a2c 30%,#14180a 55%,#080c06 100%);filter:brightness(.7) saturate(.85);transition:filter .8s,transform .8s"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.35" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="220" x2="500" y2="220" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/><line x1="250" y1="220" x2="0" y2="0" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><line x1="250" y1="220" x2="500" y2="0" stroke="rgba(201,169,110,0.07)" stroke-width="0.5"/><ellipse cx="250" cy="222" rx="180" ry="25" fill="rgba(180,140,60,0.07)"/><rect x="120" y="50" width="260" height="140" fill="none" stroke="rgba(201,169,110,0.06)" stroke-width="0.5"/></svg>
+      </div>
+      <div class="card-overlay"></div>
+      <div class="card-body">
+        <div class="card-tag">Oceanfront — Malibu</div>
+        <div class="card-title">Casa del Mar</div>
+        <div class="card-loc">Malibu, California</div>
+        <div class="card-footer">
+          <div><div class="card-price">$38,500,000</div></div>
+          <div class="card-view">View →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:60px">
+    <div class="footer-bottom" style="padding-top:0;border-top:none">
+      <div class="footer-legal">© 2025 MAISON Estate Group</div>
+      <div class="footer-social">
+        <a href="#">Instagram</a><a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT PAGE
+════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="mesh">
+      <div class="mesh-line"></div><div class="mesh-line"></div>
+      <div class="mesh-line"></div><div class="mesh-line"></div>
+      <div class="mesh-line-v"></div><div class="mesh-line-v"></div><div class="mesh-line-v"></div>
+    </div>
+    <div class="about-hero-content">
+      <div class="about-hero-left">
+        <div class="hero-tag">Our Foundation</div>
+        <h1 class="about-h1">Thirty Years<br>of <em>Singular</em><br>Purpose</h1>
+      </div>
+      <div class="about-hero-right">
+        <p>"The finest properties in the world deserve representation that matches their rarity. That belief founded MAISON. It still drives everything we do."</p>
+        <p class="about-para">Since 1994, MAISON has operated at the intersection of art, architecture, and ambition. We are not a brokerage — we are a private advisory firm for those who refuse to settle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:100px;background:linear-gradient(to bottom,var(--black),var(--black))"></div>
+
+  <div class="about-body">
+    <div class="about-img-col reveal">
+      <div class="about-img-frame">
+        <div style="display:block;width:100%;aspect-ratio:3/4;background:radial-gradient(ellipse 70% 50% at 55% 35%,#22201a 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 20% 70%,#181412 0%,transparent 55%),linear-gradient(165deg,#1e1c18 0%,#161410 40%,#100e0c 100%);filter:grayscale(30%) brightness(.7);position:relative;overflow:hidden">
+          <svg style="width:100%;height:100%;position:absolute;inset:0;opacity:.3" viewBox="0 0 400 533" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="40" width="320" height="453" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+            <line x1="200" y1="40" x2="200" y2="493" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+            <line x1="40" y1="266" x2="360" y2="266" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+            <rect x="90" y="70" width="220" height="180" fill="none" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+            <ellipse cx="200" cy="140" rx="70" ry="80" fill="none" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+            <ellipse cx="200" cy="268" rx="120" ry="18" fill="rgba(180,140,60,0.05)"/>
+          </svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(6,6,6,.5),transparent)"></div>
+        </div>
+        <div style="position:absolute;bottom:-32px;right:-32px;width:55%;aspect-ratio:1;background:radial-gradient(ellipse 70% 60% at 50% 40%,#1e1610 0%,transparent 65%),linear-gradient(145deg,#1a1410 0%,#12100e 100%);filter:grayscale(50%) brightness(.6);border:8px solid #060606;overflow:hidden">
+          <svg style="width:100%;height:100%;display:block;opacity:.25" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="160" height="160" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+            <line x1="100" y1="20" x2="100" y2="180" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+            <line x1="20" y1="100" x2="180" y2="100" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+            <ellipse cx="100" cy="100" rx="50" ry="50" fill="none" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+          </svg>
+        </div>
+        <div class="about-img-line"></div>
+      </div>
+    </div>
+    <div class="about-text-col">
+      <div class="about-section-tag reveal">Philosophy</div>
+      <h2 class="about-section-h reveal">Built on <em>Discretion,</em><br>Driven by Results</h2>
+      <p class="about-p reveal">Every client relationship at MAISON begins with a single question: what does success look like to you? Not to the market. Not to us. To you. That question guides every recommendation, every negotiation, every decision we make on your behalf.</p>
+      <p class="about-p reveal reveal-delay-1">We have never chased volume. We have never compromised a client relationship for a commission. This is unusual in our industry. We consider it non-negotiable.</p>
+      <p class="about-p reveal reveal-delay-2">Our advisor roster is deliberately small. Each member of the MAISON team carries an average of 22 years of experience in ultra-high-net-worth real estate. They are former architects, art dealers, and estate attorneys — people who understand that buying a home at this level is never just a financial transaction.</p>
+      <div class="about-sig reveal reveal-delay-3">James Whitmore</div>
+      <div class="about-sig-title reveal reveal-delay-3">Founder & Principal Advisor</div>
+    </div>
+  </div>
+
+  <div class="gold-divider" style="margin-top:80px"></div>
+
+  <div class="awards-row reveal">
+    <div class="award-item">
+      <div class="award-year">2024</div>
+      <div class="award-title">Luxury Brokerage of the Year</div>
+      <div class="award-org">Wall Street Journal</div>
+    </div>
+    <div class="award-item">
+      <div class="award-year">2023</div>
+      <div class="award-title">Top 1% Global Volume</div>
+      <div class="award-org">Christie's International</div>
+    </div>
+    <div class="award-item">
+      <div class="award-year">2022</div>
+      <div class="award-title">Excellence in Client Service</div>
+      <div class="award-org">Robb Report</div>
+    </div>
+  </div>
+
+  <div class="team-section">
+    <div class="section-tag reveal">The Advisors</div>
+    <h2 class="section-title reveal">People Who<br><em>Define Excellence</em></h2>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div style="display:block;width:100%;aspect-ratio:3/4;background:linear-gradient(165deg,#1a1814 0%,#14120e 40%,#0e0c0a 100%);position:relative;overflow:hidden">
+          <svg style="width:100%;height:100%;position:absolute;inset:0;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="150" cy="130" rx="70" ry="80" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
+            <line x1="150" y1="210" x2="150" y2="400" stroke="rgba(201,169,110,0.2)" stroke-width="40"/>
+            <line x1="60" y1="260" x2="240" y2="260" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+          </svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(6,6,6,.7),transparent)"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-80%);font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:200;color:rgba(201,169,110,0.25);letter-spacing:.1em">JW</div>
+        </div>
+        <div class="team-info"><div class="team-name">James Whitmore</div><div class="team-role">Founder & Principal</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div style="display:block;width:100%;aspect-ratio:3/4;background:linear-gradient(165deg,#181618 0%,#12101a 40%,#0e0c12 100%);position:relative;overflow:hidden">
+          <svg style="width:100%;height:100%;position:absolute;inset:0;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="150" cy="130" rx="70" ry="80" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
+            <line x1="150" y1="210" x2="150" y2="400" stroke="rgba(201,169,110,0.2)" stroke-width="40"/>
+            <line x1="60" y1="260" x2="240" y2="260" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+          </svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(6,6,6,.7),transparent)"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-80%);font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:200;color:rgba(201,169,110,0.25);letter-spacing:.1em">CB</div>
+        </div>
+        <div class="team-info"><div class="team-name">Claire Beaumont</div><div class="team-role">Senior Advisor</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div style="display:block;width:100%;aspect-ratio:3/4;background:linear-gradient(165deg,#141818 0%,#10140e 40%,#0c100a 100%);position:relative;overflow:hidden">
+          <svg style="width:100%;height:100%;position:absolute;inset:0;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="150" cy="130" rx="70" ry="80" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
+            <line x1="150" y1="210" x2="150" y2="400" stroke="rgba(201,169,110,0.2)" stroke-width="40"/>
+            <line x1="60" y1="260" x2="240" y2="260" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+          </svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(6,6,6,.7),transparent)"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-80%);font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:200;color:rgba(201,169,110,0.25);letter-spacing:.1em">MC</div>
+        </div>
+        <div class="team-info"><div class="team-name">Marcus Chen</div><div class="team-role">International Markets</div></div>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div style="display:block;width:100%;aspect-ratio:3/4;background:linear-gradient(165deg,#181414 0%,#141010 40%,#100c0c 100%);position:relative;overflow:hidden">
+          <svg style="width:100%;height:100%;position:absolute;inset:0;opacity:.2" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="150" cy="130" rx="70" ry="80" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
+            <line x1="150" y1="210" x2="150" y2="400" stroke="rgba(201,169,110,0.2)" stroke-width="40"/>
+            <line x1="60" y1="260" x2="240" y2="260" stroke="rgba(201,169,110,0.15)" stroke-width="0.5"/>
+          </svg>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,rgba(6,6,6,.7),transparent)"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-80%);font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:200;color:rgba(201,169,110,0.25);letter-spacing:.1em">SA</div>
+        </div>
+        <div class="team-info"><div class="team-name">Sophia Andrade</div><div class="team-role">Client Relations</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:80px"></div>
+  <footer style="margin-top:0">
+    <div class="footer-bottom" style="padding-top:0;border-top:none">
+      <div class="footer-legal">© 2025 MAISON Estate Group</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     JOURNAL PAGE
+════════════════════════════════════════════ -->
+<div class="page" id="page-journal">
+  <div class="journal-hero">
+    <div class="journal-hero-bg"></div>
+    <div class="journal-hero-content">
+      <div class="section-tag">MAISON Journal</div>
+      <h1 class="journal-h1">The Art of<br><em>Exceptional</em><br>Living</h1>
+      <p class="journal-sub">Insight, intelligence, and inspiration for those who demand the finest — from market dispatches to architectural histories.</p>
+    </div>
+  </div>
+
+  <div class="journal-featured">
+    <div class="journal-feat-wrap">
+      <div style="width:100%;height:480px;background:radial-gradient(ellipse 80% 60% at 60% 30%,#1e1a10 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 20% 70%,#101418 0%,transparent 55%),linear-gradient(165deg,#1a1610 0%,#12141a 40%,#0e0c10 100%);position:relative;overflow:hidden;filter:brightness(.65) saturate(.8);transition:filter .6s">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.25" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <line x1="350" y1="240" x2="0" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+          <line x1="350" y1="240" x2="700" y2="0" stroke="rgba(201,169,110,0.1)" stroke-width="0.5"/>
+          <rect x="80" y="40" width="540" height="340" fill="none" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+          <line x1="260" y1="40" x2="260" y2="380" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          <line x1="440" y1="40" x2="440" y2="380" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          <line x1="80" y1="153" x2="620" y2="153" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          <line x1="80" y1="267" x2="620" y2="267" stroke="rgba(201,169,110,0.05)" stroke-width="0.5"/>
+          <ellipse cx="350" cy="242" rx="200" ry="30" fill="rgba(180,140,60,0.06)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="journal-feat-body">
+      <div class="journal-cat">Market Intelligence</div>
+      <div class="journal-feat-title">The $50M Threshold: Why Ultra-Luxury Pricing Has Permanently Shifted</div>
+      <p class="journal-feat-excerpt">A deep analysis of why properties once considered ceiling-breakers now represent the new floor for trophy estates in coastal markets — and what it means for buyers in 2025.</p>
+      <div class="journal-meta">
+        <span class="journal-date">March 2025</span>
+        <a href="#" class="journal-read">Read Analysis</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Neighborhood Insight Widget -->
+  <section class="insight-section reveal">
+    <div class="insight-inner">
+      <div>
+        <div class="section-tag">AI Intelligence</div>
+        <h2 class="section-title" style="font-size:clamp(36px,4vw,56px)">Neighborhood<br><em>Insights</em></h2>
+        <p style="font-size:13px;letter-spacing:.06em;color:var(--cream-dim);line-height:2;margin-top:20px;max-width:380px">Enter any neighborhood and our AI generates a live intelligence report — market dynamics, lifestyle profile, investment outlook, and notable recent transactions.</p>
+      </div>
+      <div class="insight-widget">
+        <div class="insight-title"><span class="ai-dot"></span> MAISON AI — Market Intelligence</div>
+        <div class="insight-input-wrap">
+          <input class="insight-input" type="text" id="insight-input" placeholder="Enter a neighborhood or city..." autocomplete="off">
+          <button class="insight-btn" onclick="runInsight()">Analyze →</button>
+        </div>
+        <div class="insight-output">
+          <div class="insight-loading" id="insight-loading">
+            <div class="ai-thinking" style="display:flex;justify-content:center"><div class="ai-think-dot"></div><div class="ai-think-dot"></div><div class="ai-think-dot"></div></div>
+            <p style="font-size:10px;letter-spacing:.15em;color:var(--muted);margin-top:10px">Analyzing market data...</p>
+          </div>
+          <div class="insight-cards" id="insight-cards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="journal-grid">
+    <div class="journal-card reveal">
+      <div style="width:100%;height:240px;background:radial-gradient(ellipse 80% 50% at 55% 40%,#1a1e14 0%,transparent 65%),linear-gradient(160deg,#141a10 0%,#0e1408 100%);position:relative;overflow:hidden;filter:brightness(.65) saturate(.8);transition:filter .6s,transform .6s">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.25" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="20" width="340" height="200" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="200" y1="20" x2="200" y2="220" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <line x1="30" y1="120" x2="370" y2="120" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <ellipse cx="200" cy="120" rx="100" ry="15" fill="rgba(180,140,60,0.06)"/>
+        </svg>
+      </div>
+      <div class="journal-card-body">
+        <div class="journal-cat">Architecture</div>
+        <div class="journal-card-title">The Architects Redefining the American Estate</div>
+        <p class="journal-card-excerpt">From Kengo Kuma to SAOTA — the five firms currently commanding the highest premiums on new residential builds.</p>
+        <div class="journal-meta" style="margin-top:20px">
+          <span class="journal-date">February 2025</span>
+        </div>
+      </div>
+    </div>
+    <div class="journal-card reveal reveal-delay-1">
+      <div style="width:100%;height:240px;background:radial-gradient(ellipse 70% 60% at 45% 35%,#1e1414 0%,transparent 65%),linear-gradient(155deg,#1a1010 0%,#140c0a 100%);position:relative;overflow:hidden;filter:brightness(.65) saturate(.8);transition:filter .6s,transform .6s">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.25" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="20" width="340" height="200" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="200" y1="20" x2="200" y2="220" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <line x1="30" y1="120" x2="370" y2="120" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <ellipse cx="200" cy="120" rx="100" ry="15" fill="rgba(180,140,60,0.06)"/>
+        </svg>
+      </div>
+      <div class="journal-card-body">
+        <div class="journal-cat">Collecting</div>
+        <div class="journal-card-title">Art as Architecture: When the Collection Becomes the Home</div>
+        <p class="journal-card-excerpt">How a new generation of collectors is commissioning structures around their art — and the estates that have set the standard.</p>
+        <div class="journal-meta" style="margin-top:20px">
+          <span class="journal-date">January 2025</span>
+        </div>
+      </div>
+    </div>
+    <div class="journal-card reveal reveal-delay-2">
+      <div style="width:100%;height:240px;background:radial-gradient(ellipse 75% 55% at 60% 45%,#101820 0%,transparent 65%),linear-gradient(170deg,#0c1420 0%,#080e18 100%);position:relative;overflow:hidden;filter:brightness(.65) saturate(.8);transition:filter .6s,transform .6s">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.25" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="20" width="340" height="200" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+          <line x1="200" y1="20" x2="200" y2="220" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <line x1="30" y1="120" x2="370" y2="120" stroke="rgba(201,169,110,0.12)" stroke-width="0.5"/>
+          <ellipse cx="200" cy="120" rx="100" ry="15" fill="rgba(180,140,60,0.06)"/>
+        </svg>
+      </div>
+      <div class="journal-card-body">
+        <div class="journal-cat">Investment</div>
+        <div class="journal-card-title">The Island Question: Private Isle Ownership in 2025</div>
+        <p class="journal-card-excerpt">A frank assessment of true cost, liquidity, and the unexpected advantages of holding private island real estate in the current cycle.</p>
+        <div class="journal-meta" style="margin-top:20px">
+          <span class="journal-date">December 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:80px"></div>
+  <footer style="margin-top:0">
+    <div class="footer-bottom" style="padding-top:0;border-top:none">
+      <div class="footer-legal">© 2025 MAISON Estate Group</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCHEDULE PAGE
+════════════════════════════════════════════ -->
+<div class="page" id="page-schedule">
+  <div class="schedule-hero">
+    <div class="schedule-hero-bg"></div>
+    <div class="schedule-hero-content">
+      <div>
+        <div class="section-tag">Private Consultation</div>
+        <h1 class="schedule-h1">Reserve Your<br><em>Private</em><br>Consultation</h1>
+      </div>
+      <div>
+        <p class="schedule-sub">Every engagement begins with a private conversation — no obligation, complete discretion. Tell us what you're seeking, and we'll tell you what's possible.</p>
+        <div class="schedule-promise">
+          <div class="promise-item"><span class="promise-dot"></span>Handled by a senior advisor — not an assistant</div>
+          <div class="promise-item"><span class="promise-dot"></span>Complete confidentiality guaranteed</div>
+          <div class="promise-item"><span class="promise-dot"></span>Response within 4 business hours</div>
+          <div class="promise-item"><span class="promise-dot"></span>No obligation of any kind</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schedule-form-wrap">
+    <!-- Steps -->
+    <div class="schedule-form" style="grid-template-columns:1fr">
+      <div class="form-steps" id="form-steps">
+        <div class="form-step active" data-step="1"><div class="form-step-inner"><div class="form-step-num">01</div><div class="form-step-label">About You</div></div></div>
+        <div class="form-step" data-step="2"><div class="form-step-inner"><div class="form-step-num">02</div><div class="form-step-label">Your Interest</div></div></div>
+        <div class="form-step" data-step="3"><div class="form-step-inner"><div class="form-step-num">03</div><div class="form-step-label">Select Time</div></div></div>
+        <div class="form-step" data-step="4"><div class="form-step-inner"><div class="form-step-num">04</div><div class="form-step-label">Confirm</div></div></div>
+      </div>
+
+      <!-- Panel 1: About You -->
+      <div class="form-panel active" id="panel-1">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="f-fname" placeholder="James">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="f-lname" placeholder="Whitmore">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="f-email" placeholder="james@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone (Optional)</label>
+          <input type="tel" id="f-phone" placeholder="+1 (555) 000-0000">
+        </div>
+        <div class="form-group">
+          <label>How did you hear about MAISON?</label>
+          <select id="f-source">
+            <option>— Please select —</option>
+            <option>Referral from a Client</option>
+            <option>Wall Street Journal</option>
+            <option>Robb Report</option>
+            <option>Architectural Digest</option>
+            <option>Social Media</option>
+            <option>Previous Client</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Communication</label>
+          <select id="f-comm">
+            <option>Email</option>
+            <option>Phone</option>
+            <option>WhatsApp</option>
+            <option>Signal</option>
+          </select>
+        </div>
+        <div class="form-nav">
+          <div></div>
+          <div style="display:flex;align-items:center;gap:24px">
+            <span class="form-progress-text">Step 1 of 4</span>
+            <button class="form-next" onclick="nextStep(2)">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Interest -->
+      <div class="form-panel" id="panel-2">
+        <div class="form-group full">
+          <label style="margin-bottom:16px">I am interested in</label>
+          <div class="service-selector">
+            <div class="service-opt selected" onclick="toggleService(this)">
+              <div class="service-opt-check"></div>
+              <div class="service-opt-title">Buying an Estate</div>
+              <div class="service-opt-desc">I am looking to acquire a property in the $5M+ range, domestic or international.</div>
+            </div>
+            <div class="service-opt" onclick="toggleService(this)">
+              <div class="service-opt-check"></div>
+              <div class="service-opt-title">Selling My Property</div>
+              <div class="service-opt-desc">I own an exceptional property and want discreet, premium representation.</div>
+            </div>
+            <div class="service-opt" onclick="toggleService(this)">
+              <div class="service-opt-check"></div>
+              <div class="service-opt-title">Portfolio Strategy</div>
+              <div class="service-opt-desc">I want advisory on managing or expanding a portfolio of luxury real estate assets.</div>
+            </div>
+            <div class="service-opt" onclick="toggleService(this)">
+              <div class="service-opt-check"></div>
+              <div class="service-opt-title">Private Valuation</div>
+              <div class="service-opt-desc">I need a confidential, institutional-grade appraisal of a property I own or am considering.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Property Type of Interest</label>
+          <select>
+            <option>Oceanfront Estate</option>
+            <option>Urban Penthouse</option>
+            <option>Mountain Retreat</option>
+            <option>Historic Mansion</option>
+            <option>Private Island</option>
+            <option>Ranch / Compound</option>
+            <option>International Villa</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price Range</label>
+          <select id="f-budget">
+            <option>$5M – $10M</option>
+            <option>$10M – $25M</option>
+            <option>$25M – $50M</option>
+            <option>$50M – $100M</option>
+            <option>$100M+</option>
+            <option>No limit</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Tell us what you're looking for</label>
+          <textarea id="f-notes" placeholder="Describe your ideal property, timeline, and any specific requirements. Everything shared here is held in strict confidence."></textarea>
+        </div>
+        <div class="form-nav">
+          <button class="form-back" onclick="nextStep(1)">Back</button>
+          <div style="display:flex;align-items:center;gap:24px">
+            <span class="form-progress-text">Step 2 of 4</span>
+            <button class="form-next" onclick="nextStep(3)">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Date & Time -->
+      <div class="form-panel" id="panel-3">
+        <div class="form-group full">
+          <label style="margin-bottom:16px">Select a Date</label>
+          <div class="date-grid" id="date-grid"></div>
+        </div>
+        <div class="form-group full">
+          <label style="margin-bottom:16px">Select a Time (Eastern)</label>
+          <div class="time-grid" id="time-grid"></div>
+        </div>
+        <div class="form-nav">
+          <button class="form-back" onclick="nextStep(2)">Back</button>
+          <div style="display:flex;align-items:center;gap:24px">
+            <span class="form-progress-text">Step 3 of 4</span>
+            <button class="form-next" onclick="nextStep(4)">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: Confirm -->
+      <div class="form-panel" id="panel-4">
+        <div class="form-group full">
+          <div style="background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.15);padding:36px;margin-bottom:8px">
+            <div class="section-tag" style="margin-bottom:24px">Consultation Summary</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+              <div>
+                <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Name</div>
+                <div id="conf-name" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream)">—</div>
+              </div>
+              <div>
+                <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Email</div>
+                <div id="conf-email" style="font-size:13px;color:var(--cream-dim)">—</div>
+              </div>
+              <div>
+                <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Appointment</div>
+                <div id="conf-date" style="font-size:13px;color:var(--cream-dim)">—</div>
+              </div>
+              <div>
+                <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Service</div>
+                <div id="conf-service" style="font-size:13px;color:var(--cream-dim)">Private Consultation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label>Any final notes for your advisor?</label>
+          <textarea placeholder="Anything else you'd like us to know before we speak..."></textarea>
+        </div>
+        <div class="form-group full" style="flex-direction:row;align-items:center;gap:14px;margin-top:8px">
+          <input type="checkbox" id="f-nda" style="width:16px;height:16px;border:1px solid var(--border);cursor:none;accent-color:var(--gold)">
+          <label for="f-nda" style="font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:none;cursor:none">I understand that all information shared is governed by MAISON's confidentiality agreement and will never be disclosed to third parties.</label>
+        </div>
+        <div class="form-nav">
+          <button class="form-back" onclick="nextStep(3)">Back</button>
+          <div style="display:flex;align-items:center;gap:24px">
+            <span class="form-progress-text">Step 4 of 4</span>
+            <button class="form-submit" onclick="submitForm()">Confirm Consultation →</button>
+          </div>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="success-icon">✓</div>
+          <h2 class="success-h">You're<br><em>Confirmed</em></h2>
+          <p class="success-p">Your consultation has been reserved. A senior MAISON advisor will reach out within 4 business hours to finalize the details. We look forward to speaking with you.</p>
+          <div class="success-ref" id="success-ref">REF: MSN-000000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Concierge -->
+  <div class="ai-form-assistant">
+    <div class="ai-chat" id="ai-chat">
+      <div class="ai-chat-header">
+        <div>
+          <div class="ai-chat-name">MAISON Concierge AI</div>
+          <div class="ai-chat-status">Online</div>
+        </div>
+        <button class="ai-chat-close" onclick="toggleChat()">×</button>
+      </div>
+      <div class="ai-messages" id="ai-messages">
+        <div class="ai-msg assistant">Good afternoon. I'm here to assist with any questions as you complete your consultation request. What can I clarify for you?</div>
+      </div>
+      <div class="ai-chat-input-row">
+        <input class="ai-chat-input" id="ai-chat-input" type="text" placeholder="Ask anything..." autocomplete="off" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="ai-chat-send" onclick="sendChat()">→</button>
+      </div>
+    </div>
+    <button class="ai-toggle" onclick="toggleChat()">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+    </button>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<script>
+// ═══ CURSOR ═══
+const cur = document.getElementById('cur');
+const curRing = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  // Hero color reveal
+  const heroReveal = document.getElementById('heroReveal');
+  if(heroReveal){heroReveal.style.setProperty('--mx',mx+'px');heroReveal.style.setProperty('--my',my+'px')}
+});
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  curRing.style.left=rx+'px';curRing.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.addEventListener('mouseleave',()=>{cur.classList.add('hidden');curRing.classList.add('hidden')});
+document.addEventListener('mouseenter',()=>{cur.classList.remove('hidden');curRing.classList.remove('hidden')});
+function setCursorCard(on){
+  cur.classList.toggle('card-hover',on);
+  curRing.classList.toggle('card-hover',on);
+}
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');curRing.classList.add('hover')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');curRing.classList.remove('hover')});
+});
+
+// ═══ WEBGL PARTICLE BACKDROP ═══
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const gl=canvas.getContext('webgl');
+  if(!gl)return;
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight;gl.viewport(0,0,innerWidth,innerHeight)}
+  resize();window.addEventListener('resize',resize);
+  const vs=`attribute vec2 a;attribute float s;varying float v;void main(){gl_Position=vec4(a,0,1);gl_PointSize=s;v=s;}`;
+  const fs=`precision mediump float;varying float v;void main(){float d=distance(gl_PointCoord,vec2(.5));if(d>.5)discard;float a=(v-.5)/3.;gl_FragColor=vec4(.784,.663,.431,a*(.5-d)*2.);}`;
+  function mkShader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s}
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,vs));
+  gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(prog);gl.useProgram(prog);
+  const N=180;
+  const pos=new Float32Array(N*2);
+  const vel=new Float32Array(N*2);
+  const sizes=new Float32Array(N);
+  const life=new Float32Array(N);
+  for(let i=0;i<N;i++){
+    pos[i*2]=(Math.random()*2-1);pos[i*2+1]=(Math.random()*2-1);
+    vel[i*2]=(Math.random()-.5)*.0004;vel[i*2+1]=(Math.random()-.5)*.0004;
+    sizes[i]=Math.random()*2.5+.5;life[i]=Math.random();
+  }
+  const posBuf=gl.createBuffer();const sizeBuf=gl.createBuffer();
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+  const aLoc=gl.getAttribLocation(prog,'a');const sLoc=gl.getAttribLocation(prog,'s');
+  function tick(){
+    for(let i=0;i<N;i++){
+      pos[i*2]+=vel[i*2];pos[i*2+1]+=vel[i*2+1];
+      life[i]+=.002;
+      if(life[i]>1||pos[i*2]<-1.2||pos[i*2]>1.2||pos[i*2+1]<-1.2||pos[i*2+1]>1.2){
+        pos[i*2]=(Math.random()*2-1);pos[i*2+1]=(Math.random()*2-1);
+        vel[i*2]=(Math.random()-.5)*.0004;vel[i*2+1]=(Math.random()-.5)*.0004;
+        life[i]=0;
+      }
+    }
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);gl.bufferData(gl.ARRAY_BUFFER,pos,gl.DYNAMIC_DRAW);
+    gl.enableVertexAttribArray(aLoc);gl.vertexAttribPointer(aLoc,2,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,sizeBuf);gl.bufferData(gl.ARRAY_BUFFER,sizes,gl.DYNAMIC_DRAW);
+    gl.enableVertexAttribArray(sLoc);gl.vertexAttribPointer(sLoc,1,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.POINTS,0,N);
+    requestAnimationFrame(tick);
+  }
+  gl.clearColor(0,0,0,0);tick();
+})();
+
+// ═══ NAV ═══
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>60);
+  document.getElementById('scrolltop').classList.toggle('visible',scrollY>400);
+});
+document.getElementById('scrolltop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// ═══ PAGE ROUTING ═══
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.page===id));
+  window.scrollTo({top:0,behavior:'instant'});
+  // Trigger reveals
+  setTimeout(triggerReveals,100);
+}
+
+// ═══ SCROLL REVEAL ═══
+function triggerReveals(){
+  const reveals=document.querySelectorAll('.reveal:not(.in-view)');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');observer.unobserve(e.target)}});
+  },{threshold:.1});
+  reveals.forEach(r=>observer.observe(r));
+}
+triggerReveals();
+window.addEventListener('scroll',triggerReveals);
+
+// ═══ AI VALUATION ═══
+async function runValuation(){
+  const addr=document.getElementById('val-address').value||'Luxury Property';
+  const type=document.getElementById('val-type').value;
+  const sqft=document.getElementById('val-sqft').value||'8000';
+  const beds=document.getElementById('val-beds').value;
+  const year=document.getElementById('val-year').value||'2015';
+  document.getElementById('val-thinking').classList.add('visible');
+  document.getElementById('val-result').classList.remove('visible');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`You are a luxury real estate AI valuation engine for MAISON Estate Group. Given this property, provide a realistic valuation. Respond ONLY with valid JSON, no markdown, no explanation.
+
+Property: ${addr}
+Type: ${type}
+Square Footage: ${sqft} sq ft
+Bedrooms: ${beds}
+Year Built: ${year}
+
+Respond with exactly this JSON structure:
+{"estimate":"$XX,000,000","range":"$XX.XM – $XX.XM","market_trend":"Rising/Stable/Cooling","insight":"2-3 sentence market insight about this property type and location, written in an authoritative luxury real estate voice.","confidence":"High/Medium"}`}]
+      })
+    });
+    const data=await res.json();
+    let text=data.content[0].text;
+    text=text.replace(/```json|```/g,'').trim();
+    const json=JSON.parse(text);
+    document.getElementById('val-value').textContent=json.estimate;
+    document.getElementById('val-range').textContent=`Estimated Range: ${json.range} · Market: ${json.market_trend} · Confidence: ${json.confidence}`;
+    document.getElementById('val-insight').textContent=json.insight;
+    document.getElementById('val-result').classList.add('visible');
+  }catch(e){
+    document.getElementById('val-result').classList.add('visible');
+    document.getElementById('val-value').textContent='Request Advisory';
+    document.getElementById('val-insight').textContent='For an institutional-grade valuation, please connect directly with a MAISON advisor.';
+  }
+  document.getElementById('val-thinking').classList.remove('visible');
+}
+
+// ═══ AI NEIGHBORHOOD INSIGHTS ═══
+async function runInsight(){
+  const area=document.getElementById('insight-input').value;
+  if(!area.trim())return;
+  document.getElementById('insight-loading').classList.add('visible');
+  document.getElementById('insight-cards').classList.remove('visible');
+  document.getElementById('insight-cards').innerHTML='';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`You are a luxury real estate market intelligence AI. Generate a realistic neighborhood report for "${area}" from the perspective of a high-end real estate firm. Respond ONLY with valid JSON, no markdown.
+
+{"metrics":[
+  {"label":"Median Sale Price","value":"$X.XM","note":"Brief note"},
+  {"label":"Price Per Sq Ft","value":"$X,XXX","note":"Brief note"},
+  {"label":"Days on Market","value":"XX days","note":"Brief note"},
+  {"label":"Market Momentum","value":"Strong/Rising/Stable","note":"Brief note"},
+  {"label":"Lifestyle Profile","value":"2-3 word descriptor","note":"Brief note"},
+  {"label":"Investment Outlook","value":"Favorable/Strong/Neutral","note":"Brief note"}
+]}`}]
+      })
+    });
+    const data=await res.json();
+    let text=data.content[0].text.replace(/```json|```/g,'').trim();
+    const json=JSON.parse(text);
+    const container=document.getElementById('insight-cards');
+    json.metrics.forEach(m=>{
+      const card=document.createElement('div');
+      card.className='insight-card';
+      card.innerHTML=`<div class="insight-card-label">${m.label}</div><div class="insight-card-val">${m.value}</div><div class="insight-card-note">${m.note}</div>`;
+      container.appendChild(card);
+    });
+    document.getElementById('insight-cards').classList.add('visible');
+  }catch(e){
+    document.getElementById('insight-cards').innerHTML='<div class="insight-card"><div class="insight-card-label">Advisory Required</div><div class="insight-card-val">Speak with an Advisor</div><div class="insight-card-note">Connect with a MAISON advisor for a private market briefing on this area.</div></div>';
+    document.getElementById('insight-cards').classList.add('visible');
+  }
+  document.getElementById('insight-loading').classList.remove('visible');
+}
+
+// ═══ AI CHAT ═══
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('ai-chat').classList.toggle('open',chatOpen);
+}
+async function sendChat(){
+  const input=document.getElementById('ai-chat-input');
+  const msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  const messages=document.getElementById('ai-messages');
+  const userDiv=document.createElement('div');
+  userDiv.className='ai-msg user';userDiv.textContent=msg;
+  messages.appendChild(userDiv);
+  const typingDiv=document.createElement('div');
+  typingDiv.className='ai-msg-typing';
+  typingDiv.innerHTML='<div class="ai-think-dot"></div><div class="ai-think-dot"></div><div class="ai-think-dot"></div>';
+  messages.appendChild(typingDiv);
+  messages.scrollTop=messages.scrollHeight;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`You are the MAISON Estate Group AI Concierge — an extraordinarily refined, knowledgeable luxury real estate assistant. You speak with the quiet authority of someone who has personally assisted the world's most discerning buyers. You are helping a prospective client on the MAISON consultation scheduling page. Be helpful, warm, discreet, and concise. Never be pushy. Keep responses under 3 sentences. Client says: "${msg}"`}]
+      })
+    });
+    const data=await res.json();
+    typingDiv.remove();
+    const aiDiv=document.createElement('div');
+    aiDiv.className='ai-msg assistant';
+    aiDiv.textContent=data.content[0].text;
+    messages.appendChild(aiDiv);
+  }catch(e){
+    typingDiv.remove();
+    const aiDiv=document.createElement('div');
+    aiDiv.className='ai-msg assistant';
+    aiDiv.textContent='I apologize — I\'m momentarily unavailable. Please complete the form and an advisor will respond within 4 hours.';
+    messages.appendChild(aiDiv);
+  }
+  messages.scrollTop=messages.scrollHeight;
+}
+
+// ═══ PROPERTY FILTER ═══
+function filterProps(btn,cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.property-item').forEach(p=>{
+    const show=(cat==='all'||p.dataset.cat===cat||(cat==='under20'&&parsePriceM(p)<20)||(cat==='over20'&&parsePriceM(p)>=20));
+    p.style.display=show?'block':'none';
+  });
+}
+function parsePriceM(el){
+  const price=el.querySelector('.card-price')||el.querySelector('.prop-price');
+  if(!price)return 0;
+  const n=parseFloat(price.textContent.replace(/[$,]/g,''));
+  return n/1000000;
+}
+
+// ═══ SERVICE SELECTOR ═══
+function toggleService(el){el.classList.toggle('selected')}
+
+// ═══ MULTI-STEP FORM ═══
+let selectedDate='',selectedTime='';
+function nextStep(n){
+  document.querySelectorAll('.form-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.form-step').forEach((s,i)=>{
+    s.classList.remove('active');
+    if(i<n-1)s.classList.add('done');
+    else s.classList.remove('done');
+  });
+  document.getElementById('panel-'+n).classList.add('active');
+  document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+  if(n===3)buildCalendar();
+  if(n===4)buildConfirm();
+  window.scrollTo({top:document.querySelector('.schedule-form-wrap').offsetTop-80,behavior:'smooth'});
+}
+function buildCalendar(){
+  const grid=document.getElementById('date-grid');
+  if(grid.children.length>0)return;
+  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  days.forEach(d=>{const c=document.createElement('div');c.className='date-cell header';c.textContent=d;grid.appendChild(c)});
+  const today=new Date();
+  const startDow=new Date(today.getFullYear(),today.getMonth(),1).getDay();
+  for(let i=0;i<startDow;i++){const c=document.createElement('div');c.className='date-cell disabled';grid.appendChild(c)}
+  const daysInMonth=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
+  for(let d=1;d<=daysInMonth;d++){
+    const c=document.createElement('div');c.className='date-cell';c.textContent=d;
+    const dt=new Date(today.getFullYear(),today.getMonth(),d);
+    if(dt<today||dt.getDay()===0||dt.getDay()===6)c.classList.add('disabled');
+    else c.addEventListener('click',()=>{
+      document.querySelectorAll('.date-cell.selected').forEach(x=>x.classList.remove('selected'));
+      c.classList.add('selected');
+      selectedDate=`${today.toLocaleString('default',{month:'long'})} ${d}`;
+    });
+    grid.appendChild(c);
+  }
+  const tgrid=document.getElementById('time-grid');
+  if(tgrid.children.length>0)return;
+  ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'].forEach(t=>{
+    const b=document.createElement('button');b.className='time-btn';b.textContent=t;
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.time-btn.selected').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');selectedTime=t;
+    });
+    tgrid.appendChild(b);
+  });
+}
+function buildConfirm(){
+  const fn=document.getElementById('f-fname').value||'—';
+  const ln=document.getElementById('f-lname').value||'';
+  document.getElementById('conf-name').textContent=fn+' '+ln;
+  document.getElementById('conf-email').textContent=document.getElementById('f-email').value||'—';
+  document.getElementById('conf-date').textContent=(selectedDate&&selectedTime)?`${selectedDate} at ${selectedTime} ET`:'No time selected';
+}
+function submitForm(){
+  const success=document.getElementById('form-success');
+  document.querySelectorAll('#panel-4 .form-group,#panel-4 .form-nav').forEach(e=>e.style.display='none');
+  success.classList.add('visible');
+  const ref='MSN-'+Math.random().toString(36).substr(2,6).toUpperCase();
+  document.getElementById('success-ref').textContent='REF: '+ref;
+}
+
+// ═══ NAV CURSOR REFRESH ═══
+document.querySelectorAll('nav a, nav button, .filter-btn, .service-opt, .date-cell, .time-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');curRing.classList.add('hover')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');curRing.classList.remove('hover')});
+});
+</script>
+</body>
+</html>
