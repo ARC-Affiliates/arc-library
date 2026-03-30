@@ -65,7 +65,7 @@
   --ease:cubic-bezier(.25,.46,.45,.94);
   --ease-out:cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw}
 body{background:var(--black);color:var(--white);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
 
 /* GRAIN */
@@ -111,7 +111,7 @@ nav.s{padding:16px 56px;background:rgba(10,10,10,.96);border-bottom-color:var(--
 /* Unique hero backdrop — massive typographic grid */
 .hero-bg{position:absolute;inset:0;background:linear-gradient(165deg,#0c0c0c 0%,#080808 50%,#0f0f0f 100%)}
 .hero-grid-type{position:absolute;inset:0;overflow:hidden;pointer-events:none;user-select:none}
-.hgt-row{position:absolute;left:-5%;right:-5%;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(120px,18vw,280px);letter-spacing:-.03em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(244,242,238,.12);line-height:.9;pointer-events:none;animation:driftLeft 30s linear infinite}
+.hgt-row{position:absolute;left:0;right:0;white-space:nowrap;overflow:hidden;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(120px,18vw,280px);letter-spacing:-.03em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(244,242,238,.12);line-height:.9;pointer-events:none;animation:driftLeft 30s linear infinite}
 .hgt-row:nth-child(odd){animation-direction:reverse}
 .hgt-row:nth-child(1){top:-4%}
 .hgt-row:nth-child(2){top:22%;-webkit-text-stroke:1.5px rgba(244,242,238,.08);animation-duration:38s}
@@ -172,7 +172,7 @@ nav.s{padding:16px 56px;background:rgba(10,10,10,.96);border-bottom-color:var(--
 .pp-card{padding:52px 44px;border-right:1px solid var(--border);position:relative;overflow:hidden;cursor:none;transition:background .3s}
 .pp-card:last-child{border-right:none}
 .pp-card:hover{background:rgba(244,242,238,.03)}
-.pp-card::before{content:''position:absolute;top:0;left:0;right:0;height:1px;background:var(--silver-l);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.pp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--silver-l);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
 .pp-card:hover::before{transform:scaleX(1)}
 .pp-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--white-4);letter-spacing:.14em;margin-bottom:24px}
 .pp-area{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;color:var(--white);margin-bottom:14px;line-height:1.1}
@@ -390,52 +390,90 @@ footer{background:var(--deep);padding:72px 56px 36px;border-top:1px solid var(--
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  body{cursor:auto}
-  #cur,#cur-r{display:none}
-  nav{padding:20px 24px}
-  nav.s{padding:14px 24px}
-  .n-links,.n-cta{display:none}
-  .ham{display:flex}
-  #hero{padding:0 24px 60px}
-  .hero-h1{font-size:clamp(44px,12vw,80px)}
-  .hero-img{width:60%;opacity:.4}
-  .hero-stats{right:24px;bottom:60px}
-  .h-stat-num{font-size:28px}
-  .statement{grid-template-columns:1fr;gap:40px;padding:80px 24px}
-  .practice-preview{padding:0 0 0 24px}
-  .pp-head{padding:60px 24px 40px 0}
-  .pp-grid{grid-template-columns:1fr;border-top:none}
-  .pp-card{border-right:none;border-top:1px solid var(--border);padding:36px 24px}
-  .results-ticker{padding:60px 24px}
-  .ticker-grid{grid-template-columns:1fr 1fr}
-  .philosophy{grid-template-columns:1fr;gap:40px;padding:80px 24px}
-  .ai-section{padding:80px 24px}
-  .ai-inner{grid-template-columns:1fr;gap:40px}
-  .testi{padding:80px 24px}
-  .testi-grid{grid-template-columns:1fr}
-  .practice-hero{padding:120px 24px 60px}
-  .practice-item{grid-template-columns:40px 1fr;gap:20px;padding:40px 24px}
-  .pi-right{display:none}
-  .results-hero{padding:120px 24px 60px}
-  .results-grid{padding:0 24px;grid-template-columns:1fr}
-  .about-hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:32px}
-  .about-body{grid-template-columns:1fr;padding:60px 24px}
-  .about-img{display:none}
-  .team-section{padding:0 24px 60px}
-  .team-grid{grid-template-columns:1fr 1fr}
-  .schedule-page{padding:120px 24px 60px}
-  .schedule-grid{grid-template-columns:1fr;gap:40px}
-  .f-grid{grid-template-columns:1fr 1fr;gap:32px}
-  footer{padding:52px 24px 28px}
+  html,body{overflow-x:hidden !important}
+  body{cursor:auto !important}
+  #cur,#cur-r{display:none !important}
+
+  /* Nav */
+  nav{padding:16px 20px !important;max-width:100vw}
+  nav.s{padding:12px 20px !important}
+  .n-links,.n-cta{display:none !important}
+  .ham{display:flex !important;cursor:pointer}
+
+  /* Hero */
+  #hero{height:auto !important;min-height:100svh;padding:0 !important}
+  .hero-content{padding:120px 20px 40px !important;max-width:100% !important;border-left:2px solid var(--silver) !important}
+  .hero-h1{font-size:clamp(40px,10vw,68px) !important;line-height:.88 !important}
+  .hero-sub{font-size:13px !important;max-width:100% !important}
+  .hero-btns{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;margin-top:28px !important}
+  .hero-img{display:none !important}
+  .hero-stats{display:none !important}
+  .hero-grid-type{overflow:hidden !important}
+  .hgt-row{font-size:clamp(60px,14vw,120px) !important;-webkit-text-stroke:1px rgba(244,242,238,.08) !important}
+
+  /* Home sections */
+  .statement{grid-template-columns:1fr !important;gap:32px !important;padding:60px 20px !important}
+  .practice-preview{padding:0 0 0 20px !important}
+  .pp-head{padding:52px 20px 36px 0 !important;flex-direction:column !important;align-items:flex-start !important;gap:20px}
+  .pp-grid{grid-template-columns:1fr !important;border-top:none !important}
+  .pp-card{border-right:none !important;border-top:1px solid var(--border) !important;padding:32px 20px !important}
+  .results-ticker{padding:52px 20px !important}
+  .ticker-grid{grid-template-columns:1fr 1fr !important}
+  .tick-item{padding:24px 16px !important}
+  .tick-amount{font-size:28px !important}
+  .philosophy{grid-template-columns:1fr !important;gap:32px !important;padding:60px 20px !important}
+  .phil-img{display:none}
+  .ai-section{padding:60px 20px !important}
+  .ai-inner{grid-template-columns:1fr !important;gap:32px !important}
+  .ai-widget-hd{flex-direction:column !important;align-items:flex-start !important;gap:8px}
+  .testi{padding:60px 20px !important}
+  .testi-grid{grid-template-columns:1fr !important}
+  .testi-card{padding:36px 24px !important}
+
+  /* Practice areas page */
+  .practice-hero{padding:100px 20px 48px !important}
+  .practice-item{grid-template-columns:36px 1fr !important;gap:16px !important;padding:32px 20px !important}
+  .pi-right{display:none !important}
+  .pi-area{font-size:clamp(22px,5vw,32px) !important}
+
+  /* Results page */
+  .results-hero{padding:100px 20px 48px !important}
+  .results-grid{padding:0 !important;grid-template-columns:1fr !important}
+  .result-card{padding:36px 24px !important}
+  .rc-amount{font-size:clamp(36px,8vw,52px) !important}
+
+  /* About page */
+  .about-hero{grid-template-columns:1fr !important;padding:100px 20px 48px !important;gap:24px !important}
+  .about-body{grid-template-columns:1fr !important;padding:48px 20px !important}
+  .about-img{display:none !important}
+  .team-section{padding:0 20px 60px !important}
+  .team-grid{grid-template-columns:1fr 1fr !important}
+
+  /* Schedule page */
+  .schedule-page{padding:100px 20px 60px !important}
+  .schedule-grid{grid-template-columns:1fr !important;gap:32px !important}
+  .f-panel{padding:24px 16px !important}
+  .f-row{grid-template-columns:1fr !important}
+  .f-matter-opt{flex-direction:column !important;align-items:flex-start !important;gap:4px}
+  .f-next,.f-submit{padding:12px 20px !important}
+  .f-success{padding:48px 20px !important}
+
+  /* Footer */
+  footer{padding:48px 20px 28px !important}
+  .f-grid{grid-template-columns:1fr 1fr !important;gap:24px !important}
+  .f-bot{flex-direction:column !important;gap:8px !important;align-items:flex-start !important}
+
+  a,button{cursor:auto !important}
 }
 @media(max-width:480px){
-  .hero-h1{font-size:clamp(38px,11vw,64px)}
-  .hero-btns{flex-direction:column;align-items:flex-start}
-  .ticker-grid{grid-template-columns:1fr}
-  .team-grid{grid-template-columns:1fr}
-  .f-grid{grid-template-columns:1fr}
-  .f-row{grid-template-columns:1fr}
-  .results-grid{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(34px,9vw,52px) !important}
+  .hero-btns{flex-direction:column !important;align-items:flex-start !important}
+  .ticker-grid{grid-template-columns:1fr !important}
+  .team-grid{grid-template-columns:1fr !important}
+  .f-grid{grid-template-columns:1fr !important}
+  .results-grid{grid-template-columns:1fr !important}
+  .pp-grid{grid-template-columns:1fr !important}
+  .rc-amount{font-size:clamp(32px,8vw,48px) !important}
 }
 </style>
 </head>
@@ -595,8 +633,8 @@ footer{background:var(--deep);padding:72px 56px 36px;border-top:1px solid var(--
       </div>
       <div class="ai-widget">
         <div class="ai-widget-hd">
-          <div class="ai-widget-title"><span class="ai-pulse"></span>Harmon AI — Legal Advisor</div>
-          <div class="ai-disclaimer">General information only — not legal advice</div>
+          <div class="ai-widget-title"><span class="ai-pulse"></span>Harmon AI — Legal Advisor <span style="font-size:7px;letter-spacing:.2em;color:var(--silver-d);font-family:'DM Mono',monospace;margin-left:8px">BETA</span></div>
+          <div class="ai-disclaimer">Beta · General information only · Not legal advice</div>
         </div>
         <div class="ai-msgs" id="aiMsgs">
           <div class="ai-msg-bot">I can answer general questions about criminal charges, civil claims, and corporate disputes. What would you like to understand about your situation?<br><br>Note: Nothing I say constitutes legal advice or creates an attorney-client relationship.</div>
@@ -880,7 +918,22 @@ async function sendAI(){
   }catch(e){
     td.remove();
     var bd=document.createElement('div');bd.className='ai-msg-bot';
-    bd.innerHTML='For general legal questions, the most important first step is always to <strong>consult with a licensed attorney</strong> as soon as possible. Time-sensitive matters like criminal charges or filing deadlines require immediate attention. This is general information only — not legal advice.';
+    var ql=q.toLowerCase();
+    var reply='';
+    if(ql.includes('arrest')||ql.includes('charge')||ql.includes('police')||ql.includes('criminal')){
+      reply='If you or someone you know has been <strong>arrested or charged</strong>, the most critical step is to invoke your right to remain silent and request an attorney immediately. Do not speak to law enforcement without counsel present. Time is critical — contact a criminal defense attorney as soon as possible.';
+    } else if(ql.includes('sue')||ql.includes('lawsuit')||ql.includes('civil')||ql.includes('damages')){
+      reply='Civil litigation begins with determining whether you have a valid <strong>cause of action</strong> and whether damages are recoverable. Florida has specific <strong>statutes of limitations</strong> that vary by claim type — many are as short as 2-4 years. An attorney can evaluate the merits and timeline of your potential claim.';
+    } else if(ql.includes('felony')||ql.includes('misdemeanor')||ql.includes('sentence')||ql.includes('prison')){
+      reply='<strong>Felonies</strong> in Florida are classified as third, second, or first degree, carrying potential sentences from 5 years to life. <strong>Misdemeanors</strong> carry up to one year in county jail. The distinction significantly impacts your record, employment, and civil rights. Early legal representation often determines the outcome.';
+    } else if(ql.includes('appeal')||ql.includes('conviction')||ql.includes('overturn')){
+      reply='Appeals in Florida must generally be filed within <strong>30 days</strong> of a final judgment. Grounds for appeal include legal errors at trial, ineffective assistance of counsel, or newly discovered evidence. An appellate attorney can review your record and identify viable grounds for reversal.';
+    } else if(ql.includes('lawyer')||ql.includes('attorney')||ql.includes('hire')||ql.includes('need')){
+      reply='You should consult an attorney <strong>as early as possible</strong> in any legal matter — before speaking to opposing parties, insurance companies, or law enforcement. Early counsel protects your rights and often significantly improves outcomes. Harmon & Associates offers a complimentary 45-minute consultation.';
+    } else {
+      reply='For your specific situation, the most important step is to <strong>consult with a licensed attorney</strong> who can review the facts and applicable law. Harmon & Associates offers a complimentary consultation — schedule one to discuss your matter confidentially. This is general information only, not legal advice.';
+    }
+    bd.innerHTML=reply;
     msgs.appendChild(bd);
   }
   msgs.scrollTop=msgs.scrollHeight;
